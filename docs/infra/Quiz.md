@@ -12,4 +12,4 @@
 ## Open Questions
 1. Propose a potential application for the concepts learned.
 2. What topic did you found more interesting and you would like to learn more, why?
-3. The crucial step is the co-ocurrence Matrix, what other methods would you attempt and why?
+3. The crucial step is the co-ocurrence Matrix, what other methods to build the matrix would you attempt? Why?

@@ -13,6 +13,7 @@
         * Advanced Concepts
         * Quiz
         * Best Answers
+        * Wall of Fame
         * Multimedia
         * Applications
         * Next Steps
