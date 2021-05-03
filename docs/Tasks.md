@@ -29,8 +29,8 @@
 
 ## Application
 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
+- [ ] Plan and design web application.
+- [ ] Refactor components from Cicero.
+- [ ] Include static content.
+- [ ] Integrate iteractions.
+- [ ] Ops: Style, test, mobile friendliness and launch.
