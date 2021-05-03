@@ -18,9 +18,16 @@
 
 ## Biases
 - [ ] How AI can detect and create biases.
-- [ ] Plot with an example of a bias (gender & wealth).
+- [ ] Chart to illustrate a bias.
 - [ ] Steps to detect biases.
+- [ ] Plot of jobs showing gender & wealth bias.
 - [ ] Playground to detect biasis.
+- [ ] Conclusion, not all biasis are wrong. Applications to prediction.
 
 
 ## Topic Classification
+- [ ] Importance and application of topic classification.
+- [ ] Plot to illustrate a sample topic clasification.
+- [ ] Mathematical steps to classify a topic.
+- [ ] Plot of topics.
+- [ ] Topic Classification playground.
