@@ -12,3 +12,7 @@
 - [ ] Create a second playground to train their own word embeddings.
 - [ ] Create a curated wall of fame to highlight blog posts, code repositories & applications.
 - [ ] Next steps with the main CTA, and links to the Stanford Course.
+
+- [ ] Wall of fame showcasing examples produced using the course. 
+- [ ] Peer-2-peer graded quiz, to find deep conclusions and share insights.
+- [ ] Course items are locked, and dependant on the course completion.
