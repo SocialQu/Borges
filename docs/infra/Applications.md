@@ -7,7 +7,12 @@
 - [ ] Examples of synonyms and antonyms.
 - [ ] Playground comparisson between two words.
 
+
 ## Analogies
+- [ ] Chart showing how analogies work.
+- [ ] Mathematical steps to compute an analogy.
+- [ ] Examples of analogies.
+- [ ] Playground.
 
 
 ## Biases
