@@ -20,11 +20,11 @@
 
 ## Iteractions
 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
+- [ ] Develop the infrastrucre to power the examples.
+- [ ] Find words that match the example applications.
+- [ ] Run the code to train my own word embeddings.
+- [ ] Design and develop the playground features.
+- [ ] Hall of fame submission form.
 
 
 ## Application
