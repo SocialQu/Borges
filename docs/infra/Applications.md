@@ -9,6 +9,7 @@
 
 
 ## Analogies
+- [ ] Explaining what an analogy is.
 - [ ] Chart showing how analogies work.
 - [ ] Mathematical steps to compute an analogy.
 - [ ] Examples of analogies.
@@ -16,6 +17,10 @@
 
 
 ## Biases
+- [ ] How AI can detect and create biases.
+- [ ] Plot with an example of a bias (gender & wealth).
+- [ ] Steps to detect biases.
+- [ ] Playground to detect biasis.
 
 
 ## Topic Classification
