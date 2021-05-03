@@ -11,11 +11,11 @@
 
 ## Content
 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
+- [ ] Intorductory Video, pitch & motivation.
+- [ ] Explanatory Content for the Applications, include slides and images if neccesary.
+- [ ] Code and explanations for the training of a word embeddings model. 
+- [ ] Instructions for the playgrounds.
+- [ ] Submission instructions for the hall of fame.
 
 
 ## Iteractions
