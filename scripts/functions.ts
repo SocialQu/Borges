@@ -1,10 +1,14 @@
 import { UniversalSentenceEncoder } from '@tensorflow-models/universal-sentence-encoder'
 import { similarity } from '../../Cortazar/scripts/pipeline/recommender'
+import { PCA } from 'ml-pca'
 
 
-export const getCenter = async(text:string[], model: UniversalSentenceEncoder) => {
-    const embeddings  = await model.embed(text)
-    return embeddings
+interface iModels { model:UniversalSentenceEncoder, pca:PCA }
+export const getCenter = async(text:string[], {model, pca}:iModels) => {
+    const embeddings = await model.embed(text)
+    const vectors = await embeddings.array()
+    const center = pca.predict(vectors, {nComponents:2}).to2DArray()
+    return {embeddings, center}
 }
 
 
