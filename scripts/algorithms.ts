@@ -1,3 +1,4 @@
+import { similarity } from '../../Cortazar/scripts/pipeline/recommender'
 import * as use from '@tensorflow-models/universal-sentence-encoder'
 import PCA_Model from '../../Cortazar/cortazar/src/data/pca.json'
 import { IPCAModel, PCA } from 'ml-pca'
@@ -52,8 +53,22 @@ const findAnalogy = async([x, y]:Analogy, match:string):Promise<iAnalogy[]> => {
 }
 
 
+type iOpposites = [string, string]
+const computeBias = async([x, y]:iOpposites, word:string):Promise<[number, number]> => {
+    const model = await use.load()
+    const pca = PCA.load(PCA_Model as IPCAModel)
 
-const computeBias = (opposites:[string, string], word:string):number => 0
+    const vectors = await getCenter([x, y, word], {model, pca})
+    const [X, Y, z] = vectors
+
+    const xDifference = similarity(z.embeddings, X.embeddings)
+    const yDifference = similarity(z.embeddings, Y.embeddings)
+
+    const sum = xDifference + yDifference
+    const bias = [Math.round(xDifference*100/sum), Math.round(yDifference*100/sum)]
+    return bias as [number, number]
+}
+
 
 interface iTopic { name:'', center:[number, number], embedding:number[] }
 const topicClassification = (text:string, topics:iTopic[]):iTopic[] => topics
