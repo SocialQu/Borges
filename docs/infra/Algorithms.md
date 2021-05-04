@@ -3,34 +3,34 @@
 
 ## Synonyms & Antonyms
 
-- [ ] Find the synonyms.
-    - [ ] Get Center.
-    - [ ] Get Best Fit
+- [X] Find the synonyms.
+    - [X] Get Center.
+    - [X] Get Best Fit
 
-- [ ] Find the antonyms.
-    - [ ] Get Center
-    - [ ] Fetch bottom words from DB.
-    - [ ] Sort bottom words by 512 dimensional embeddings.
+- [X] Find the antonyms.
+    - [X] Get Center
+    - [X] Fetch bottom words from DB.
+    - [X] Sort bottom words by 512 dimensional embeddings.
 
 
 ## Analogies
 
-- [ ] Find the Analogy
-    - [ ] Get Center of an analogy an and extra word.
-    - [ ] Find the difference of the analogy.
-    - [ ] Substract difference from the extra word.
-    - [ ] Get Best Fit, around the result.
+- [X] Find the Analogy
+    - [X] Get Center of an analogy an and extra word.
+    - [X] Find the difference of the analogy.
+    - [X] Substract difference from the extra word.
+    - [X] Get Best Fit, around the result.
 
 
 ## Biasis
-- [ ] Compute the Bias.
-    - [ ] Find centers for two words.
-    - [ ] Find the center for an extra word.
-    - [ ] Find similarity with respect to each word.
-    - [ ] Compute the bias, as a percentage.
+- [X] Compute the Bias.
+    - [X] Find centers for two words.
+    - [X] Find the center for an extra word.
+    - [X] Find similarity with respect to each word.
+    - [X] Compute the bias, as a percentage.
 
 ## Topic Classification
-- [ ] Get the topic of a sentence.
-    - [ ] Find the center of a sentence.
-    - [ ] Fetch all Topics.
-    - [ ] Order topics by Similarity.
+- [X] Get the topic of a sentence.
+    - [X] Find the center of a sentence.
+    - [X] Fetch all Topics.
+    - [X] Order topics by Similarity.
