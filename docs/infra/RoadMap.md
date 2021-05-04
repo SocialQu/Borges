@@ -9,5 +9,5 @@
     - [X] Synonym
     - [X] Antonym
     - [X] Analogy
-    - [ ] Bias
-    - [ ] Topic Classification
+    - [X] Bias
+    - [X] Topic Classification
