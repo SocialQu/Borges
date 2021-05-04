@@ -4,7 +4,7 @@ import { PCA } from 'ml-pca'
 
 
 interface iModels { model:UniversalSentenceEncoder, pca:PCA }
-export interface iWordEmbedding { text:string, embeddings:number[], center:number[] }
+interface iWordEmbedding { text:string, embeddings:number[], center:number[] }
 export const getCenter = async(text:string[], {model, pca}:iModels):Promise<iWordEmbedding[]> => {
     const tensor = await model.embed(text)
     const embeddings = await tensor.array()
@@ -14,7 +14,7 @@ export const getCenter = async(text:string[], {model, pca}:iModels):Promise<iWor
 }
 
 
-export const sortBySimilarity = (center:number[], embeddings:number[][]) => embeddings.sort((a, b) => 
+export const sortBySimilarity = (center:number[], synonymns:{embeddings:number[]}[]) => synonymns.sort(({embeddings:a}, {embeddings:b}) => 
     similarity(center, a) > similarity(center, b) ? 1 : -1
 )
 
