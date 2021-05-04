@@ -7,7 +7,7 @@ import { iWordDoc } from './pipelines'
 import { connect } from './db'
 
 
-export const findSynonyms = async(word:string) => {
+export const findSynonyms = async(word:string, findAntonyms:boolean=false) => {
     const model = await use.load()
     const pca = PCA.load(PCA_Model as IPCAModel)
     const [{center, embeddings}] = await getCenter([word], {model, pca})
@@ -15,18 +15,14 @@ export const findSynonyms = async(word:string) => {
     const { collection, client } = await connect('Dictionary')
     const geoNear = { $geoNear: { near:center, distanceField:'distance'}}
     const limit = { $limit: 100 }
-    const pipeline = [ geoNear, limit ]
+    const sort = { $sort : { distance : -1 } }
+    const pipeline = findAntonyms ? [ geoNear, limit ] : [ geoNear, sort, limit ]
     const synonyms:iWordDoc[] = await collection.aggregate(pipeline).toArray()
 
     return sortBySimilarity(embeddings, synonyms)
+    await client.close()
 }
 
-
-
-const findAntonyms = (word:string):string[] => {
-    const sort = { $sort : { distance : -1 } }
-    return ['']
-}
 
 const findAnalogy = (analogy:[string, string], match:string):string[] => ['']
 const computeBias = (opposites:[string, string], word:string):number => 0
