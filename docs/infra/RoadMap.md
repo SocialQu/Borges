@@ -1,8 +1,8 @@
 # Infrastructure RoadMap
 
-- [ ] Develop Functions.
-- [ ] Define Algorithms.
-- [ ] Define Pipelines.
-- [ ] Develop DB Events.
+- [X] Develop Functions.
+- [X] Define Algorithms.
+- [X] Define Pipelines.
+- [X] Develop DB Methods.
 - [ ] Develop Pipelines.
 - [ ] Develop Algorithms.
