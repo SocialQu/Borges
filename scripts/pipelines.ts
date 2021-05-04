@@ -11,7 +11,7 @@ import { getCenter, tokenizeWords } from './functions'
 import { connect } from './db'
 
 
-interface iWordDoc {word:string, embeddings:number[], center:number[], frequency:number}
+export interface iWordDoc {word:string, embeddings:number[], center:number[], frequency:number}
 export const compileDictionary = async() => {
     const files:iStoryFile[] = await readStories('../../Cortazar/scripts/data/stories', [])
     let Words:string[] = []
@@ -43,8 +43,8 @@ export const compileDictionary = async() => {
 }
 
 
-interface iTopicDoc {name:string, embeddings:number[], center:number[]}
-const mapTopics = async() => {
+export interface iTopicDoc {name:string, embeddings:number[], center:number[]}
+export const mapTopics = async() => {
     const files:iStoryFile[] = await readStories('../../Cortazar/scripts/data/stories', [])
     const Topics:{[topic:string]:string[]} = {}
 
