@@ -4,7 +4,7 @@ import PCA_Model from '../../Cortazar/cortazar/src/data/pca.json'
 import { IPCAModel, PCA } from 'ml-pca'
 
 import { getCenter, sortBySimilarity } from './functions'
-import { iWordDoc } from './pipelines'
+import { iTopicDoc, iWordDoc } from './pipelines'
 import { connect } from './db'
 
 
@@ -28,7 +28,7 @@ export const findSynonyms = async(word:string, findAntonyms:boolean=false):Promi
 
 type Analogy = [string, string]
 interface iAnalogy { word:string, center:[number, number], embeddings:number[]} 
-const findAnalogy = async([x, y]:Analogy, match:string):Promise<iAnalogy[]> => {
+export const findAnalogy = async([x, y]:Analogy, match:string):Promise<iAnalogy[]> => {
     const model = await use.load()
     const pca = PCA.load(PCA_Model as IPCAModel)
     const vectors = await getCenter([x, y, match], {model, pca})
@@ -54,7 +54,7 @@ const findAnalogy = async([x, y]:Analogy, match:string):Promise<iAnalogy[]> => {
 
 
 type iOpposites = [string, string]
-const computeBias = async([x, y]:iOpposites, word:string):Promise<[number, number]> => {
+export const computeBias = async([x, y]:iOpposites, word:string):Promise<[number, number]> => {
     const model = await use.load()
     const pca = PCA.load(PCA_Model as IPCAModel)
 
@@ -70,5 +70,20 @@ const computeBias = async([x, y]:iOpposites, word:string):Promise<[number, numbe
 }
 
 
-interface iTopic { name:'', center:[number, number], embedding:number[] }
-const topicClassification = (text:string, topics:iTopic[]):iTopic[] => topics
+export const topicClassification = async(text:string):Promise<iTopicDoc[]> => {
+    const model = await use.load()
+    const pca = PCA.load(PCA_Model as IPCAModel)
+
+    const [{ center, embeddings }] = await getCenter([text], {model, pca})
+
+    const { collection, client } = await connect('Topics')
+    const geoNear = { $geoNear: { near:center, distanceField:'distance'}}
+    const limit = { $limit: 100 }
+
+    const pipeline = [ geoNear, limit ]
+    const matches:iTopicDoc[] = await collection.aggregate(pipeline).toArray()
+    await client.close()
+
+    const topics =  sortBySimilarity(embeddings, matches)
+    return topics as iTopicDoc[]
+}
