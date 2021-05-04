@@ -4,5 +4,10 @@
 - [X] Define Algorithms.
 - [X] Define Pipelines.
 - [X] Develop DB Methods.
-- [ ] Develop Pipelines.
+- [X] Develop Pipelines.
 - [ ] Develop Algorithms.
+    - [X] Synonym
+    - [ ] Antonym
+    - [ ] Analogy
+    - [ ] Bias
+    - [ ] Topic Classification
