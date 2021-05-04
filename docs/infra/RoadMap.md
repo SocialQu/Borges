@@ -7,7 +7,7 @@
 - [X] Develop Pipelines.
 - [ ] Develop Algorithms.
     - [X] Synonym
-    - [ ] Antonym
-    - [ ] Analogy
+    - [X] Antonym
+    - [X] Analogy
     - [ ] Bias
     - [ ] Topic Classification
