@@ -10,31 +10,25 @@ const Lock = () => <img
 />
 
 interface iPosition { unit:number, module?:number, lesson?:number }
+interface iNavigation { position: iPosition, navigate(position:iPosition):void }
 interface iMenuStyles {
-    lessonStyle:CSSProperties
-    lessonListStyle:CSSProperties
+    lessonStyle?:CSSProperties
+    lessonListStyle?:CSSProperties
 
-    moduleStyle:CSSProperties
-    moduleListStyle:CSSProperties
+    moduleStyle?:CSSProperties
+    moduleListStyle?:CSSProperties
 
-    unitStyle:CSSProperties
-    unitListStyle:CSSProperties
+    unitStyle?:CSSProperties
+    unitListStyle?:CSSProperties
 }
 
 
 interface iLesson { name:string, locked:boolean, active:boolean }
-interface iFullLesson { 
-    lesson: iLesson
-    position: iPosition
-    styles: iMenuStyles
-    navigate(position:iPosition):void 
-}
-
+interface iFullLesson { lesson:iLesson, styles:iMenuStyles, navigation:iNavigation }
 const Lesson = ({ 
-    position, 
+    navigation: {position, navigate},
     lesson:{ name, locked, active}, 
     styles:{ lessonStyle, lessonListStyle }, 
-    navigate 
 }: iFullLesson) => <li style={{lineHeight: 1.25, ...lessonListStyle}}>
     <a 
         style={lessonStyle} 
@@ -49,38 +43,72 @@ interface iModule extends iLesson { lessons:iLesson[] }
 interface iFullModule { 
     module: iModule
     expanded: boolean
-    position: iPosition
     styles: iMenuStyles
-    navigate(position:iPosition):void 
+    navigation:iNavigation
 }
 
 const Module = ({
-    module:{name, active, locked, lessons }, 
     expanded, 
-    position, 
-    styles: {moduleStyle, moduleListStyle}, 
-    navigate
+    module:{name, active, locked, lessons }, 
+    styles: {moduleStyle, moduleListStyle, ...styles}, 
+    navigation: {position, navigate},
 }:iFullModule) => <li style={{lineHeight:2, ...moduleListStyle}} key={position.module}>
     <a 
         onClick={() => navigate(position)} 
         style={locked ? {...moduleStyle} : {cursor:'initial', ...moduleStyle}}
     >   { locked && <Lock/> } { name }  </a>
 
-    {   expanded && <ul> { lessons.map((l) => <Lesson {...l} /> )} </ul>   }
+    {   
+        expanded && 
+        <ul> 
+            { 
+                lessons.map((lesson) => <Lesson 
+                        lesson={lesson} 
+                        styles={styles} 
+                        navigation={{position, navigate}}
+                    /> 
+                )
+            } 
+        </ul>   
+    }
 </li>
 
 
 
-const Unit = ({ name, modules = [], click }:iUnit) => <>
-    <a className="menu-label" onClick={() => click(position)}> { name } </a>
+interface iUnit extends iModule { modules:iModule[] }
+interface iFullUnit { 
+    unit: iUnit
+    expanded: boolean
+    styles: iMenuStyles
+    navigation:iNavigation
+}
+
+const Unit = ({ 
+    expanded,
+    unit:{name, modules},
+    styles:{unitStyle, unitListStyle, ...styles},
+    navigation:{ position, navigate}
+}:iFullUnit) => <>
+    <a 
+        style={unitStyle} 
+        className="menu-label" 
+        onClick={() => navigate(position)}
+    > { name } </a>
     <ul className="menu-list">
-        { modules.map(m => <Module {...m} /> )}
+        { 
+            modules.map(module => <Module 
+                    module={module} 
+                    expanded={expanded}
+                    styles={styles}
+                    navigation={{position, navigate}}
+                /> 
+            )
+        }
     </ul>
 </>
 
 
 
-interface iUnit extends iModule { modules:iModule[] }
 interface iMenu {
     units: iUnit[]
     activeItem?: iPosition
@@ -98,6 +126,12 @@ export const Menu = ({ units, menuStyle, navigate }: iMenu) => {
     const defaultStyle = { minHeight:'calc(100vh - 85px)', width:250, boxShadow: '3px 0 3px 0 #ccc', fontSize:'1.15em' }
 
     return <aside className="menu is-hidden-mobile" style={{...defaultStyle, ...menuStyle}}>
-        { units.map(u => <Unit {...u} /> ) }
+        { 
+            units.map(unit => <Unit 
+                
+                    unit={unit}
+                /> 
+            ) 
+        }
     </aside>
 }
