@@ -1,13 +1,14 @@
 // import { Children } from 'react' // TODO: Explore using Children.
 import { useMediaQuery } from 'react-responsive'
+import { CSSProperties, ReactChild } from 'react'
 
 
 export interface iBaseAtom {
     text?:string
     shortText?:string
-    style?:React.CSSProperties 
-    mobileStyle?:React.CSSProperties
-    children?: React.ReactChild
+    style?:CSSProperties 
+    mobileStyle?:CSSProperties
+    children?: ReactChild
     [x: string]: any
 }
 
@@ -18,8 +19,8 @@ const defaulButtonStyle = {}
 
 export const CTA = ({buttonClass, text, shortText, style, mobileStyle, children, click}:iButton) => {
     const smallScreen = useMediaQuery({ query: '(max-width: 600px)' })
-    const defaultStyle:React.CSSProperties  = { fontSize:'2rem', borderRadius:20, fontWeight:900 }
-    const defaultMobileStyle:React.CSSProperties = {...defaultStyle, fontSize:'1.25rem'}
+    const defaultStyle:CSSProperties  = { fontSize:'2rem', borderRadius:20, fontWeight:900 }
+    const defaultMobileStyle:CSSProperties = {...defaultStyle, fontSize:'1.25rem'}
 
     return <button
         onClick={click}
@@ -37,7 +38,7 @@ export const CTA = ({buttonClass, text, shortText, style, mobileStyle, children,
 
 
 export const Submit = ({buttonClass, text, style, children, click}:iButton) => {
-    const defaultStyle:React.CSSProperties  = { fontSize:'1.25rem', borderRadius:12, fontWeight:600 }
+    const defaultStyle:CSSProperties  = { fontSize:'1.25rem', borderRadius:12, fontWeight:600 }
 
     return <button
         onClick={click}
@@ -56,7 +57,7 @@ export const Button = ({buttonClass, text, style, children, click}:iButton) => {
 
 
 type ButtonType = 'Button' | 'Submit' | 'CTA'
-interface iButtonBox extends iButton { containerStyle?:React.CSSProperties, buttonType:ButtonType }
+interface iButtonBox extends iButton { containerStyle?:CSSProperties, buttonType:ButtonType }
 export const ButtonBox = ({buttonType, continerStyle={}, ...props}:iButtonBox) => {
     return <div style={{margin:'auto', width:'100%', ...continerStyle}}>
         { buttonType === 'Button' && <Button {...props}/>}
