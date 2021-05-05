@@ -3,7 +3,7 @@ import { similarity } from '../../Cortazar/scripts/pipeline/recommender'
 import { PCA } from 'ml-pca'
 
 
-interface iModels { model:UniversalSentenceEncoder, pca:PCA }
+export interface iModels { model:UniversalSentenceEncoder, pca:PCA }
 interface iWordEmbedding { text:string, embeddings:number[], center:number[] }
 export const getCenter = async(text:string[], {model, pca}:iModels):Promise<iWordEmbedding[]> => {
     const tensor = await model.embed(text)
