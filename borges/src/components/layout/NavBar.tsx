@@ -5,23 +5,23 @@ import { useState, CSSProperties } from 'react'
 
 
 interface iBrand { 
-    logoSrc:string
+    logoSrc?:string
     brand?:string
 
-    logoStyle:CSSProperties
-    brandStyle:CSSProperties
+    logoStyle?:CSSProperties
+    brandStyle?:CSSProperties
 
     click?():void 
 }
 
 interface iFullBrand extends iBrand { active:boolean, activate():void }
-const Brand = ({ active, logoSrc, brand='', logoStyle, brandStyle, click, activate }: iFullBrand) => {
+const Brand = ({ active, logoSrc='SocialQ.png', brand='SocialQ', logoStyle={}, brandStyle={}, click, activate }: iFullBrand) => {
     const defaultLogoStyle = { height:36, maxHeight: 'none' }
     const defaultBrandStyle = { fontSize: '2em', color:'white' }
 
     return <div className='navbar-brand'>
         <a className='navbar-item' onClick={click}>
-            <img src={logoSrc} style={{...defaultLogoStyle, ...logoStyle}} alt={'NavBar logo'}/>
+            <img src={logoSrc} style={{...defaultLogoStyle, ...logoStyle}} alt={`${brand} logo`}/>
             <p className='navbar-item' style={{...defaultBrandStyle, ...brandStyle}} > { brand } </p>
         </a>
 
@@ -42,7 +42,7 @@ const Brand = ({ active, logoSrc, brand='', logoStyle, brandStyle, click, activa
 }
 
 
-interface iNavBarItem { style:CSSProperties, divStyle:CSSProperties, click():void }
+interface iNavBarItem { style?:CSSProperties, divStyle?:CSSProperties, click():void }
 export const NavBarItem = ({ style, divStyle, click }: iNavBarItem) => {
     return <div className={`navbar-end`} style={{fontSize: '1.2em', ...divStyle}}>
         <a 
@@ -57,18 +57,31 @@ export const NavBarItem = ({ style, divStyle, click }: iNavBarItem) => {
 
 
 export type NavbarItem =  'Login' | 'Recordings' | 'Forum' | 'Home'
-interface iNavBar { brand:iBrand, items:iNavBarItem[], click(item:NavbarItem):void }
-export const NavBar = ({brand, items, click }: iNavBar) => {
+type NavbarClass = 'is-link' | 'is-primary' | 'is-link' | 'is-info' | 'is-success' | 
+    'is-warning' | 'is-danger' | 'is-black' | 'is-dark' | 'is-light' | 'is-white'
+
+interface iNavBar { 
+    brand:iBrand
+    items:iNavBarItem[]
+    navbarClass?:NavbarClass
+    navBarStyle:CSSProperties 
+    containerStyle:CSSProperties
+}
+
+export const NavBar = ({brand, items, navbarClass='is-link', navBarStyle, containerStyle }: iNavBar) => {
     const midScreen = useMediaQuery({ query: '(min-width: 1024px)' })
     const [ isActive, setActive ] = useState(false)
 
+    const defaultNavBarStyle = {borderBottom: '2px solid #ccc', padding:'0px 2.5rem'}
+    const defaultContainerStyle = {maxWidth:2000, paddingLeft:midScreen ? '2.5rem' : 0, paddingRight:midScreen ? '3em' : 0}
+
     return <nav 
-        className='navbar is-link' 
         role='navigation' 
         aria-label='main navigation' 
-        style={{borderBottom: '2px solid #ccc', backgroundColor:'darkblue', padding:'0px 2.5rem'}}
+        className={`navbar ${navbarClass}`}
+        style={{...defaultNavBarStyle, ...navBarStyle}}
     >
-        <div className='container' style={{maxWidth:2000, paddingLeft:midScreen ? '2.5rem' : 0, paddingRight:midScreen ? '3em' : 0 }}>
+        <div className='container' style={{...defaultContainerStyle, ...containerStyle}}>
             <Brand {...brand} active={isActive} activate={() => setActive(!isActive)}/>
 
             <div 
