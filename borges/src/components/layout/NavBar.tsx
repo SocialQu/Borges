@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
 import { useMediaQuery } from 'react-responsive'
-import { useState } from 'react'
+import { useState, CSSProperties } from 'react'
 
 
 interface iBrand { 
@@ -10,8 +10,8 @@ interface iBrand {
     logoSrc:string
     brand?:string
 
-    logoStyle:React.CSSProperties
-    brandStyle:React.CSSProperties
+    logoStyle:CSSProperties
+    brandStyle:CSSProperties
 
     click():void
     activate():void 
@@ -44,9 +44,23 @@ export const Brand = ({ active, logoSrc, brand='', logoStyle, brandStyle, click,
 }
 
 
+interface iNavBarItem { style:CSSProperties, divStyle:CSSProperties, click():void }
+export const NavBarItem = ({ style, divStyle, click }: iNavBarItem) => {
+    return <div className={`navbar-end`} style={{fontSize: '1.2em', ...divStyle}}>
+        <a 
+            onClick={click}
+            className={'navbar-item'} 
+            style={{textAlign:'center', ...style}}
+        > 
+            <strong> Iniciar Sesión </strong> 
+        </a>
+    </div> 
+}
+
+
 export type NavbarItem =  'Login' | 'Recordings' | 'Forum' | 'Home'
-interface iNavBar { brand:iBrand, click(item:NavbarItem):void }
-export const NavBar = ({ brand, click }: iNavBar) => {
+interface iNavBar { brand:iBrand, items:iNavBarItem[], click(item:NavbarItem):void }
+export const NavBar = ({ brand, items, click }: iNavBar) => {
     const midScreen = useMediaQuery({ query: '(min-width: 1024px)' })
     const [ isActive, setActive ] = useState(false)
 
@@ -63,35 +77,14 @@ export const NavBar = ({ brand, click }: iNavBar) => {
                 className={`navbar-menu ${isActive ? 'is-active navbar-menu-active': ''}`} 
                 style={{ marginRight:'auto', backgroundColor:'darkblue' }}
             >
-                <div className={`navbar-end `} style={{fontSize: '1.2em', backgroundColor:'darkblue'}} >
-                    <a 
-                        onClick={() => click('Login')} 
-                        className={'navbar-item'} 
-                        style={{textAlign:'center', color:'white', backgroundColor:'darkblue'}}
-                    > 
-                        <strong> Iniciar Sesión </strong> 
-                    </a>
-                </div> 
-
-                <div className={`navbar-end `} style={{fontSize: '1.2em', backgroundColor:'darkblue'}}>
-                    <a 
-                        onClick={() => click('Forum')} 
-                        className={'navbar-item'}
-                        style={{textAlign:'center', color:'white', backgroundColor:'darkblue'}}
-                    > 
-                        <strong> Forum </strong> 
-                    </a>                    
-                </div>
-
-                <div className={`navbar-end `} style={{fontSize: '1.2em', marginLeft:'initial', backgroundClip:'darkblue'}}>
-                    <a 
-                        onClick={() => click('Recordings')} 
-                        className={'navbar-item'}
-                        style={{textAlign:'center', color:'white', backgroundColor:'darkblue'}}
-                    > 
-                        <strong> Grabaciones </strong> 
-                    </a>
-                </div>
+                { 
+                    items.map(({style, ...item}, idx, l) => 
+                        <NavBarItem 
+                            {...item} 
+                            style={(idx + 1) !== l.length ? style : {...style, marginLeft:'initial'}}
+                        />
+                    )
+                }
             </div>
         </div>
     </nav>
