@@ -2,7 +2,7 @@
 
 ## Atoms
 * [X] Text
-* [ ] Button
+* [X] Button
 * [ ] Media
 * [ ] Chart
 
