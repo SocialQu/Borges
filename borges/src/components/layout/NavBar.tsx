@@ -5,19 +5,17 @@ import { useState, CSSProperties } from 'react'
 
 
 interface iBrand { 
-    active:boolean
-
     logoSrc:string
     brand?:string
 
     logoStyle:CSSProperties
     brandStyle:CSSProperties
 
-    click():void
-    activate():void 
+    click?():void 
 }
 
-export const Brand = ({ active, logoSrc, brand='', logoStyle, brandStyle, click, activate }: iBrand) => {
+interface iFullBrand extends iBrand { active:boolean, activate():void }
+const Brand = ({ active, logoSrc, brand='', logoStyle, brandStyle, click, activate }: iFullBrand) => {
     const defaultLogoStyle = { height:36, maxHeight: 'none' }
     const defaultBrandStyle = { fontSize: '2em', color:'white' }
 
@@ -60,7 +58,7 @@ export const NavBarItem = ({ style, divStyle, click }: iNavBarItem) => {
 
 export type NavbarItem =  'Login' | 'Recordings' | 'Forum' | 'Home'
 interface iNavBar { brand:iBrand, items:iNavBarItem[], click(item:NavbarItem):void }
-export const NavBar = ({ brand, items, click }: iNavBar) => {
+export const NavBar = ({brand, items, click }: iNavBar) => {
     const midScreen = useMediaQuery({ query: '(min-width: 1024px)' })
     const [ isActive, setActive ] = useState(false)
 
@@ -71,11 +69,11 @@ export const NavBar = ({ brand, items, click }: iNavBar) => {
         style={{borderBottom: '2px solid #ccc', backgroundColor:'darkblue', padding:'0px 2.5rem'}}
     >
         <div className='container' style={{maxWidth:2000, paddingLeft:midScreen ? '2.5rem' : 0, paddingRight:midScreen ? '3em' : 0 }}>
-            <Brand {...brand}/>
+            <Brand {...brand} active={isActive} activate={() => setActive(!isActive)}/>
 
             <div 
-                className={`navbar-menu ${isActive ? 'is-active navbar-menu-active': ''}`} 
                 style={{ marginRight:'auto', backgroundColor:'darkblue' }}
+                className={`navbar-menu ${isActive ? 'is-active navbar-menu-active': ''}`} 
             >
                 { 
                     items.map(({style, ...item}, idx, l) => 
