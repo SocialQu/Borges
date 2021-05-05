@@ -1,14 +1,8 @@
 import { useMediaQuery } from 'react-responsive'
+import { iBaseAtom } from './Button'
+// TODO: Try out Bulma Classes.
 
-
-interface iBaseText { 
-    text?:string, 
-    shortText?:string, 
-    style?:React.CSSProperties 
-    mobileStyle?:React.CSSProperties,
-    children: React.ReactNode,
-    [x: string]: any
-}
+interface iBaseText extends iBaseAtom {}
 
 export const Title = ({ text, shortText, style, mobileStyle, children, ...props }: iBaseText) => {
     const smallScreen = useMediaQuery({ query: '(max-width: 600px)' })
@@ -16,14 +10,10 @@ export const Title = ({ text, shortText, style, mobileStyle, children, ...props 
     const defaultStyle = { fontSize:'3rem', marginBottom:'1rem' }
     const defaultMobileStyle = { ...mobileStyle, fontSize:'2rem' }
     return <h1 
-        style={ 
-            style 
-                ? mobileStyle && smallScreen 
-                    ? mobileStyle 
-                    : style 
-                : smallScreen 
-                    ? defaultStyle 
-                    : defaultMobileStyle 
+        style={ // TODO: Use useEffect
+            !smallScreen
+                ? {...defaultStyle, ...style}
+                : {...defaultMobileStyle, ...style, ...mobileStyle}
             }
         {...props}
     >  
@@ -40,13 +30,9 @@ export const Subtitle = ({ text, shortText, style, mobileStyle, children, ...pro
     const defaultMobileStyle = { ...mobileStyle, fontSize:'1.25rem' }
     return <h3
         style={ 
-            style 
-                ? mobileStyle && smallScreen 
-                    ? mobileStyle 
-                    : style 
-                : smallScreen 
-                    ? defaultStyle 
-                    : defaultMobileStyle 
+            !smallScreen
+                ? {...defaultStyle, ...style}
+                : {...defaultMobileStyle, ...style, ...mobileStyle}
             }
         {...props}
     >  
@@ -62,14 +48,10 @@ export const Paragraph = ({ text, shortText, style, mobileStyle, children, ...pr
     const defaultStyle = { fontSize:'1.5rem', marginBottom:'1rem' }
     const defaultMobileStyle = { ...mobileStyle, fontSize:'1.25rem' }
     return <p
-        style={ 
-            style 
-                ? mobileStyle && smallScreen 
-                    ? mobileStyle 
-                    : style 
-                : smallScreen 
-                    ? defaultStyle 
-                    : defaultMobileStyle 
+        style={
+            !smallScreen
+                ? {...defaultStyle, ...style}
+                : {...defaultMobileStyle, ...style, ...mobileStyle}
             }
         {...props}
     >  
@@ -79,15 +61,12 @@ export const Paragraph = ({ text, shortText, style, mobileStyle, children, ...pr
 }
 
 
-type Model = 'title' | 'subtitle' | 'paragraph'
-interface iText extends iBaseText { model:Model }
-export const Text = ({ model, ...props}: iText) => {
-    const midScreen = useMediaQuery({ query: '(min-width: 900px)' })
-    const smallScreen = useMediaQuery({ query: '(max-width: 600px)' })
-
+type TextType = 'title' | 'subtitle' | 'paragraph'
+interface iText extends iBaseText { textType:TextType }
+export const Text = ({ textType, ...props}: iText) => {
     return <>
-        { model === 'title' && <Title {...props} /> }
-        { model === 'subtitle' && <Subtitle {...props} /> }
-        { model === 'paragraph' && <Paragraph {...props} /> }
+        { textType === 'title' && <Title {...props} /> }
+        { textType === 'subtitle' && <Subtitle {...props} /> }
+        { textType === 'paragraph' && <Paragraph {...props} /> }
     </>
 }
