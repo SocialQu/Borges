@@ -6,10 +6,11 @@ interface iBaseText {
     shortText?:string, 
     style?:React.CSSProperties 
     mobileStyle?:React.CSSProperties,
-    children: React.ReactNode
+    children: React.ReactNode,
+    [x: string]: any
 }
 
-export const Title = ({ text, shortText, style, mobileStyle, children }: iBaseText) => {
+export const Title = ({ text, shortText, style, mobileStyle, children, ...props }: iBaseText) => {
     const smallScreen = useMediaQuery({ query: '(max-width: 600px)' })
 
     const defaultStyle = { fontSize:'3rem', marginBottom:'1rem' }
@@ -24,6 +25,7 @@ export const Title = ({ text, shortText, style, mobileStyle, children }: iBaseTe
                     ? defaultStyle 
                     : defaultMobileStyle 
             }
+        {...props}
     >  
         { !smallScreen ? text : shortText } 
         { children }
@@ -31,7 +33,7 @@ export const Title = ({ text, shortText, style, mobileStyle, children }: iBaseTe
 }
 
 
-export const Subtitle = ({ text, shortText, style, mobileStyle, children }: iBaseText) => {
+export const Subtitle = ({ text, shortText, style, mobileStyle, children, ...props }: iBaseText) => {
     const smallScreen = useMediaQuery({ query: '(max-width: 600px)' })
 
     const defaultStyle = { fontSize:'1.5rem', marginBottom:'1rem' }
@@ -46,6 +48,7 @@ export const Subtitle = ({ text, shortText, style, mobileStyle, children }: iBas
                     ? defaultStyle 
                     : defaultMobileStyle 
             }
+        {...props}
     >  
         { !smallScreen ? text : shortText } 
         { children }
@@ -53,7 +56,7 @@ export const Subtitle = ({ text, shortText, style, mobileStyle, children }: iBas
 }
 
 
-export const Paragraph = ({ text, shortText, style, mobileStyle, children }: iBaseText) => {
+export const Paragraph = ({ text, shortText, style, mobileStyle, children, ...props }: iBaseText) => {
     const smallScreen = useMediaQuery({ query: '(max-width: 600px)' })
 
     const defaultStyle = { fontSize:'1.5rem', marginBottom:'1rem' }
@@ -68,6 +71,7 @@ export const Paragraph = ({ text, shortText, style, mobileStyle, children }: iBa
                     ? defaultStyle 
                     : defaultMobileStyle 
             }
+        {...props}
     >  
         { !smallScreen ? text : shortText } 
         { children }
