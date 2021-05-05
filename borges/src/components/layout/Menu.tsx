@@ -46,7 +46,7 @@ const Module = ({name, lessons=[], locked, style, listStyle, expanded, position,
     return <li style={{lineHeight:2, ...listStyle}} key={position.module}>
         <a 
             onClick={() => click(position)} 
-            style={locked ? {} : {cursor:'initial'}}
+            style={locked ? {...style} : {cursor:'initial', ...style}}
         >   { locked && <Lock/> } { name }  </a>
 
         {   expanded && <ul> { lessons.map((l, i) => <Lesson {...l} /> )} </ul>   }
@@ -55,25 +55,18 @@ const Module = ({name, lessons=[], locked, style, listStyle, expanded, position,
 
 
 interface iUnit extends iLesson { modules?:iModule[] }
-interface iMenu extends iLesson { units:iUnit[], navigate(position:iPosition):void }
-export const Menu = ({ units, navigate }: iMenu) => {
-    const [active, setActive] = useState<number>(user?.current.module || 0)
+const Unit = ({ modules = [] }:iUnit) => <>
+    <p className="menu-label"> Astroconsciencia </p>
+    <ul className="menu-list">
+        { modules.map(m => <Module {...m} /> )}
+    </ul>
+</>
 
-    const expand = (id:number) => {
-        if(!user) return 
-        if(user.progress.module < id) return
-        setActive( id === active ? user.current.module : id)
-    }
+interface iMenu extends iLesson { units:iUnit[], menuStyle:CSSProperties, navigate(position:iPosition):void }
+export const Menu = ({ units, menuStyle, navigate }: iMenu) => {
+    const defaultStyle = { minHeight:'calc(100vh - 85px)', width:250, boxShadow: '3px 0 3px 0 #ccc', fontSize:'1.15em' }
 
-    useEffect(() => { setActive(user?.current.module as number) },[user])
-
-    return <aside 
-        className="menu column is-2 is-narrow-mobile is-fullheight section is-hidden-mobile"
-        style={{ minHeight:'calc(100vh - 85px)', width:250, boxShadow: '3px 0 3px 0 #ccc', fontSize:'1.15em' }}
-    >
-        <p className="menu-label"> Astroconsciencia </p>
-        <ul className="menu-list">
-            { modules.map(m => <Module {...m} /> )}
-        </ul>
+    return <aside className="menu is-hidden-mobile" style={{...defaultStyle, ...menuStyle}}>
+        { units.map(u => <Unit {...u} /> ) }
     </aside>
 }
