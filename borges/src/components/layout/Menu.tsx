@@ -10,7 +10,7 @@ const Lock = () => <img
 />
 
 interface iPosition { unit:number, module?:number, lesson?:number }
-interface iNavigation { position: iPosition, navigate(position:iPosition):void }
+interface iNavigation { active:iPosition, position:iPosition, navigate(position:iPosition):void }
 interface iMenuStyles {
     lessonStyle?:CSSProperties
     lessonListStyle?:CSSProperties
@@ -23,17 +23,17 @@ interface iMenuStyles {
 }
 
 
-interface iLesson { name:string, locked:boolean, active:boolean }
+interface iLesson { name:string, locked:boolean }
 interface iFullLesson { lesson:iLesson, styles:iMenuStyles, navigation:iNavigation }
 const Lesson = ({ 
-    navigation: {position, navigate},
-    lesson:{ name, locked, active}, 
+    lesson:{ name, locked }, 
     styles:{ lessonStyle, lessonListStyle }, 
+    navigation: {active:{unit, module, lesson}, position, navigate},
 }: iFullLesson) => <li style={{lineHeight: 1.25, ...lessonListStyle}}>
     <a 
         style={lessonStyle} 
         onClick={() => navigate(position)}
-        className={ active ? 'is-active': '' }
+        className={ unit === position.unit && module === position.module && lesson === position.lesson ? 'is-active': '' }
     > { locked && <Lock/> } { name } </a>
 </li>
 
@@ -49,13 +49,14 @@ interface iFullModule {
 
 const Module = ({
     expanded, 
-    module:{name, active, locked, lessons }, 
+    module:{name, locked, lessons}, 
     styles: {moduleStyle, moduleListStyle, ...styles}, 
-    navigation: {position, navigate},
+    navigation: {active:{unit:u, module:m, lesson:l}, position, navigate},
 }:iFullModule) => <li style={{lineHeight:2, ...moduleListStyle}} key={position.module}>
     <a 
         onClick={() => navigate(position)} 
         style={locked ? {...moduleStyle} : {cursor:'initial', ...moduleStyle}}
+        className={ u === position.unit && m === position.module && l === position.lesson ? 'is-active': '' }
     >   { locked && <Lock/> } { name }  </a>
 
     {   
@@ -65,7 +66,7 @@ const Module = ({
                 lessons.map((lesson) => <Lesson 
                         lesson={lesson} 
                         styles={styles} 
-                        navigation={{position, navigate}}
+                        navigation={{active:{unit:u, module:m, lesson:l}, position, navigate}}
                     /> 
                 )
             } 
@@ -87,7 +88,7 @@ const Unit = ({
     expanded,
     unit:{name, modules},
     styles:{unitStyle, unitListStyle, ...styles},
-    navigation:{ position, navigate}
+    navigation:{ active, position, navigate}
 }:iFullUnit) => <>
     <a 
         style={unitStyle} 
@@ -96,11 +97,11 @@ const Unit = ({
     > { name } </a>
     <ul className="menu-list">
         { 
-            modules.map(module => <Module 
+            active && modules.map(module => <Module 
                     module={module} 
                     expanded={expanded}
                     styles={styles}
-                    navigation={{position, navigate}}
+                    navigation={{active, position, navigate}}
                 /> 
             )
         }
@@ -128,7 +129,7 @@ export const Menu = ({ units, menuStyle, navigate }: iMenu) => {
     return <aside className="menu is-hidden-mobile" style={{...defaultStyle, ...menuStyle}}>
         { 
             units.map(unit => <Unit 
-                
+
                     unit={unit}
                 /> 
             ) 
