@@ -18,4 +18,4 @@
 ## Layout
 * [ ] Home
 * [ ] Menu
-* [ ] NavBar
+* [X] NavBar
