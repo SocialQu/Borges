@@ -1,6 +1,6 @@
 // import { Children } from 'react' // TODO: Explore using Children.
 import { useMediaQuery } from 'react-responsive'
-import { CSSProperties, ReactChild } from 'react'
+import { CSSProperties } from 'react'
 
 
 export interface iBaseAtom {
@@ -8,7 +8,7 @@ export interface iBaseAtom {
     shortText?:string
     style?:CSSProperties 
     mobileStyle?:CSSProperties
-    children?: ReactChild
+    children?: JSX.Element | JSX.Element[]
     [x: string]: any
 }
 
