@@ -1,7 +1,7 @@
 import { Lesson } from "../components/cells/Lesson"
 
 const title = 'Next Steps'
-export const Synonyms = () => <Lesson title={title} next={() => {}}>
+export const NextSteps = () => <Lesson title={title} next={() => {}}>
     <p>
         Congratulations! You reached the end, if you want to deeper you can visit the Stanford Courses. 
         A number of free are also available to download for free:
