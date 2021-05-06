@@ -17,5 +17,5 @@
 
 ## Layout
 * [ ] Home
-* [ ] Menu
+* [X] Menu
 * [X] NavBar
