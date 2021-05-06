@@ -2,7 +2,7 @@ import { TextAreaForm } from '../components/molecules/Form'
 import { Lesson } from "../components/cells/Lesson"
 
 const title = 'Tokenization'
-export const WordEmbeddings = () => <Lesson title={title} next={() => {}}>
+export const Tokenization = () => <Lesson title={title} next={() => {}}>
     <p>
         The first step to train word embeddings is to separate the text by words. 
         This can be done trivially through regex, but there is also a long tradintion in NLP (Natural Language Processing) 

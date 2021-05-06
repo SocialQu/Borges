@@ -3,7 +3,7 @@ import { Chart, Media } from '../components/atoms'
 
 const coocurrenceMatrix = "https://www.researchgate.net/profile/Majid_F_Sadi/publication/332703770/figure/fig1/AS:752289044234240@1556371093356/1-Co-occurrence-matrix-for-three-sample-sentences.ppm" 
 const title = 'Co-ocurrence Matrix'
-export const WordEmbeddings = () => <Lesson title={title} next={() => {}}>
+export const CoOcurrenceMatrix = () => <Lesson title={title} next={() => {}}>
     <p>
         The second step involves finding adyacent words, and mapping this relationships in a Matrix. 
         The first step is to enlist every unique word in our corpus (text dataset). 

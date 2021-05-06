@@ -3,7 +3,7 @@ import { Lesson } from "../components/cells/Lesson"
 import { Chart } from '../components/atoms'
 
 const title = 'Topic Classification'
-export const WordEmbeddings = () => <Lesson title={title} next={() => {}}>
+export const TopicClassification = () => <Lesson title={title} next={() => {}}>
     <p> This is chart that maps the average word embeddings for texts in different topics:</p>
 
     <Chart title="Topic's Position" />

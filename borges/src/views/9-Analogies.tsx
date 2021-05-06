@@ -3,7 +3,7 @@ import { Chart } from '../components/atoms'
 import { Form } from '../components/molecules/Form'
 
 const title = 'Application: Solving the Analogy'
-export const WordEmbeddings = () => <Lesson title={title} next={() => {}}>
+export const Analogies = () => <Lesson title={title} next={() => {}}>
     <p>
         Congratulations! You now know how to train a simple word embeddings model. 
         The next application uses also basic vector operations to solve a slightly more difficult problem. Finding an analogy:

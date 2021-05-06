@@ -2,7 +2,7 @@ import { Lesson } from "../components/cells/Lesson"
 import { Chart } from '../components/atoms'
 
 const title = 'Dimensionality Reduction'
-export const WordEmbeddings = () => <Lesson title={title} next={() => {}}>
+export const DimensionalityReduction = () => <Lesson title={title} next={() => {}}>
     <p>
         Did you noticed how sparse (full of zeros) the co-ocurrence matrix is? 
         This leads us to the next and final step: dimensionality reduction.

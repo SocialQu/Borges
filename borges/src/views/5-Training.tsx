@@ -1,7 +1,7 @@
 import { Lesson } from "../components/cells/Lesson"
 
 const title = 'How to train Word Embeddings?'
-export const WordEmbeddings = () => <Lesson title={title} next={() => {}}>
+export const Training = () => <Lesson title={title} next={() => {}}>
     <p>
         As mentioned, the motivation of word embeddings is that the meaning of a word is dependant on its context. 
         That is the words that surround it, and the text and documents in which they are present. 

@@ -46,7 +46,7 @@ const questions:iQuestion[] = [
 ]
 
 
-export const WordEmbeddings = () => <>
+export const WordEmbeddingsQuiz = () => <>
     <Quiz 
         title={"Quiz"}
         description={"Word Embeddings Quiz"}
