@@ -24,7 +24,7 @@ interface iMenuStyles {
 }
 
 
-interface iLesson { name:string, locked:boolean }
+interface iLesson { name:string, locked?:boolean }
 interface iMenuLesson extends iLesson { position:iPosition }
 interface iFullLesson { lesson:iMenuLesson, styles:iMenuStyles, navigation:iNavigation }
 const Lesson = ({ 
@@ -43,15 +43,9 @@ const Lesson = ({
 
 interface iModule extends iLesson { lessons:iLesson[] }
 interface iMenuModule extends iMenuLesson { lessons:iMenuLesson[] }
-interface iFullModule { 
-    module: iMenuModule
-    expanded: boolean
-    styles: iMenuStyles
-    navigation:iNavigation
-}
-
+interface iFullModule {  module: iMenuModule, expanded?: iPosition, styles: iMenuStyles, navigation:iNavigation }
 const Module = ({
-    expanded, 
+    expanded={}, 
     module:{name, locked, position, lessons }, 
     styles: {moduleStyle, moduleListStyle, ...styles}, 
     navigation: {active:{unit:u, module:m, lesson:l}, navigate},
@@ -63,8 +57,10 @@ const Module = ({
     >   { locked && <Lock/> } { name }  </a>
 
     {   
-        expanded && 
-        <ul> 
+        (
+            (u === position.unit && m === position.module) 
+            || (expanded.unit === position.unit && expanded.module === position.module)
+        ) &&  <ul> 
             { 
                 lessons.map((lesson) => <Lesson 
                         lesson={lesson} 
@@ -81,13 +77,7 @@ const Module = ({
 
 interface iUnit extends iModule { modules:iModule[] }
 interface iMenuUnit extends iMenuModule { modules:iMenuModule[] }
-interface iFullUnit { 
-    unit: iMenuUnit
-    expanded: boolean
-    styles: iMenuStyles
-    navigation:iNavigation
-}
-
+interface iFullUnit { unit:iMenuUnit, expanded?:iPosition, styles:iMenuStyles, navigation:iNavigation }
 const Unit = ({ 
     expanded,
     unit:{name, modules, position},
@@ -99,22 +89,28 @@ const Unit = ({
         className="menu-label" 
         onClick={() => navigate(position)}
     > { name } </a>
-    <ul className="menu-list">
-        { 
-            active && modules.map(module => <Module 
-                    module={module} 
-                    expanded={expanded}
-                    styles={styles}
-                    navigation={{active, navigate}}
-                /> 
-            )
-        }
-    </ul>
+
+    { 
+        ((active.unit === position.unit) || (expanded?.unit === position.unit)) &&  
+        <ul className="menu-list">
+            {
+                modules.map(module => 
+                    <Module 
+                        module={module} 
+                        expanded={expanded}
+                        styles={styles}
+                        navigation={{active, navigate}}
+                    /> 
+                )
+            }
+        </ul>
+    }
 </>
 
 
 
 interface iMenu {
+    lock?:boolean
     units: iUnit[]
     active?: iPosition
     styles?: iMenuStyles
@@ -123,6 +119,7 @@ interface iMenu {
 
 export const Menu = ({ active={}, units, styles:{menuStyle, ...styles}={}, navigate }: iMenu) => {
     const [menuUnits, setMenuUnits] = useState<iMenuUnit[]>()
+    const [expanded, setExpanded] = useState<iPosition>()
 
     useEffect(() => {
         const mappedUnits:iMenuUnit[] = units.map((unit,i) => ({
@@ -138,19 +135,25 @@ export const Menu = ({ active={}, units, styles:{menuStyle, ...styles}={}, navig
             } ))
         }) as iMenuUnit)
 
-        setMenuUnits(menuUnits)
-    }, [units])
+        setMenuUnits(mappedUnits)
+    }, [units, active])
 
 
     const defaultStyle = { minHeight:'calc(100vh - 85px)', width:250, boxShadow: '3px 0 3px 0 #ccc', fontSize:'1.15em' }
-    const handleClick = (position:iPosition) => {
-        navigate(position)
+    const handleClick = ({unit, module, lesson}:iPosition) => {
+        if(unit && units[unit].locked) return
+        if(unit && module && units[unit].modules[module].locked) return
+        if(unit && module && lesson && units[unit].modules[module].lessons[lesson].locked) return
+
+        setExpanded({unit, module, lesson})
+        navigate({unit, module, lesson})
     } 
 
     return <aside className="menu is-hidden-mobile" style={{...defaultStyle, ...menuStyle}}>
         { 
             menuUnits?.map((unit) => <Unit 
                     unit={unit}
+                    expanded={expanded}
                     styles = {styles}
                     navigation={{ active, navigate:handleClick }}
                 /> 
