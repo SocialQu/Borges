@@ -9,8 +9,8 @@ const Lock = () => <img
     src="https://cdn.iconscout.com/icon/premium/png-256-thumb/lock-1967458-1668608.png" 
 />
 
-interface iPosition { unit:number, module?:number, lesson?:number }
-interface iNavigation { active:iPosition, position:iPosition, navigate(position:iPosition):void }
+interface iPosition { unit?:number, module?:number, lesson?:number }
+interface iNavigation { active:iPosition, navigate(position:iPosition):void }
 interface iMenuStyles {
     lessonStyle?:CSSProperties
     lessonListStyle?:CSSProperties
@@ -20,15 +20,17 @@ interface iMenuStyles {
 
     unitStyle?:CSSProperties
     unitListStyle?:CSSProperties
+    menuStyle?:CSSProperties
 }
 
 
 interface iLesson { name:string, locked:boolean }
-interface iFullLesson { lesson:iLesson, styles:iMenuStyles, navigation:iNavigation }
+interface iMenuLesson extends iLesson { position:iPosition }
+interface iFullLesson { lesson:iMenuLesson, styles:iMenuStyles, navigation:iNavigation }
 const Lesson = ({ 
-    lesson:{ name, locked }, 
+    lesson:{ name, locked, position }, 
     styles:{ lessonStyle, lessonListStyle }, 
-    navigation: {active:{unit, module, lesson}, position, navigate},
+    navigation: {active:{unit, module, lesson}, navigate},
 }: iFullLesson) => <li style={{lineHeight: 1.25, ...lessonListStyle}}>
     <a 
         style={lessonStyle} 
@@ -40,8 +42,9 @@ const Lesson = ({
 
 
 interface iModule extends iLesson { lessons:iLesson[] }
+interface iMenuModule extends iMenuLesson { lessons:iMenuLesson[] }
 interface iFullModule { 
-    module: iModule
+    module: iMenuModule
     expanded: boolean
     styles: iMenuStyles
     navigation:iNavigation
@@ -49,9 +52,9 @@ interface iFullModule {
 
 const Module = ({
     expanded, 
-    module:{name, locked, lessons}, 
+    module:{name, locked, position, lessons }, 
     styles: {moduleStyle, moduleListStyle, ...styles}, 
-    navigation: {active:{unit:u, module:m, lesson:l}, position, navigate},
+    navigation: {active:{unit:u, module:m, lesson:l}, navigate},
 }:iFullModule) => <li style={{lineHeight:2, ...moduleListStyle}} key={position.module}>
     <a 
         onClick={() => navigate(position)} 
@@ -66,7 +69,7 @@ const Module = ({
                 lessons.map((lesson) => <Lesson 
                         lesson={lesson} 
                         styles={styles} 
-                        navigation={{active:{unit:u, module:m, lesson:l}, position, navigate}}
+                        navigation={{active:{unit:u, module:m, lesson:l}, navigate}}
                     /> 
                 )
             } 
@@ -77,8 +80,9 @@ const Module = ({
 
 
 interface iUnit extends iModule { modules:iModule[] }
+interface iMenuUnit extends iMenuModule { modules:iMenuModule[] }
 interface iFullUnit { 
-    unit: iUnit
+    unit: iMenuUnit
     expanded: boolean
     styles: iMenuStyles
     navigation:iNavigation
@@ -86,9 +90,9 @@ interface iFullUnit {
 
 const Unit = ({ 
     expanded,
-    unit:{name, modules},
+    unit:{name, modules, position},
     styles:{unitStyle, unitListStyle, ...styles},
-    navigation:{ active, position, navigate}
+    navigation:{ active, navigate}
 }:iFullUnit) => <>
     <a 
         style={unitStyle} 
@@ -101,7 +105,7 @@ const Unit = ({
                     module={module} 
                     expanded={expanded}
                     styles={styles}
-                    navigation={{active, position, navigate}}
+                    navigation={{active, navigate}}
                 /> 
             )
         }
@@ -112,25 +116,43 @@ const Unit = ({
 
 interface iMenu {
     units: iUnit[]
-    activeItem?: iPosition
-
-    lessonStyle?: CSSProperties
-    listLessonStyle?: CSSProperties
-    moduleStyle?: CSSProperties
-    listModuleStyle?: CSSProperties
-    menuStyle?: CSSProperties
-
+    active?: iPosition
+    styles?: iMenuStyles
     navigate(position:iPosition): void
 }
 
-export const Menu = ({ units, menuStyle, navigate }: iMenu) => {
+export const Menu = ({ active={}, units, styles:{menuStyle, ...styles}={}, navigate }: iMenu) => {
+    const [menuUnits, setMenuUnits] = useState<iMenuUnit[]>()
+
+    useEffect(() => {
+        const mappedUnits:iMenuUnit[] = units.map((unit,i) => ({
+            ...unit, 
+            position: {unit:i},
+            modules: unit.modules.map((module, id) => ({
+                ...module,
+                position: {unit:i, module:id},
+                lessons: module.lessons.map((l, idx) => ({
+                    ...l,
+                    position: {unit:i,module:id, lesson:idx}
+                } ))
+            } ))
+        }) as iMenuUnit)
+
+        setMenuUnits(menuUnits)
+    }, [units])
+
+
     const defaultStyle = { minHeight:'calc(100vh - 85px)', width:250, boxShadow: '3px 0 3px 0 #ccc', fontSize:'1.15em' }
+    const handleClick = (position:iPosition) => {
+        navigate(position)
+    } 
 
     return <aside className="menu is-hidden-mobile" style={{...defaultStyle, ...menuStyle}}>
         { 
-            units.map(unit => <Unit 
-
+            menuUnits?.map((unit) => <Unit 
                     unit={unit}
+                    styles = {styles}
+                    navigation={{ active, navigate:handleClick }}
                 /> 
             ) 
         }
