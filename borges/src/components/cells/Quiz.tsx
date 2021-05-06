@@ -1,6 +1,23 @@
 import { useMediaQuery } from 'react-responsive'
 import { useState } from "react"
 
+const messages = {
+    encouragementMsg: 'Come on! You still have another shot.',
+    retryMsg: 'I invite you to restart the module.',
+    button:{
+        next:'Continue',
+        retry:'Restart',
+        restart:'Go Back',
+        send:''
+    },
+    title:{
+        pass:'Congratulations!',
+        fail:'I am sorry.'
+    },
+    score:['You got right', 'out of', 'questions.'],
+    instructions:['You need at least', 'correct question', 'to approve.']
+}
+
 
 interface iAnswer { answer:string, value:boolean }
 export interface iQuestion { question:string, answers:iAnswer[] }
@@ -30,9 +47,14 @@ const Question = ({index, question, value, answers, select}:IQuestion) => <div
 </div>
 
 
+const Score = ({score, questions}:{score:number, questions:number}) => <>
+    {messages.score[0]} <strong>{score}</strong> {messages.score[1]} <strong>{questions}</strong> {messages.score[2]} <br/>
+</>
 
-const encouragementMsg = `¡Ánimo aún tienes otra oportunidad!`
-const retryMsg = 'Te invitamos a reiniciar el módulo.'
+const Instructions = ({min}: {min:number}) => <> 
+    {messages.instructions[0]} {min} {messages.instructions[1]}{min > 1 ? 's' : ''} {messages.instructions[2]} <br/>
+</>
+
 interface iModal { 
     questions: iQuestion[]
     score: number
@@ -56,23 +78,30 @@ const Modal = ({ questions, score, isActive, approved, min, quizFailures, deacti
 
         <section className="modal-card-body" style={{minHeight:120, display:'table'}}>
             <p style={{display:'table-cell', verticalAlign:'middle'}}>
-                { approved ? <span style={{fontSize:'1.5rem', fontWeight:600}}>¡Felicidades!</span> : <>Lo sentimos.</> } <br/> 
-                 Acertaste <strong>{score}</strong> de <strong>{questions.length}</strong> preguntas. <br/>
                 { 
-                    !approved && quizFailures === 1 
-                    ? <>Necesitas {min} pregunta{min > 1 ? 's' : ''} correcta para aprobar. <br/></>
-                    : '' 
-                }
-                { !approved && quizFailures === 1 ? <><br/>{encouragementMsg}</> : '' }
-                { !approved && quizFailures === 2 ? <><br/>{ retryMsg }</> : '' }
+                    approved 
+                        ?   <span style={{fontSize:'1.5rem', fontWeight:600}}> { messages.title.pass } </span> 
+                        :   <> { messages.title.fail } </> 
+                } 
+                
+                <br/> 
+
+                <Score score={score} questions={questions.length}/>
+                { !approved && quizFailures === 1 ? <Instructions min={min}/> : null }
+                { !approved && quizFailures === 1 ? <><br/>{ messages.encouragementMsg }</> : null }
+                { !approved && quizFailures === 2 ? <><br/>{ messages.retryMsg }</> : null }
             </p>
         </section>
 
         <footer className="modal-card-foot">
             <button className='button is-link' onClick={next} style={{backgroundColor:'darkblue', margin:'auto'}}> 
-                { approved || quizFailures === 0 ? `Continuar` : '' }
-                { !approved && quizFailures === 1 ? `Intentar de Nuevo` : '' }
-                { !approved && quizFailures === 2 ? `Reiniciar` : '' }
+                { 
+                    approved || quizFailures === 0 
+                        ? messages.button.next 
+                        : !approved && quizFailures === 1 
+                            ? messages.button.restart 
+                            : messages.button.retry 
+                }
             </button>
         </footer>
     </div>
@@ -145,7 +174,7 @@ export const Quiz = ({ title, description, questions=[], min, next, approve, qui
             style={{borderRadius:12, width:180, fontSize:'1.25rem', fontWeight:600, marginTop:'2em', backgroundColor:'darkblue'}}
             disabled={Object.values(values).some(a => a === -1)}
             onClick={submit}
-        > ENVIAR </button>
+        > {messages.button.send} </button>
 
         <Modal 
             isActive={isActive} 
