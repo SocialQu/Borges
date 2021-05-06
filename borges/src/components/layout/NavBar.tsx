@@ -61,14 +61,14 @@ type NavbarClass = 'is-link' | 'is-primary' | 'is-link' | 'is-info' | 'is-succes
     'is-warning' | 'is-danger' | 'is-black' | 'is-dark' | 'is-light' | 'is-white'
 
 interface iNavBar { 
-    brand:iBrand
-    items:iNavBarItem[]
+    brand?:iBrand
+    items?:iNavBarItem[]
     navbarClass?:NavbarClass
-    navBarStyle:CSSProperties 
-    containerStyle:CSSProperties
+    navBarStyle?:CSSProperties 
+    containerStyle?:CSSProperties
 }
 
-export const NavBar = ({brand, items, navbarClass='is-link', navBarStyle, containerStyle }: iNavBar) => {
+export const NavBar = ({brand, items=[], navbarClass='is-link', navBarStyle, containerStyle }: iNavBar) => {
     const midScreen = useMediaQuery({ query: '(min-width: 1024px)' })
     const [ isActive, setActive ] = useState(false)
 
