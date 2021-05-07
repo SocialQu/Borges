@@ -9,7 +9,7 @@ const Lock = () => <img
     src="https://cdn.iconscout.com/icon/premium/png-256-thumb/lock-1967458-1668608.png" 
 />
 
-interface iPosition { unit?:number, module?:number, lesson?:number }
+export interface iPosition { unit?:number, module?:number, lesson?:number }
 interface iNavigation { active:iPosition, navigate(position:iPosition):void }
 interface iMenuStyles {
     lessonStyle?:CSSProperties
@@ -38,7 +38,6 @@ const Lesson = ({
         className={ unit === position.unit && module === position.module && lesson === position.lesson ? 'is-active': '' }
     > { locked && <Lock/> } { name } </a>
 </li>
-
 
 
 interface iModule extends iLesson { lessons?:iLesson[] }
@@ -74,7 +73,6 @@ const Module = ({
 </li>
 
 
-
 export interface iUnit extends iLesson { modules:iModule[] }
 interface iMenuUnit extends iMenuLesson { modules:iMenuModule[] }
 interface iFullUnit { unit:iMenuUnit, expanded?:iPosition, styles:iMenuStyles, navigation:iNavigation }
@@ -106,7 +104,6 @@ const Unit = ({
         </ul>
     }
 </>
-
 
 
 interface iMenu {
