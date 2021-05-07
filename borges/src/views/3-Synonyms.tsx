@@ -1,11 +1,15 @@
 import { InputForm } from '../components/molecules/Form'
-import { Lesson } from "../components/cells/Lesson"
 import { Media, Subtitle } from '../components/atoms'
 import { Scatter } from '../components/atoms/Chart'
+import { Lesson } from '../components/cells/Lesson'
+import { findSynonyms } from '../scripts/nlp'
+import { iModels } from '../types/ai'
+import { User } from 'realm-web'
 
+
+interface iSynonyms {next():void, models:iModels, user:User}
 const title = 'Application: Finding Synonyms'
-interface iSynonyms {next():void}
-export const Synonyms = ({next}:iSynonyms) => <Lesson title={title} next={next}>
+export const Synonyms = ({next, models, user}:iSynonyms) => <Lesson title={title} next={next}>
     <p>
         Finding a synonym is one of the simplest applications of word embeddings. 
         According to Google a synonym is a word or phrase that means exactly or nearly the same as another word or phrase. 
@@ -59,7 +63,10 @@ export const Synonyms = ({next}:iSynonyms) => <Lesson title={title} next={next}>
         Use the input box below to search for synonyms based on TensorflowJS word embeddings:
     </p>
 
-    <InputForm label={'Find the Synonym.'}/>
+    <InputForm 
+        placeholder={'Find the Synonyms.'} 
+        submit={(synonym) => findSynonyms({ word:synonym, models, user })}
+    />
 
     <p>
         Interestingly, it is also possible to find Antonyms with word embeddings, 
