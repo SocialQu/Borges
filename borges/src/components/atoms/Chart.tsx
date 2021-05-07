@@ -13,7 +13,7 @@ interface iChart { title:string }
 export const Chart = ({title}:iChart) => <> { title} </> 
 
 
-interface iScatter { data: {x:number, y:number}[] }
+interface iScatter { data: {name:string, x:number, y:number}[] }
 export const Scatter = ({data}:iScatter) => <ResponsiveContainer width='100%' height={200}>
     <ScatterChart                
         data={data}
