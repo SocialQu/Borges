@@ -1,6 +1,17 @@
 import { iModels } from '../types/ai'
 
 
+const similarity = (center:number[], embedding: number[]) => {
+    if (center.length !== embedding.length) return Infinity
+    const delta = center.reduce((d, i, idx) => d + Math.abs(i - embedding[idx]), 0)
+    return delta
+}
+
+export const sortBySimilarity = (center:number[], synonymns:{embeddings:number[]}[]) => synonymns.sort(({embeddings:a}, {embeddings:b}) => 
+    similarity(center, a) > similarity(center, b) ? 1 : -1
+)
+
+
 interface iWordEmbedding { text:string, embeddings:number[], center:number[] }
 export const getCenter = async(text:string[], {model, pca}:iModels):Promise<iWordEmbedding[]> => {
     const tensor = await model.embed(text)
@@ -10,3 +21,5 @@ export const getCenter = async(text:string[], {model, pca}:iModels):Promise<iWor
     return wordEmbeddings
 }
 
+
+export const tokenizeSentences = (text:string):string[] => text.match( /[^\.!\?]+[\.!\?]+/g ) as string[]
