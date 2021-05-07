@@ -71,11 +71,7 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
             Use the input box below to search for synonyms based on TensorflowJS word embeddings:
         </p>
 
-        <InputForm 
-            placeholder={'Find the Synonyms.'} 
-            submit={(synonym) => getSynonyms(synonym)}
-        />
-
+        <InputForm placeholder={'Find the Synonyms.'} submit={getSynonyms} />
         <ul> { synonyms?.map((synonym)=> <li> { synonym } </li> ) } </ul>
 
         <p>

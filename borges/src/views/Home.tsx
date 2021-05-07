@@ -37,7 +37,7 @@ export const Home = ({ position: { unit, module }, models, user, next }: iHome) 
     if(module === 0) return <Introduction next={next}/>
     if(module === 1) return <WordEmbeddings next={next}/>
     if(module === 2) return <Synonyms next={next} models={models} user={user}/>
-    if(module === 3) return <TopicClassification next={next}/>
+    if(module === 3) return <TopicClassification next={next} models={models} user={user}/>
     if(module === 4) return <Training next={next}/>
     if(module === 5) return <Tokenization next={next}/>
     if(module === 6) return <CoOcurrenceMatrix next={next}/>
