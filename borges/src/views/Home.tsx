@@ -1,5 +1,6 @@
 import { iPosition } from '../components/layout/Menu'
 import { SentimentAnalysis } from './SentimentAnalysis'
+import { User } from 'realm-web'
 
 import { BorgesLanding } from './0-Landing'
 import { Introduction } from './1-Introduction'
@@ -20,15 +21,22 @@ import { WordEmbeddingsMedia } from './15-Media'
 import { Products } from './16-Products'
 import { NextSteps } from './17-NextSteps'
 import { References } from './18-References'
+import { iModels } from '../types/ai'
 
 
+interface iHome { 
+    position:iPosition
+    models:iModels
+    user:User
+    next():void 
+}
 
-export const Home = ({ position: { unit, module }, next }: { position:iPosition, next():void }) => {
+export const Home = ({ position: { unit, module }, models, user, next }: iHome) => {
     if(unit === 1) return <SentimentAnalysis />
 
     if(module === 0) return <Introduction next={next}/>
     if(module === 1) return <WordEmbeddings next={next}/>
-    if(module === 2) return <Synonyms next={next}/>
+    if(module === 2) return <Synonyms next={next} models={models} user={user}/>
     if(module === 3) return <TopicClassification next={next}/>
     if(module === 4) return <Training next={next}/>
     if(module === 5) return <Tokenization next={next}/>
