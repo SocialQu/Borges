@@ -26,7 +26,7 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
         </p>
 
         <Subtitle text="Synonyms of Good"/>
-        <Scatter  data={[{x:1, y:2}, {x:3, y:4}]}/> 
+        <Scatter  data={[{name:'Great', x:1, y:2}, {name:'Good', x:3, y:4}]}/> 
 
         <p>
             To measure the distance between two vectors we need to select a metric. 
@@ -84,6 +84,6 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
         </p>
 
         <Subtitle text="Antonyms of Good"/>
-        <Scatter  data={[{x:1, y:2}, {x:3, y:4}]}/> 
+        <Scatter data={[{name:'Bad', x:1, y:2}, {name:'Worst', x:3, y:4}]} /> 
     </Lesson>
 }
