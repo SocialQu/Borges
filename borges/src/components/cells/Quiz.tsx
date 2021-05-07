@@ -109,8 +109,8 @@ const Modal = ({ questions, score, isActive, approved, min, quizFailures, deacti
 
 
 interface iQuiz { 
-    title:string
-    description:string,
+    title?:string
+    description?:string,
     questions?:iQuestion[]
     min?:number,
     quizFailures:number
