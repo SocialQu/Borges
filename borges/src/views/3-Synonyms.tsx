@@ -1,6 +1,7 @@
 import { InputForm } from '../components/molecules/Form'
 import { Lesson } from "../components/cells/Lesson"
-import { Chart, Media } from '../components/atoms'
+import { Media, Subtitle } from '../components/atoms'
+import { Scatter } from '../components/atoms/Chart'
 
 const title = 'Application: Finding Synonyms'
 interface iSynonyms {next():void}
@@ -12,7 +13,8 @@ export const Synonyms = ({next}:iSynonyms) => <Lesson title={title} next={next}>
         that are near the word we want to find a synonym.
     </p>
 
-    <Chart title="Synonyms of Good"/> 
+    <Subtitle text="Synonyms of Good"/>
+    <Scatter  data={[{x:1, y:2}, {x:3, y:4}]}/> 
 
     <p>
         To measure the distance between two vectors we need to select a metric. 
@@ -64,7 +66,8 @@ export const Synonyms = ({next}:iSynonyms) => <Lesson title={title} next={next}>
         the only difference is to find the words maximize that maximize the  distance to the intended word.
     </p>
 
-    <Chart title="Antonyms of Good"/> 
+    <Subtitle text="Antonyms of Good"/>
+    <Scatter  data={[{x:1, y:2}, {x:3, y:4}]}/> 
 </Lesson>
 
 
