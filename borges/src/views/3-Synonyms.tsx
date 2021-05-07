@@ -3,7 +3,8 @@ import { Lesson } from "../components/cells/Lesson"
 import { Chart, Media } from '../components/atoms'
 
 const title = 'Application: Finding Synonyms'
-export const Synonyms = () => <Lesson title={title} next={() => {}}>
+interface iSynonyms {next():void}
+export const Synonyms = ({next}:iSynonyms) => <Lesson title={title} next={next}>
     <p>
         Finding a synonym is one of the simplest applications of word embeddings. 
         According to Google a synonym is a word or phrase that means exactly or nearly the same as another word or phrase. 

@@ -2,7 +2,8 @@ import { Lesson } from "../components/cells/Lesson"
 import { Media } from '../components/atoms'
 
 const title = 'Advanced Topics'
-export const AdvancedTopics = () => <Lesson title={title} next={() => {}}>
+interface iAdvancedTopics {next():void}
+export const AdvancedTopics = ({next}:iAdvancedTopics) => <Lesson title={title} next={next}>
     <p>
         The process of training our word embeddings was based on Latent Semantic Analysis developed during the 1980's.
         With the advent of Neural Networks and their success in the field of Computer Vision,

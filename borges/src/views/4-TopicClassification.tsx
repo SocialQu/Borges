@@ -3,7 +3,8 @@ import { Lesson } from "../components/cells/Lesson"
 import { Chart } from '../components/atoms'
 
 const title = 'Topic Classification'
-export const TopicClassification = () => <Lesson title={title} next={() => {}}>
+interface iTopicClassification {next():void}
+export const TopicClassification = ({next}:iTopicClassification) => <Lesson title={title} next={next}>
     <p> This is chart that maps the average word embeddings for texts in different topics:</p>
 
     <Chart title="Topic's Position" />

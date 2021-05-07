@@ -2,7 +2,8 @@ import { Lesson } from "../components/cells/Lesson"
 import { Grid } from '../components/molecules/Grid'
 
 const title = 'References'
-export const References = () => <Lesson title={title} next={() => {}}>
+interface iReferences {next():void}
+export const References = ({next}:iReferences) => <Lesson title={title} next={next}>
     <ul>
         <li> Stanford Lectures </li>
         <li> First Assignment </li>

@@ -1,7 +1,8 @@
 import { Lesson } from "../components/cells/Lesson"
 
 const title = 'What are word embeddings?'
-export const WordEmbeddings = () => <Lesson title={title} next={() => {}}>
+interface iWordEmbeddings {next():void}
+export const WordEmbeddings = ({next}:iWordEmbeddings) => <Lesson title={title} next={next}>
     <p>
         Word embeddings are numberical represation of the meaning in human language. 
         They are based on the assumption that the meaning of a word is contextual: 

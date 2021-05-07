@@ -2,7 +2,8 @@ import { Lesson } from "../components/cells/Lesson"
 import { Grid } from '../components/molecules/Grid'
 
 const title = 'Startups'
-export const Products = () => <Lesson title={title} next={() => {}}>
+interface iProducts {next():void}
+export const Products = ({next}:iProducts) => <Lesson title={title} next={next}>
     <p>
         This is a list of products, SaaS and startups that use word embeddings to create innovative products. 
 

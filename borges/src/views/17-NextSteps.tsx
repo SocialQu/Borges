@@ -1,7 +1,8 @@
 import { Lesson } from "../components/cells/Lesson"
 
 const title = 'Next Steps'
-export const NextSteps = () => <Lesson title={title} next={() => {}}>
+interface iNextSteps {next():void}
+export const NextSteps = ({next}:iNextSteps) => <Lesson title={title} next={next}>
     <p>
         Congratulations! You reached the end, if you want to deeper you can visit the Stanford Courses. 
         A number of free are also available to download for free:

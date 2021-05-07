@@ -1,7 +1,8 @@
 import { Lesson } from "../components/cells/Lesson"
 
 const title = 'Introduction'
-export const Introduction = () => <Lesson title={title} next={() => {}}>
+interface iIntroduction {next():void}
+export const Introduction = ({next}:iIntroduction) => <Lesson title={title} next={next}>
     <p> 
         Word embeddings are used in almost every commercial application that involves AI and human language. 
         Some <a href="">example applications</a> include search engines, social media recommendation algorithms, language translation, 
