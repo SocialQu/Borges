@@ -1,9 +1,14 @@
+import * as use from '@tensorflow-models/universal-sentence-encoder'
 import { Menu, iUnit, iPosition } from './components/layout/Menu'
+import { App as RealmApp, User, Credentials } from 'realm-web'
 import { NavBar } from './components/layout/NavBar'
+import { IPCAModel, PCA } from 'ml-pca'
+import pcaModel from './data/pca.json'
 import { Home } from './views/Home'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
+import { iModels } from './types/ai'
 
 const Units:iUnit[] = [{ 
 	name:'Word Embeddings', 
@@ -43,9 +48,20 @@ const unlockModule = (units:iUnit[], position:iPosition, nextModule:number) => u
 	: u
 )
 
+const connectMongo = async() => {
+    const REALM_APP_ID = process.env.REACT_APP_REALM_ID as string
+    const app = new RealmApp({ id: REALM_APP_ID })
+    const user: User = await app.logIn(Credentials.anonymous())
+    return user
+}
+
+
 export const App = () => {
 	const [ units, setUnits ] = useState(Units)
 	const [ position, setPosition ] = useState<iPosition>({ unit:0 })
+    const [ user, setMongoUser ] = useState<User>()
+    const [ db, setDB ] = useState<Realm.Services.MongoDBDatabase>()
+	const [ models, setModels ] = useState<iModels>()
 
 	const next = () => {
 		const nextModule = position.module ? position.module + 1 : 0
@@ -59,9 +75,30 @@ export const App = () => {
 		} else setPosition({unit:nextUnit, module:0})
 	}
 
+	
+    useEffect(() => { 
+        connectMongo().then(mongoUser => {
+            setMongoUser(mongoUser)
+			const mongoAtlas = process.env.REACT_APP_MONGODB_ATLAS as string
+            const mongo = mongoUser.mongoClient(mongoAtlas)
+            const db = mongo.db('Borges')
+            setDB(db)
+        })
+
+		const fetchModels = async() => {
+			const model = await use.load()
+			const pca = PCA.load(pcaModel as IPCAModel)
+			setModels({ model, pca })
+		}
+
+		fetchModels()
+    }, [])
+
+
+
 	return <div className="App">
 		<NavBar />
 		<Menu units={units} navigate={(position) => setPosition(position)}/>
-		<Home position={position} next={next}/>
+		<Home position={position} next={next} models={models as iModels} user={user as User}/>
 	</div>
 }
