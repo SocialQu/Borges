@@ -30,6 +30,19 @@ const Units:iUnit[] = [{
 }, { name:'Sentiment Analysis', modules:[] }]
 
 
+const unlockModule = (units:iUnit[], position:iPosition, nextModule:number) => units.map((u, i) => 
+	i === position.unit 
+	? 	{ 
+			...u, 
+			modules: u.modules.map((m, id) => 
+				id === nextModule 
+				? 	{...m, locked:false } 
+				: 	m
+			) 
+		} 
+	: u
+)
+
 export const App = () => {
 	const [ units, setUnits ] = useState(Units)
 	const [ position, setPosition ] = useState<iPosition>({ unit:0 })
@@ -38,8 +51,12 @@ export const App = () => {
 		const nextModule = position.module ? position.module + 1 : 0
 		const nextUnit = position.unit ? position.unit + 1 : 0
 
-		if(units[position.unit as number].modules[nextModule]) setPosition({...position, module:nextModule})
-		else setPosition({unit:nextModule, module:0})
+		if(units[position.unit as number].modules[nextModule]) {
+			setPosition({...position, module:nextModule})
+			const newUnits = unlockModule([...units], position, nextModule)
+			setUnits(newUnits)
+
+		} else setPosition({unit:nextUnit, module:0})
 	}
 
 	return <div className="App">
