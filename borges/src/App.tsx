@@ -60,19 +60,6 @@ export const App = () => {
     const [ db, setDB ] = useState<Realm.Services.MongoDBDatabase>()
 	const [ models, setModels ] = useState<iModels>()
 
-	const next = () => {
-		const nextModule = position.module ? position.module + 1 : 0
-		const nextUnit = position.unit ? position.unit + 1 : 0
-
-		if(units[position.unit as number].modules[nextModule]) {
-			setPosition({...position, module:nextModule})
-			const newUnits = unlockModule([...units], position, nextModule)
-			setUnits(newUnits)
-
-		} else setPosition({unit:nextUnit, module:0})
-	}
-
-	
     useEffect(() => { 
         connectMongo().then(mongoUser => {
             setMongoUser(mongoUser)
@@ -92,10 +79,29 @@ export const App = () => {
     }, [])
 
 
+	const next = () => {
+		const nextModule = position.module ? position.module + 1 : 0
+		const nextUnit = position.unit ? position.unit + 1 : 0
+
+		if(units[position.unit as number].modules[nextModule]) {
+			setPosition({...position, module:nextModule})
+			const newUnits = unlockModule([...units], position, nextModule)
+			setUnits(newUnits)
+
+		} else setPosition({unit:nextUnit, module:0})
+	}
+
+	const reset = () => setPosition({unit:0, module:0})
 
 	return <div className="App">
 		<NavBar />
 		<Menu units={units} navigate={(position) => setPosition(position)}/>
-		<Home position={position} next={next} models={models as iModels} user={user as User}/>
+		<Home 
+			position={position} 
+			models={models as iModels} 
+			user={user as User}	
+			reset={reset}
+			next={next} 
+		/>
 	</div>
 }
