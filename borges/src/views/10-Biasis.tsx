@@ -1,6 +1,14 @@
-import { Form, TextAreaForm } from '../components/molecules/Form'
 import { Lesson } from "../components/cells/Lesson"
-import { Chart } from '../components/atoms'
+import { Scatter } from '../components/atoms/Chart'
+
+const data = [
+    {name:'Jessie', x:5, y:5}, 
+    {name:'John', x:4, y:4},
+    {name:'Barbara', x:2, y:2},
+    {name:'Salomon', x:3, y:3},
+    {name:'Good', x:3, y:3},
+    {name:'Bad', x:3, y:3}
+]
 
 const title = 'Application: Detecting Biasis'
 interface iBiasis {next():void}
@@ -17,7 +25,7 @@ export const Biasis = ({next}:iBiasis) => <Lesson title={title} next={next}>
         space composed by the word embeddings, we can flag that content and review it manually.
     </p>
 
-    <Chart title="Gender Names"/>
+    <Scatter data={data}/>
 
     <p>
         Unfortunately, in the chart above you can see how positive words are correlated with male names, 
@@ -25,8 +33,4 @@ export const Biasis = ({next}:iBiasis) => <Lesson title={title} next={next}>
 
         Please pause for a moment and share what can you do to close and vanish this gap.
     </p>
-
-    <TextAreaForm label={"Gender gap solutions"}/>
-
-    <Form label={"You can search for more biases, in word embeddings with the form below."} />
 </Lesson>
