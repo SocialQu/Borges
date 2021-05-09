@@ -1,9 +1,9 @@
 # RoadMap
 
 ## Monday
-- [ ] Plan & Document Application Logic, and missing Infrastructure.
-- [ ] Develop infrastructure to support the course content. 
-- [ ] Draft on the present applications of word embeddings.
+- [X] Plan & Document Application Logic, and missing Infrastructure.
+- [X] Develop infrastructure to support the course content. 
+- [X] Draft on the present applications of word embeddings.
 
 ## Tuesday
 - [ ] Draft course content including examples and multimedia.
