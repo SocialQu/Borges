@@ -1,10 +1,10 @@
 import { Lesson } from "../components/cells/Lesson"
-import { Chart, Media } from '../components/atoms'
+import { Media } from '../components/atoms'
 
 const coocurrenceMatrix = "https://www.researchgate.net/profile/Majid_F_Sadi/publication/332703770/figure/fig1/AS:752289044234240@1556371093356/1-Co-occurrence-matrix-for-three-sample-sentences.ppm" 
 const title = 'Co-ocurrence Matrix'
-interface iCoOcurrenceMatrix {next():void}
-export const CoOcurrenceMatrix = ({next}:iCoOcurrenceMatrix) => <Lesson title={title} next={next}>
+interface iCoOcurrenceMatrix {words:string[], matrix:number[][], next():void}
+export const CoOcurrenceMatrix = ({words, matrix, next}:iCoOcurrenceMatrix) => <Lesson title={title} next={next}>
     <p>
         The second step involves finding adyacent words, and mapping this relationships in a Matrix. 
         The first step is to enlist every unique word in our corpus (text dataset). 
@@ -33,6 +33,31 @@ export const CoOcurrenceMatrix = ({next}:iCoOcurrenceMatrix) => <Lesson title={t
         this is how your co-occurrence matrix looks:
     </p>
 
-    <Chart title={"Coocurrence training data matrix."}/> 
+    <div className="table-container">
+        <table className="table">
+            <thead>
+                <tr> 
+                    <th/>
+                    { words.map(word => <th><abbr title={word}>{word.slice(0,3)}</abbr></th>) } 
+                </tr>
+            </thead>
+
+            <tfoot>
+                <th/>
+                <tr> { words.map(word => <th><abbr title={word}>{word.slice(0,3)}</abbr></th>) } </tr>
+            </tfoot>
+
+            <tbody>
+                { 
+                    words.map((word, i) => 
+                        <tr>
+                            <td> {word} </td>
+                            { words.map((w, id) => <td> {matrix[i][id]} </td>)}
+                        </tr>
+                    )
+                }
+            </tbody>
+        </table>
+    </div>    
 
 </Lesson>
