@@ -17,8 +17,8 @@ import { Analogies } from './9-Analogies'
 import { Biasis } from './10-Biasis'
 import { AdvancedTopics } from './11-AdvancedTopics'
 import { WordEmbeddingsQuiz } from './12-Quiz'
-import { WordEmbeddingsMedia } from './13-Media'
-import { Products } from './14-Products'
+import { Products } from './13-Products'
+import { WordEmbeddingsMedia } from './14-Media'
 import { NextSteps } from './15-NextSteps'
 import { iModels } from '../types/ai'
 
@@ -28,11 +28,12 @@ interface iHome {
     models:iModels
     user:User
     next():void
+    reset():void
 }
 
 
 export interface iEmbeddings { name:string, x:number, y:number }
-export const Home = ({ position: { unit, module }, models, user, next }: iHome) => {
+export const Home = ({ position: { unit, module }, models, user, next, reset }: iHome) => {
     const [words, setWords] = useState<string[]>([])
     const [wordsMatrix, setWordsMatrix] = useState<number[][]>([])
     const [embeddings, setEmbeddings] = useState<iEmbeddings[]>([])
@@ -74,9 +75,9 @@ export const Home = ({ position: { unit, module }, models, user, next }: iHome) 
     if(module === 8) return <Analogies next={next}/>
     if(module === 9) return <Biasis next={next}/>
     if(module === 10) return <AdvancedTopics next={next}/>
-    if(module === 11) return <WordEmbeddingsQuiz next={next}/>
-    if(module === 12) return <WordEmbeddingsMedia next={next}/>
-    if(module === 13) return <Products next={next}/>
+    if(module === 11) return <WordEmbeddingsQuiz next={next} reset={reset}/>
+    if(module === 12) return <Products next={next}/>
+    if(module === 13) return <WordEmbeddingsMedia next={next}/>
     if(module === 14) return <NextSteps next={next}/>
 
     return <BorgesLanding />
