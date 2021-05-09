@@ -1,9 +1,11 @@
 import { Lesson } from "../components/cells/Lesson"
-import { Chart } from '../components/atoms'
+import { Scatter } from "../components/atoms/Chart"
+import { Subtitle } from '../components/atoms'
+import { iEmbeddings } from "./Home"
 
 const title = 'Dimensionality Reduction'
-interface iDimensionalityReduction {next():void}
-export const DimensionalityReduction = ({next}:iDimensionalityReduction) => <Lesson title={title} next={next}>
+interface iDimensionalityReduction {embeddings:iEmbeddings[], next():void}
+export const DimensionalityReduction = ({embeddings, next}:iDimensionalityReduction) => <Lesson title={title} next={next}>
     <p>
         Did you noticed how sparse (full of zeros) the co-ocurrence matrix is? 
         This leads us to the next and final step: dimensionality reduction.
@@ -26,5 +28,6 @@ export const DimensionalityReduction = ({next}:iDimensionalityReduction) => <Les
         You can select different words to see how they compare with each other:
     </p>
 
-    <Chart title="Your Word Embeddings Chart" />
+    <Subtitle text="Your Word Embeddings Chart"/>
+    <Scatter data={embeddings.filter((i,idx) => idx < 5)} />
 </Lesson>
