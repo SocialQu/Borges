@@ -29,5 +29,5 @@ export const DimensionalityReduction = ({embeddings, next}:iDimensionalityReduct
     </p>
 
     <Subtitle text="Your Word Embeddings Chart"/>
-    <Scatter data={embeddings.filter((i,idx) => idx < 5)} />
+    <Scatter data={embeddings} />
 </Lesson>
