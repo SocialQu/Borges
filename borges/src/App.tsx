@@ -25,8 +25,8 @@ const Units:iUnit[] = [{
 		{ name:'Application: Detecting Biasis', locked:true },
 		{ name:'Advanced Topics', locked:true },
 		{ name:'Quiz', locked:true },
-		{ name:'Addditional Resources', locked:true },
 		{ name:'Startups', locked:true },
+		{ name:'Addditional Resources', locked:true },
 		{ name:'Next Steps', locked:true },
 	], 
 }, { name:'Sentiment Analysis', modules:[] }]
