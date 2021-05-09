@@ -23,14 +23,11 @@ const Units:iUnit[] = [{
 		{ name:'Dimensionality Reduction', locked:true },
 		{ name:'Application: Solving the Analogy', locked:true },
 		{ name:'Application: Detecting Biasis', locked:true },
-		{ name:'Quiz', locked:true },
-		{ name:'Best Answers', locked:true },
-		{ name:'Wall of Fame', locked:true },
 		{ name:'Advanced Topics', locked:true },
+		{ name:'Quiz', locked:true },
 		{ name:'Addditional Resources', locked:true },
 		{ name:'Startups', locked:true },
 		{ name:'Next Steps', locked:true },
-		{ name: 'References', locked:true }
 	], 
 }, { name:'Sentiment Analysis', modules:[] }]
 
