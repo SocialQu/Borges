@@ -1,5 +1,5 @@
 import { Lesson } from "../components/cells/Lesson"
-import { Grid } from '../components/molecules/Grid'
+import { Card } from '../components/molecules/Card'
 
 const title = 'Startups'
 interface iProducts {next():void}
@@ -12,5 +12,10 @@ export const Products = ({next}:iProducts) => <Lesson title={title} next={next}>
         If you would like to submit a product you created or use please use this form. 
     </p>
 
-    <Grid items={['Cortazar', 'Pegasus Summarization']}/>
+    <Card 
+        title={'Cortazar'} 
+        link={'http://cortazar.ml/'} 
+        img={'cortazar.png'}
+        body={'Cortazar is a text recommendation engine that serves suggestions based on smart word-embedding searches. The Netflix for readers aims to bring you a good non-fiction story to chill and enjoy after a day of hard work. Stories are ranked by match, and have ratings!'}
+    />
 </Lesson>
