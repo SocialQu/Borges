@@ -1,8 +1,9 @@
 import { Lesson } from "../components/cells/Lesson"
 import { Grid } from '../components/molecules/Grid'
 
-const title = 'Products'
-export const Products = () => <Lesson title={title} next={() => {}}>
+const title = 'Startups'
+interface iProducts {next():void}
+export const Products = ({next}:iProducts) => <Lesson title={title} next={next}>
     <p>
         This is a list of products, SaaS and startups that use word embeddings to create innovative products. 
 
@@ -12,6 +13,4 @@ export const Products = () => <Lesson title={title} next={() => {}}>
     </p>
 
     <Grid items={['Cortazar', 'Pegasus Summarization']}/>
-
-
 </Lesson>

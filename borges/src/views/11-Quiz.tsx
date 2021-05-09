@@ -1,5 +1,6 @@
 import { iQuestion, Quiz } from "../components/cells/Quiz"
 import { TextAreaForm } from "../components/molecules/Form"
+import { Lesson } from "../components/cells/Lesson"
 
 const questions:iQuestion[] = [
     { 
@@ -46,10 +47,10 @@ const questions:iQuestion[] = [
 ]
 
 
-export const WordEmbeddingsQuiz = () => <>
+const title = "Word Embeddings Quiz"
+interface iWordEmbeddingsQuiz {next():void}
+export const WordEmbeddingsQuiz = ({next}:iWordEmbeddingsQuiz) => <Lesson title={title} next={next}>
     <Quiz 
-        title={"Quiz"}
-        description={"Word Embeddings Quiz"}
         questions={questions}
         quizFailures={0}
         next={() => {}}
@@ -59,4 +60,4 @@ export const WordEmbeddingsQuiz = () => <>
     <TextAreaForm label={"1. Propose a potential application for word embeddings?"}/>
     <TextAreaForm label={"2. What concept did you found most interesting? Why?"} />
     <TextAreaForm label={"3. Can you imagine a positive alteration as to how the co-ocurrence is build?"} />
-</>
+</Lesson>

@@ -1,17 +1,20 @@
 import { Lesson } from "../components/cells/Lesson"
 
 const title = 'Introduction'
-export const Introduction = () => <Lesson title={title} next={() => {}}>
+interface iIntroduction {next():void}
+export const Introduction = ({next}:iIntroduction) => <Lesson title={title} next={next}>
     <p> 
         Word embeddings are used in almost every commercial application that involves AI and human language. 
-        Some <a href="">example applications</a> include search engines, social media recommendation algorithms, language translation, 
+        Some <a href="https://github.com/SocialQu/Borges/blob/v.0.0.5-UX/whitepaper/1.%20Applications.md">example applications</a> 
+        include search engines, social media recommendation algorithms, language translation, 
         speech recognition, market reasearch, automated trading and language generation.
     </p>
 
     <p>
-        This course is based on the Stanford's <a>CS224 course</a>, 
+        This course is based on the Stanford's <a href="http://web.stanford.edu/class/cs224n/index.html#schedule">CS224 course</a>, 
         it's directed to Software Engineers, that lack the time or mathematical background, 
-        to gain an intuitive understanding of this technology as presented in the Stanford <a>Video Lectures</a>.
+        to gain an intuitive understanding of this technology as presented in the Stanford 
+        <a href={'https://www.youtube.com/watch?v=8rXD5-xhemo&list=PLoROMvodv4rOhcuXMZkNm7j3fVwBBY42z'}>Video Lectures</a>.
     </p>
 
     <p>

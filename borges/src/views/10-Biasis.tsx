@@ -3,7 +3,8 @@ import { Lesson } from "../components/cells/Lesson"
 import { Chart } from '../components/atoms'
 
 const title = 'Application: Detecting Biasis'
-export const Biasis = () => <Lesson title={title} next={() => {}}>
+interface iBiasis {next():void}
+export const Biasis = ({next}:iBiasis) => <Lesson title={title} next={next}>
     <p>
         A more useful application of word embeddings is detecting biasis. 
         The concepts are similar, find two opposites like man and woman, and measure how different are closer to each other. 

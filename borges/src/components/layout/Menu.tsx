@@ -9,7 +9,7 @@ const Lock = () => <img
     src="https://cdn.iconscout.com/icon/premium/png-256-thumb/lock-1967458-1668608.png" 
 />
 
-interface iPosition { unit?:number, module?:number, lesson?:number }
+export interface iPosition { unit?:number, module?:number, lesson?:number }
 interface iNavigation { active:iPosition, navigate(position:iPosition):void }
 interface iMenuStyles {
     lessonStyle?:CSSProperties
@@ -40,9 +40,8 @@ const Lesson = ({
 </li>
 
 
-
-interface iModule extends iLesson { lessons:iLesson[] }
-interface iMenuModule extends iMenuLesson { lessons:iMenuLesson[] }
+interface iModule extends iLesson { lessons?:iLesson[] }
+interface iMenuModule extends iMenuLesson { lessons?:iMenuLesson[] }
 interface iFullModule {  module: iMenuModule, expanded?: iPosition, styles: iMenuStyles, navigation:iNavigation }
 const Module = ({
     expanded={}, 
@@ -62,7 +61,7 @@ const Module = ({
             || (expanded.unit === position.unit && expanded.module === position.module)
         ) &&  <ul> 
             { 
-                lessons.map((lesson) => <Lesson 
+                lessons?.map((lesson) => <Lesson 
                         lesson={lesson} 
                         styles={styles} 
                         navigation={{active:{unit:u, module:m, lesson:l}, navigate}}
@@ -74,9 +73,8 @@ const Module = ({
 </li>
 
 
-
-interface iUnit extends iModule { modules:iModule[] }
-interface iMenuUnit extends iMenuModule { modules:iMenuModule[] }
+export interface iUnit extends iLesson { modules:iModule[] }
+interface iMenuUnit extends iMenuLesson { modules:iMenuModule[] }
 interface iFullUnit { unit:iMenuUnit, expanded?:iPosition, styles:iMenuStyles, navigation:iNavigation }
 const Unit = ({ 
     expanded,
@@ -108,7 +106,6 @@ const Unit = ({
 </>
 
 
-
 interface iMenu {
     lock?:boolean
     units: iUnit[]
@@ -128,7 +125,7 @@ export const Menu = ({ active={}, units, styles:{menuStyle, ...styles}={}, navig
             modules: unit.modules.map((module, id) => ({
                 ...module,
                 position: {unit:i, module:id},
-                lessons: module.lessons.map((l, idx) => ({
+                lessons: module.lessons?.map((l, idx) => ({
                     ...l,
                     position: {unit:i,module:id, lesson:idx}
                 } ))
@@ -143,7 +140,10 @@ export const Menu = ({ active={}, units, styles:{menuStyle, ...styles}={}, navig
     const handleClick = ({unit, module, lesson}:iPosition) => {
         if(unit && units[unit].locked) return
         if(unit && module && units[unit].modules[module].locked) return
-        if(unit && module && lesson && units[unit].modules[module].lessons[lesson].locked) return
+        if(
+            unit && module && lesson && 
+            (units[unit].modules[module].lessons || [])[lesson].locked
+        ) return
 
         setExpanded({unit, module, lesson})
         navigate({unit, module, lesson})
