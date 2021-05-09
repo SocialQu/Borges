@@ -1,6 +1,13 @@
 import { Lesson } from "../components/cells/Lesson"
-import { Chart } from '../components/atoms'
-import { Form } from '../components/molecules/Form'
+import { Scatter } from "../components/atoms/Chart"
+import { Subtitle } from '../components/atoms'
+
+const data = [
+    {name:'King', x:5, y:5}, 
+    {name:'Man', x:4, y:4},
+    {name:'Woman', x:2, y:2},
+    {name:'Queen', x:3, y:3}
+]
 
 const title = 'Application: Solving the Analogy'
 interface iAnalogies {next():void}
@@ -23,7 +30,6 @@ export const Analogies = ({next}:iAnalogies) => <Lesson title={title} next={next
         That process is graphed below:
     </p>
 
-    <Chart title="Analogy Chart"/>
-
-    <Form label={'Find the Analogy.'}/>
+    <Subtitle text="Your Word Embeddings Chart"/>
+    <Scatter data={data}/>
 </Lesson>
