@@ -62,6 +62,7 @@ export const App = () => {
 	const [ models, setModels ] = useState<iModels>()
 
     useEffect(() => { 
+		return
         connectMongo().then(mongoUser => {
             setMongoUser(mongoUser)
 			const mongoAtlas = process.env.REACT_APP_MONGODB_ATLAS as string
@@ -96,7 +97,12 @@ export const App = () => {
 
 	return <div className="App">
 		<NavBar />
-		<Menu units={units} navigate={(position) => setPosition(position)}/>
+		<Menu 
+			units={units} 
+			active={position}
+			navigate={(position) => setPosition(position)}
+		/>
+
 		<Home 
 			position={position} 
 			models={models as iModels} 
