@@ -7,16 +7,20 @@ import * as use from '@tensorflow-models/universal-sentence-encoder'
 import { IPCAModel, PCA } from 'ml-pca'
 
 import { getCenter, tokenizeWords, findCenter } from './functions'
+import { promises as fs } from 'fs'
 
 import topics from '../../Cortazar/scripts/data/topics.json'
+import dictionary from './data/words.json'
 import { connect } from './db'
+import tf from '@tensorflow/tfjs-node'
 
 
-export interface iWordDoc {word:string, embeddings:number[], center:number[], frequency:number}
-export const compileDictionary = async() => {
+export interface iWordDoc {word:string, embeddings:number[], center:number[], frequency?:number}
+export const buildDictionary = async() => {
     const files:iStoryFile[] = await readStories('../../Cortazar/scripts/data/stories', [])
     let Words:string[] = []
 
+    console.log('Files:', files.length)
     for (const { payload } of files) {
         const parsedStories:iRawStory[] = parseStories(payload.references)
         const text:string = parsedStories.map(({title, subtitle, intro}) => 
@@ -24,22 +28,44 @@ export const compileDictionary = async() => {
         ).join(' ')
 
         const words = tokenizeWords(text)
-        Words = [...Words, ...words]
+        Words = [...Words, ...words.map(word => word.toLowerCase())]
     }
 
-    const wordMap = Words.reduce((d, i) => ({...d, [i]: d[i] ? d[i]+1 : 1 }), {}  as {[word:string]: number})
-    const wordFrequency = Object.entries(wordMap).map(([k,v])=> ({word:k, count:v}))
-    const sortedWords = wordFrequency.sort(({ count:a, count:b}) => a > b ? -1 : 1)
-    const topWords = sortedWords.filter((_, i) => i > 100 && i < 1000)
-    const dictionary = topWords.map(({ word }) => word)
+    console.log('Words:', Words.length)
 
+    // Count the frequency of each word.
+    const wordMap:{[word: string]: number} = Words.reduce((d, i, idx) => {
+        if(idx%1000 === 0) console.log(idx)
+        return {...d, [i]: d[i] ? d[i]+1 : 1 }
+    }, {}  as {[word:string]: number})
+    console.log('Word Map')
+
+    // Turn the word map into a list
+    const wordFrequency:{word: string; count: number}[] = Object.entries(wordMap).map(([k,v])=> ({word:k, count:v}))
+    console.log('Word Frequency', wordFrequency.length)
+
+    // Sort Words by Frequency.
+    wordFrequency.sort(({ count:a },{ count:b }) => a > b ? -1 : 1)
+    await fs.writeFile('./data/words.json', JSON.stringify(wordFrequency))
+    return 
+}
+
+export const embedDictionary = async() => {
+    console.log('Init', tf)
+
+    const topWords = dictionary.filter((i, idx) => idx > 100 && idx < 2000)
+    const words = topWords.map(({ word }) => word)
     const model = await use.load()
+
     const pca = PCA.load(PCA_Model as IPCAModel)
-    const wordEmbeddings = await getCenter(dictionary, {model, pca})
-    const wordDocuments:iWordDoc[] = wordEmbeddings.map(({text, ...vector}) => ({...vector, word:text, frequency:wordMap[text]}))
+    const wordEmbeddings = await getCenter(words, {model, pca})
+    const wordDocuments:iWordDoc[] = wordEmbeddings.map(({text, ...vector}) => ({...vector, word:text }))
 
     const { collection, client } = await connect('words')
-    await collection.insertMany(wordDocuments)
+    for (const { word, center, embeddings } of wordDocuments) {
+        await collection.updateOne({ word }, { $set: { word, center, embeddings }}, {upsert:true})
+    }
+
     await client.close()
 }
 
