@@ -1,3 +1,5 @@
-import { centerTopics } from './pipelines'
+import { centerTopics, buildDictionary, embedDictionary } from './pipelines'
 
-centerTopics()
+// centerTopics()
+// buildDictionary()
+embedDictionary().catch(console.log)
