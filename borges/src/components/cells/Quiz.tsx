@@ -117,6 +117,7 @@ interface iQuiz {
     next():void
     approve(score:number):boolean|void
 }
+
 export const Quiz = ({ title, description, questions=[], min, next, approve, quizFailures }: iQuiz) =>  {
     const smallScreen = useMediaQuery({ query: '(max-width: 600px)' })
 

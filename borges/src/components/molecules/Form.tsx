@@ -56,7 +56,3 @@ export const TextAreaForm = ({label, submit}:iTextAreaForm) => {
         </div>
     </div>
 }
-
-
-interface iForm { label:string }
-export const Form = ({label}:iForm) => <> { label } </>

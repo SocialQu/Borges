@@ -1,6 +1,6 @@
-import { similarity } from '../../Cortazar/scripts/pipeline/recommender'
 import * as use from '@tensorflow-models/universal-sentence-encoder'
 import PCA_Model from '../../Cortazar/cortazar/src/data/pca.json'
+import { similarity } from './functions'
 import { IPCAModel, PCA } from 'ml-pca'
 
 import { getCenter, sortBySimilarity } from './functions'
@@ -14,7 +14,7 @@ export const findSynonyms = async(word:string, findAntonyms:boolean=false):Promi
     const pca = PCA.load(PCA_Model as IPCAModel)
     const [{center, embeddings}] = await getCenter([word], {model, pca})
 
-    const { collection, client } = await connect('Dictionary')
+    const { collection, client } = await connect('words')
     const geoNear = { $geoNear: { near:center, distanceField:'distance'}}
     const limit = { $limit: 100 }
     const sort = { $sort : { distance : -1 } }
@@ -38,7 +38,7 @@ export const findAnalogy = async([x, y]:Analogy, match:string):Promise<iAnalogy[
     const near = [z.center[0] - difference[0], z.center[1] - difference[1]] 
 
 
-    const { collection, client } = await connect('Dictionary')
+    const { collection, client } = await connect('words')
     const geoNear = { $geoNear: { near, distanceField:'distance'}}
     const limit = { $limit: 100 }
     const pipeline = [ geoNear, limit ]
@@ -76,7 +76,7 @@ export const topicClassification = async(text:string):Promise<iTopicDoc[]> => {
 
     const [{ center, embeddings }] = await getCenter([text], {model, pca})
 
-    const { collection, client } = await connect('Topics')
+    const { collection, client } = await connect('topics')
     const geoNear = { $geoNear: { near:center, distanceField:'distance'}}
     const limit = { $limit: 100 }
 

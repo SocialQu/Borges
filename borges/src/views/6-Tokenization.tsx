@@ -2,8 +2,8 @@ import { TextAreaForm } from '../components/molecules/Form'
 import { Lesson } from "../components/cells/Lesson"
 
 const title = 'Tokenization'
-interface iTokenization {next():void}
-export const Tokenization = ({next}:iTokenization) => <Lesson title={title} next={next}>
+interface iTokenization {getWords(text:string):void, next():void}
+export const Tokenization = ({getWords, next}:iTokenization) => <Lesson title={title} next={next}>
     <p>
         The first step to train word embeddings is to separate the text by words. 
         This can be done trivially through regex, but there is also a long tradintion in NLP (Natural Language Processing) 
@@ -38,5 +38,5 @@ export const Tokenization = ({next}:iTokenization) => <Lesson title={title} next
         please insert a medium to long text (minimum 1000 words) for tokenization.
     </p>
 
-    <TextAreaForm label="Tokenize a Text"/>
+    <TextAreaForm label="Tokenize a Text" submit={getWords}/>
 </Lesson>

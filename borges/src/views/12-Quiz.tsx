@@ -1,6 +1,5 @@
 import { iQuestion, Quiz } from "../components/cells/Quiz"
-import { TextAreaForm } from "../components/molecules/Form"
-import { Lesson } from "../components/cells/Lesson"
+import { useState } from "react"
 
 const questions:iQuestion[] = [
     { 
@@ -48,16 +47,23 @@ const questions:iQuestion[] = [
 
 
 const title = "Word Embeddings Quiz"
-interface iWordEmbeddingsQuiz {next():void}
-export const WordEmbeddingsQuiz = ({next}:iWordEmbeddingsQuiz) => <Lesson title={title} next={next}>
-    <Quiz 
-        questions={questions}
-        quizFailures={0}
-        next={() => {}}
-        approve={() => {}}
-    />
+interface iWordEmbeddingsQuiz {next():void, reset():void}
+export const WordEmbeddingsQuiz = ({next, reset}:iWordEmbeddingsQuiz) => {
+    const [approved, setApproved] = useState(false)
+    const [quizFailures, setQuizFailures] = useState(0)
 
-    <TextAreaForm label={"1. Propose a potential application for word embeddings?"}/>
-    <TextAreaForm label={"2. What concept did you found most interesting? Why?"} />
-    <TextAreaForm label={"3. Can you imagine a positive alteration as to how the co-ocurrence is build?"} />
-</Lesson>
+    const approve = (score:number) => {
+        if(score > 3) setApproved(true)
+        else {
+            if(quizFailures > 2) reset()
+            setQuizFailures(quizFailures + 1)
+        }
+    }
+
+    return <Quiz 
+        questions={questions}
+        quizFailures={quizFailures}
+        next={() => approved ? next() : null}
+        approve={approve}
+    />
+}
