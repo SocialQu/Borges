@@ -53,7 +53,7 @@ const Module = ({
         onClick={() => navigate(position)} 
         style={locked ? {...moduleStyle} : {cursor:'initial', ...moduleStyle}}
         className={ u === position.unit && m === position.module && l === position.lesson ? 'is-active': '' }
-    >   { locked && <Lock/> } { name }  </a>
+    >   { !locked && <Lock/> } { name }  </a>
 
     {   
         (
