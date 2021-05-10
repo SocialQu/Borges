@@ -109,12 +109,12 @@ const Unit = ({
 interface iMenu {
     lock?:boolean
     units: iUnit[]
-    active?: iPosition
+    active: iPosition
     styles?: iMenuStyles
     navigate(position:iPosition): void
 }
 
-export const Menu = ({ active={}, units, styles:{menuStyle, ...styles}={}, navigate }: iMenu) => {
+export const Menu = ({ active, units, styles:{menuStyle, ...styles}={}, navigate }: iMenu) => {
     const [menuUnits, setMenuUnits] = useState<iMenuUnit[]>()
     const [expanded, setExpanded] = useState<iPosition>()
 
@@ -136,7 +136,14 @@ export const Menu = ({ active={}, units, styles:{menuStyle, ...styles}={}, navig
     }, [units, active])
 
 
-    const defaultStyle = { minHeight:'calc(100vh - 85px)', width:250, boxShadow: '3px 0 3px 0 #ccc', fontSize:'1.15em' }
+    const defaultStyle:CSSProperties = { 
+        minHeight:'calc(100vh - 85px)', 
+        boxShadow: '3px 0 3px 0 #ccc', 
+        fontSize:'1.15em',
+        textAlign:'left',
+        width:250,
+    }
+
     const handleClick = ({unit, module, lesson}:iPosition) => {
         if(unit && units[unit].locked) return
         if(unit && module && units[unit].modules[module].locked) return
@@ -149,7 +156,7 @@ export const Menu = ({ active={}, units, styles:{menuStyle, ...styles}={}, navig
         navigate({unit, module, lesson})
     } 
 
-    return <aside className="menu is-hidden-mobile" style={{...defaultStyle, ...menuStyle}}>
+    return <aside className="menu section is-hidden-mobile" style={{...defaultStyle, ...menuStyle}}>
         { 
             menuUnits?.map((unit) => <Unit 
                     unit={unit}
