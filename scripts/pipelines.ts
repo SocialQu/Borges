@@ -1,5 +1,4 @@
 import { iStoryFile, readStories } from '../../Cortazar/scripts/pipeline/reader'
-import { findCenter } from '../../Cortazar/scripts/pipeline/analysis'
 import { iRawStory } from '../../Cortazar/cortazar/src/types/stories'
 import { parseStories } from '../../Cortazar/scripts/pipeline/parser'
 import PCA_Model from '../../Cortazar/cortazar/src/data/pca.json'
@@ -7,7 +6,9 @@ import PCA_Model from '../../Cortazar/cortazar/src/data/pca.json'
 import * as use from '@tensorflow-models/universal-sentence-encoder'
 import { IPCAModel, PCA } from 'ml-pca'
 
-import { getCenter, tokenizeWords } from './functions'
+import { getCenter, tokenizeWords, findCenter } from './functions'
+
+import topics from '../../Cortazar/scripts/data/topics.json'
 import { connect } from './db'
 
 
@@ -37,7 +38,7 @@ export const compileDictionary = async() => {
     const wordEmbeddings = await getCenter(dictionary, {model, pca})
     const wordDocuments:iWordDoc[] = wordEmbeddings.map(({text, ...vector}) => ({...vector, word:text, frequency:wordMap[text]}))
 
-    const { collection, client } = await connect('Dictionary')
+    const { collection, client } = await connect('words')
     await collection.insertMany(wordDocuments)
     await client.close()
 }
@@ -72,14 +73,36 @@ export const mapTopics = async() => {
         docs.push(doc)
     }
 
-    const { collection, client } = await connect('Topics')
+    const { collection, client } = await connect('topics')
     await collection.insertMany(docs)
     await client.close()
 }
 
 
-const similarityDistribution = async() => {
-    const { collection, client } = await connect('Meta')
+export const similarityDistribution = async() => {
+    // const { collection, client } = await connect('')
     
+    // await client.close()
+}
+
+
+export const centerTopics = async() => {
+    const { client, collection:Stories } = await connect('stories')
+    const Topics = client.db('Cortazar').collection('topics')
+    const pca = PCA.load(PCA_Model as IPCAModel)
+
+    for (const t of topics) {
+        const topic = t.replace('-', ' ')
+        const stories = await Stories.find({ topics: topic }).toArray()
+
+        console.log(t, topic, stories.length)
+        if (!stories.length) continue
+
+        const embeddings = findCenter(stories.map(({embeddings}) => embeddings))
+        const center = pca.predict([embeddings], {nComponents:2}).to2DArray()[0]
+        await Topics.updateOne({ topic }, { $set:{ topic, embeddings, center }}, { upsert:true })
+    }
+
+    // client.db('Borges').collection('topics')
     await client.close()
 }
