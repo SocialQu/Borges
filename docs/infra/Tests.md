@@ -1,10 +1,10 @@
 # Tests
 
 ## Classify Topics
-- [ ] Get all Topics.
-- [ ] Find Stories by Topic.
-- [ ] Get Ropic's Center & Embeddings.
-- [ ] Save Topics.
+- [X] Get all Topics.
+- [X] Find Stories by Topic.
+- [X] Get Ropic's Center & Embeddings.
+- [X] Save Topics.
 
 ## Embed Words
 
