@@ -141,7 +141,7 @@ export const Menu = ({ active, units, styles:{menuStyle, ...styles}={}, navigate
         boxShadow: '3px 0 3px 0 #ccc', 
         fontSize:'1.15em',
         textAlign:'left',
-        width:250,
+        width:300,
     }
 
     const handleClick = ({unit, module, lesson}:iPosition) => {
