@@ -6,5 +6,5 @@ const title = 'Introduction to Word Embeddings'
 const subtitle = 'Gain an intuitive understanding of the AI technology that powers human language understanding.'
 
 export const BorgesLanding = () => <Landing title={title} subtitle={subtitle} cta={() => {}}>
-    <YouTubePlayer url={'https://www.youtube.com/watch?v=ZytU3s1T2XY'} />
+    <YouTubePlayer url={'https://www.youtube.com/watch?v=ZytU3s1T2XY'} style={{margin:'auto'}}/>
 </Landing>
