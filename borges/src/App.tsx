@@ -4,11 +4,12 @@ import { App as RealmApp, User, Credentials } from 'realm-web'
 import { NavBar } from './components/layout/NavBar'
 import { IPCAModel, PCA } from 'ml-pca'
 import pcaModel from './data/pca.json'
+import { iModels } from './types/ai'
 import { Home } from './views/Home'
 
 import { useEffect, useState } from 'react'
+import 'bulma/css/bulma.css'
 import './App.css'
-import { iModels } from './types/ai'
 
 const Units:iUnit[] = [{ 
 	name:'Word Embeddings', 
