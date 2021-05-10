@@ -7,8 +7,8 @@
 - [X] Save Topics.
 
 ## Embed Words
-- [ ] Group stories.
-- [ ] Tokenize words.
-- [ ] Count words.
-- [ ] Embed Words.
-- [ ] Save Words.
+- [X] Group stories.
+- [X] Tokenize words.
+- [X] Count words.
+- [X] Embed Words.
+- [X] Save Words.
