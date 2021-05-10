@@ -97,18 +97,22 @@ export const App = () => {
 
 	return <div className="App">
 		<NavBar />
-		<Menu 
-			units={units} 
-			active={position}
-			navigate={(position) => setPosition(position)}
-		/>
+        <div className="container" style={{maxWidth:'100%'}}>
+            <div className="columns" style={{margin:0}}>
+				<Menu 
+					units={units} 
+					active={position}
+					navigate={(position) => setPosition(position)}
+				/>
 
-		<Home 
-			position={position} 
-			models={models as iModels} 
-			user={user as User}	
-			reset={reset}
-			next={next} 
-		/>
+				<Home 
+					position={position} 
+					models={models as iModels} 
+					user={user as User}	
+					reset={reset}
+					next={next} 
+				/>
+			</div>
+		</div>
 	</div>
 }
