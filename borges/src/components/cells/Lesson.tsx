@@ -4,6 +4,7 @@ import { Title, Submit } from '../atoms'
 interface iLesson {
     title:string
     style?: CSSProperties
+    titleStyle?: CSSProperties
     children?: JSX.Element | JSX.Element[]
     next():void
 }
@@ -22,11 +23,11 @@ const buttonStyle:CSSProperties = {
     paddingRight:48
 }
 
-export const Lesson = ({ title, style, children, next }:iLesson) => <div 
+export const Lesson = ({ title, style, titleStyle, children, next }:iLesson) => <div 
     className="content" 
     style={{...defaultStyle, ...style}}
 >
-    <Title text={title} style={{marginBottom:'2rem', color:'chocolate'}}/>
+    <Title text={title} style={{marginBottom:'2rem', color:'chocolate', ...titleStyle}}/>
     <div style={{textAlign:'left'}}> { children } </div>
     <Submit click={next} text={'Next'} buttonClass={'is-link'} style={buttonStyle}/>
 </div>
