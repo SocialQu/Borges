@@ -16,7 +16,7 @@ const defaultStyle:CSSProperties = {
 }
 
 const buttonStyle:CSSProperties = {
-    marginTop:'1.5rem', 
+    marginTop:'2.5em', 
     backgroundColor:'darkblue',
     paddingLeft:48,
     paddingRight:48
@@ -27,6 +27,6 @@ export const Lesson = ({ title, style, children, next }:iLesson) => <div
     style={{...defaultStyle, ...style}}
 >
     <Title text={title} style={{marginBottom:'2rem', color:'chocolate'}}/>
-    { children }
+    <div style={{textAlign:'left'}}> { children } </div>
     <Submit click={next} text={'Next'} buttonClass={'is-link'} style={buttonStyle}/>
 </div>
