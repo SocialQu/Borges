@@ -17,7 +17,7 @@
 5. [X] Lesson 3: Code Style
 6. [X] Center Input on Synonyms.
 7. [ ] Hide Next on Classify?
-8. [ ] Add labels for excersices.
+8. [X] Add labels for excersices.
 9. [ ] List on How to Train Word Embeddings.
 10. [ ] Hide Next on Word Embeddings.
 11. [ ] Link on Co-ocurrence matrix.
