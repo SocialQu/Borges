@@ -29,20 +29,21 @@ export const InputForm = ({placeholder, submit}:iInputForm) => {
 }
 
 
-interface iTextAreaForm { label:string, submit(value:string):void }
-export const TextAreaForm = ({label, submit}:iTextAreaForm) => {
+interface iTextAreaForm { placeholder?:string, label:string, submit(value:string):void }
+export const TextAreaForm = ({placeholder, label, submit}:iTextAreaForm) => {
     const [value, setValue] = useState('')
 
 
-    return <div>
+    return <div style={{paddingBottom:'2em'}}>
         <div className="field">
             <label className="label"> {label} </label>
-            <div className="control">
+            <div className="control" style={{ maxWidth:540, margin:'auto' }}>
                 <textarea 
-                    rows={10} 
+                    rows={3} 
                     value={value}
+                    placeholder={placeholder}
                     className="textarea" 
-                    placeholder="10 lines of textarea" 
+                    style={{maxWidth:540}}
                     onChange={({target:{value}}) => setValue(value)}
                 />
             </div>
