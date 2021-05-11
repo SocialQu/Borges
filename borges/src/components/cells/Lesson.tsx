@@ -11,7 +11,8 @@ interface iLesson {
 const defaultStyle:CSSProperties = {
     margin:'auto',
     maxWidth:720,
-    fontSize:21
+    fontSize:21,
+    paddingBottom:'3em'
 }
 
 const buttonStyle:CSSProperties = {
