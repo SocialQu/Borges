@@ -51,9 +51,16 @@ const Module = ({
 }:iFullModule) => <li style={{lineHeight:2, ...moduleListStyle}} key={position.module}>
     <a 
         onClick={() => navigate(position)} 
-        style={locked ? {...moduleStyle} : {cursor:'initial', ...moduleStyle}}
+        style={!locked ? {...moduleStyle} : {cursor:'initial', ...moduleStyle}}
         className={ u === position.unit && m === position.module && l === position.lesson ? 'is-active': '' }
-    >   { !locked && <Lock/> } { name }  </a>
+    >   
+        { locked && <Lock/> } 
+        {  
+            name.includes('Application:') 
+            ? <><strong> { 'Application:' } </strong> { name.split(/Application:/) } </>
+            : name.includes('Quiz') ? <strong> { name } </strong> : name
+        }
+    </a>
 
     {   
         (
@@ -89,8 +96,7 @@ const Unit = ({
     > { name } </a>
 
     { 
-        ((active.unit === position.unit) || (expanded?.unit === position.unit)) &&  
-        <ul className="menu-list">
+        <ul className="menu-list" style={{marginBottom:'2rem'}}>
             {
                 modules.map(module => 
                     <Module 
