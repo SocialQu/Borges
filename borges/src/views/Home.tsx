@@ -95,7 +95,7 @@ export const Home = (home:iHome) => {
             marginLeft:3, 
             marginRight:0, 
             margin:'0px auto', 
-            backgroundColor: 'aliceblue', 
+            backgroundColor: 'rgb(215, 233, 233)', 
             width: largeScreen ? 'calc(100vw - 303px)' : '100%',
             minHeight:'calc(100vh - 82px)',
             textAlign:'center'
