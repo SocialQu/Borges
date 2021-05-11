@@ -1,6 +1,8 @@
 import { Lesson } from "../components/cells/Lesson"
-import { Media } from '../components/atoms'
+import { Subtitle } from "../components/atoms"
 
+
+const word2VecImage = 'https://www.researchgate.net/profile/Dima-Suleiman/publication/332543231/figure/fig1/AS:749763205009408@1555768886449/CBOW-and-Skip-gram-models-architecture-6.png'
 const title = 'Advanced Topics'
 interface iAdvancedTopics {next():void}
 export const AdvancedTopics = ({next}:iAdvancedTopics) => <Lesson title={title} next={next}>
@@ -21,7 +23,8 @@ export const AdvancedTopics = ({next}:iAdvancedTopics) => <Lesson title={title} 
         for each word. The <a>word2vec</a> paper was important also by introducing a way to evaluate the efficacy of word embeddings.
     </p>
 
-    <Media src={'Word2Vec Image'} type={"img"}/>
+    <Subtitle text={"Word2Vec Model Architectures"} style={{textAlign:'center', marginTop:'2rem'}}/>
+    <img src={word2VecImage} style={{marginBottom:'2rem'}} />
 
     <p>
         The second paper, GloVE was based on the assumption that real meaning arises from the relative frequency of words.
