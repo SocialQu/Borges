@@ -61,6 +61,8 @@ export const WordEmbeddingsQuiz = ({next, reset}:iWordEmbeddingsQuiz) => {
     }
 
     return <Quiz 
+        title={'Quiz'}
+        description={'Prove your understadning about word embeddings with this short quiz:'}
         questions={questions}
         quizFailures={quizFailures}
         next={() => approved ? next() : null}
