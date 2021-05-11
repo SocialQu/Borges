@@ -17,7 +17,7 @@ const Units:iUnit[] = [{
 		{ name:'Introduction' },
 		{ name:'What are word embeddings?' },
 		{ name:'Application: Finding Synonyms' },
-		{ name:'Topic Classification' },
+		{ name:'Application: Topic Classification' },
 		{ name:'How to train Word Embeddings?' },
 		{ name:'Tokenization' },
 		{ name:'Co-ocurrence Matrix' },
