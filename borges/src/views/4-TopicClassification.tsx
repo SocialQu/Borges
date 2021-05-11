@@ -1,13 +1,12 @@
 import { TextAreaForm } from '../components/molecules/Form'
 import { Lesson } from "../components/cells/Lesson"
 import { Scatter } from '../components/atoms/Chart'
-import { Subtitle } from '../components/atoms'
 import { classifyText } from '../scripts/nlp'
 import { iModels } from '../types/ai'
 import { User } from 'realm-web'
 import { useState } from 'react'
 
-const title = 'Topic Classification'
+const title = 'Application: Topic Classification'
 interface iTopicClassification {user:User, models:iModels, next():void}
 export const TopicClassification = ({next, models, user}:iTopicClassification) => {
     const [ topics, setTopics ] = useState<string[]>()
@@ -18,7 +17,7 @@ export const TopicClassification = ({next, models, user}:iTopicClassification) =
     } 
 
 
-    return <Lesson title={title} next={next}>
+    return <Lesson title={title} titleStyle={{width:740, marginLeft:-10}} next={next}>
         <p> This is chart that maps the average word embeddings for texts in different topics:</p>
 
         <Scatter
@@ -40,8 +39,8 @@ export const TopicClassification = ({next, models, user}:iTopicClassification) =
         <ul> { topics?.map((topic)=> <li> { topic } </li> ) } </ul>
 
         <p>
-            This process can be extrapolated to other tasks like sentiment analysis, and it works with labeled data. 
-            <strong> Reflection:</strong> <i>How would you classify texts using unsupervised learning (without unlabeled data)?</i>
+            This process can be extrapolated to other tasks like sentiment analysis, and it works with labeled data. <br/><br/>
+            <strong> Reflection:</strong> <i>How would you classify texts with unsupervised learning?</i>
         </p>
     </Lesson>
 }
