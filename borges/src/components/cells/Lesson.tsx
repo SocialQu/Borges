@@ -14,11 +14,18 @@ const defaultStyle:CSSProperties = {
     fontSize:21
 }
 
+const buttonStyle:CSSProperties = {
+    marginTop:'1.5rem', 
+    backgroundColor:'darkblue',
+    paddingLeft:48,
+    paddingRight:48
+}
+
 export const Lesson = ({ title, style, children, next }:iLesson) => <div 
     className="content" 
     style={{...defaultStyle, ...style}}
 >
-    <Title text={title} style={{marginBottom:'2rem'}}/>
+    <Title text={title} style={{marginBottom:'2rem', color:'chocolate'}}/>
     { children }
-    <Submit click={next} text={'Next'} buttonClass={'is-link'} style={{marginTop:'2rem'}}/>
+    <Submit click={next} text={'Next'} buttonClass={'is-link'} style={buttonStyle}/>
 </div>
