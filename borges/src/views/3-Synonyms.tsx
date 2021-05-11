@@ -40,30 +40,35 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
             Another common distances includes the absolute value distance. In typescript the absolute value can be meassured as follows:
         </p>
 
-        <code>
-            // Compute the absolute distance for two vectors
-            const similarity = (a:number[], b: number[]) =&gt; &#123;
-                // Only compute distance for same length vectors.
-                if(center.length !== embedding.length) return Infinity
+        <div className={'code'}>
+            // Compute the absolute distance for two vectors <br/>
+            const similarity = (a:number[], b: number[]) =&gt; &#123; <br/>
+                // Only compute distance for same length vectors. <br/>
+                if(center.length !== embedding.length) return Infinity <br/>
 
-                const difference = a.reduce((d, i, idx) =&gt; d + Math.abs(i - b[idx]), 0)
-                return difference
+                const difference = a.reduce((d, i, idx) =&gt; d + Math.abs(i - b[idx]), 0) <br/>
+                return difference <br/>
             &#125;
 
-            similarity([3,4], [4,5]) =&gt; 2  
-            // Math.abs(3-4) + Math.abs(4-5) = 1 + 1 = 2
+            <br/><br/>
+
+            similarity([3,4], [4,5]) =&gt; 2  <br/>
+            // Math.abs(3-4) + Math.abs(4-5) = 1 + 1 = 2 <br/>
+
+            <br/>
 
 
-            similarity([3,4], [4,6]) =&gt; 3
-            similarity([3,4], [5,6]) =&gt; 4
-            similarity([3,4], [1,6]) =&gt; 4 
-            // Math.abs(3-1) + Math.abs(4-6) = 2 + 2 = 4
+            similarity([3,4], [4,6]) =&gt; 3 <br/>
+            similarity([3,4], [5,6]) =&gt; 4 <br/>
+            similarity([3,4], [1,6]) =&gt; 4 <br/>
+            // Math.abs(3-1) + Math.abs(4-6) = 2 + 2 = 4 <br/>
 
+            <br/>
 
-            similarity([3,4,5], [4,5,6]) =&gt; 3
-            similarity([3,4,5], [4,6,8]) =&gt; 7
-            // Math.abs(3-4) + Math.abs(4-6) + Math.abs(5-8) = 1 + 2 + 3 = 6        
-        </code>
+            similarity([3,4,5], [4,5,6]) =&gt; 3 <br/>
+            similarity([3,4,5], [4,6,8]) =&gt; 7 <br/>
+            // Math.abs(3-4) + Math.abs(4-6) + Math.abs(5-8) = 1 + 2 + 3 = 6 <br/>
+        </div>
 
         <p>
             With that knowledge the process of finding a synonym is trivial. 
@@ -71,7 +76,9 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
             Use the input box below to search for synonyms based on TensorflowJS word embeddings:
         </p>
 
+        <Subtitle text="Excersice: Find The Synonyms"/>
         <InputForm placeholder={'Find the Synonyms.'} submit={getSynonyms} />
+
         <ul> { synonyms?.map((synonym)=> <li> { synonym } </li> ) } </ul>
 
         <p>
