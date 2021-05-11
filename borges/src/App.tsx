@@ -17,12 +17,12 @@ const Units:iUnit[] = [{
 		{ name:'Introduction' },
 		{ name:'What are word embeddings?' },
 		{ name:'Application: Finding Synonyms' },
-		{ name:'Topic Classification' },
-		{ name:'How to train Word Embeddings?' },
+		{ name:'Application: Topic Classification' },
+		{ name:'How to Train Word Embeddings?' },
 		{ name:'Tokenization' },
 		{ name:'Co-ocurrence Matrix' },
 		{ name:'Dimensionality Reduction' },
-		{ name:'Application: Solving the Analogy' },
+		{ name:'Application: Solving Analogies' },
 		{ name:'Application: Detecting Biasis' },
 		{ name:'Advanced Topics' },
 		{ name:'Quiz' },
@@ -30,7 +30,7 @@ const Units:iUnit[] = [{
 		{ name:'Addditional Resources' },
 		{ name:'Next Steps' },
 	], 
-}, { name:'Sentiment Analysis', modules:[] }]
+}]
 
 
 const unlockModule = (units:iUnit[], position:iPosition, nextModule:number) => units.map((u, i) => 

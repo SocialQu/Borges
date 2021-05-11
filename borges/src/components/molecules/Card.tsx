@@ -1,5 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import { CSSProperties } from 'react'
 import { useMediaQuery } from 'react-responsive'
+import { JsxElement } from 'typescript'
+import { Subtitle, Title } from '../atoms'
 
 const cardStyle = {
     backgroundColor: 'rgb(48, 48, 48)',
@@ -36,11 +39,11 @@ const CardTitle = ({title, link}: iCardTitle) => <header className='card-header'
 interface iCard {
     title:string
     link:string
-    body:string
+    children?:JSX.Element | JSX.Element[] 
     img:string
 }
 
-export const MobileCard = ({title, link, body, img}: iCard) => <div className='card' style={cardStyle}>
+export const MobileCard = ({title, link, children, img}: iCard) => <div className='card' style={cardStyle}>
     <CardTitle title={title} link={link} />
 
     <div className="card-image">
@@ -51,42 +54,31 @@ export const MobileCard = ({title, link, body, img}: iCard) => <div className='c
 
     <div className="card-content">
         <div className='content' style={{color:'whitesmoke', marginTop:'1rem'}}> 
-            <p> { body } </p> 
+            { children } 
         </div>
     </div>
 </div>
 
 
-export const LargeCard = ({title, link, img, body}:iCard) => <div className='card' style={cardStyle}>
-    <CardTitle title={title} link={link} />
+interface iLargeCard extends iCard { titleStyle?:CSSProperties } 
+export const LargeCard = ({title, titleStyle, link, img, children}:iLargeCard) => <div>
+    <a href={link}>
+        <Subtitle text={title} style={{marginTop:'2rem', ...titleStyle}}/>
+    </a>
 
     <article className='media' style={{marginBottom:0}}>
-        <figure className='media-left' style={{width:'40%', height:256}}>
-            <img 
-                src={img} 
-                style={{objectFit:'cover', height:256}}
-                alt='Card cover' 
-            />
-        </figure>
+        <a href={link} style={{width:288}}>
+            <img src={img} style={{objectFit:'cover'}} alt='Card cover' />
+        </a>
 
-        <div className='media-content' style={{paddingBottom:'0.5rem', paddingRight:'1rem'}}>
-            <div className='content'>
-                <div className='content' style={{color:'whitesmoke', marginTop:'1rem'}}> 
-                    { body } 
-                </div>
-            </div>
-         </div>
+        <div className='media-content' style={{ paddingLeft:'1rem', width:'60%'}}>
+            <div className='content'> { children } </div>
+        </div>
     </article>
 </div>
 
-
 export const mediaQuery = '(max-width: 768px)'
-export const Card = (card: iCard) => {
+export const Card = (card: iLargeCard) => {
     const isMobile = useMediaQuery({ query:mediaQuery })
-
-    return <div className='columns'>
-        <div className='column'> 
-            { !isMobile ? <LargeCard {...card}/> : <MobileCard {...card}/>} 
-        </div>
-    </div>
+    return !isMobile ? <LargeCard {...card}/> : <MobileCard {...card}/>
 }

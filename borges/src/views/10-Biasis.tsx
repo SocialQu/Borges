@@ -25,7 +25,7 @@ export const Biasis = ({next}:iBiasis) => <Lesson title={title} next={next}>
         space composed by the word embeddings, we can flag that content and review it manually.
     </p>
 
-    <Scatter data={data}/>
+    <Scatter data={data} label={"Example: Gender Bias by Name"}/>
 
     <p>
         Unfortunately, in the chart above you can see how positive words are correlated with male names, 

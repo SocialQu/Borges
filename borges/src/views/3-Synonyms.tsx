@@ -25,45 +25,57 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
             that are near the word we want to find a synonym.
         </p>
 
-        <Subtitle text="Synonyms of Good"/>
-        <Scatter  data={[{name:'Great', x:1, y:2}, {name:'Good', x:3, y:4}]}/> 
+        <Scatter
+            label="Synonyms of Good"  
+            data={[{name:'Great', x:1, y:2}, {name:'Good', x:3, y:4}]}
+        /> 
 
         <p>
             To measure the distance between two vectors we need to select a metric. 
             One of the most common is the Euclidean distance that sums the squared difference across every dimension
         </p>
 
-        <Media src="https://www.tutorialexample.com/wp-content/uploads/2020/05/Euclidean-distance-in-tensorflow.png" type="img"/>
+        <div style={{textAlign:'center', marginBottom:'2rem'}}>
+            <Subtitle text={"Euclidean Distance Calculation"} style={{marginTop:'2rem'}}/>
+            <img src="https://www.tutorialexample.com/wp-content/uploads/2020/05/Euclidean-distance-in-tensorflow.png" />
+        </div>
+
 
 
         <p>
             Another common distances includes the absolute value distance. In typescript the absolute value can be meassured as follows:
         </p>
 
-        <code>
-            // Compute the absolute distance for two vectors
-            const similarity = (a:number[], b: number[]) =&gt; &#123;
-                // Only compute distance for same length vectors.
-                if(center.length !== embedding.length) return Infinity
+        <Subtitle text={"Example: Absolute Distance"} style={{textAlign:'center', marginTop:'2rem'}}/>
+        <div className={'code'}>
+            // Compute the absolute distance for two vectors <br/>
+            const similarity = (a:number[], b: number[]) =&gt; &#123; <br/>
+                // Only compute distance for same length vectors. <br/>
+                if(a.length !== b.length) return Infinity <br/>
 
-                const difference = a.reduce((d, i, idx) =&gt; d + Math.abs(i - b[idx]), 0)
-                return difference
+                const difference = a.reduce((d, i, idx) =&gt; d + Math.abs(i - b[idx]), 0) <br/>
+                return difference <br/>
             &#125;
 
-            similarity([3,4], [4,5]) =&gt; 2  
-            // Math.abs(3-4) + Math.abs(4-5) = 1 + 1 = 2
+            <br/><br/>
+
+            similarity([3,4], [4,5]) =&gt; 2  <br/>
+            // Math.abs(3-4) + Math.abs(4-5) = 1 + 1 = 2 <br/>
+
+            <br/>
 
 
-            similarity([3,4], [4,6]) =&gt; 3
-            similarity([3,4], [5,6]) =&gt; 4
-            similarity([3,4], [1,6]) =&gt; 4 
-            // Math.abs(3-1) + Math.abs(4-6) = 2 + 2 = 4
+            similarity([3,4], [4,6]) =&gt; 3 <br/>
+            similarity([3,4], [5,6]) =&gt; 4 <br/>
+            similarity([3,4], [1,6]) =&gt; 4 <br/>
+            // Math.abs(3-1) + Math.abs(4-6) = 2 + 2 = 4 <br/>
 
+            <br/>
 
-            similarity([3,4,5], [4,5,6]) =&gt; 3
-            similarity([3,4,5], [4,6,8]) =&gt; 7
-            // Math.abs(3-4) + Math.abs(4-6) + Math.abs(5-8) = 1 + 2 + 3 = 6        
-        </code>
+            similarity([3,4,5], [4,5,6]) =&gt; 3 <br/>
+            similarity([3,4,5], [4,6,8]) =&gt; 7 <br/>
+            // Math.abs(3-4) + Math.abs(4-6) + Math.abs(5-8) = 1 + 2 + 3 = 6 <br/>
+        </div>
 
         <p>
             With that knowledge the process of finding a synonym is trivial. 
@@ -71,7 +83,9 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
             Use the input box below to search for synonyms based on TensorflowJS word embeddings:
         </p>
 
-        <InputForm placeholder={'Find the Synonyms.'} submit={getSynonyms} />
+        <Subtitle text="Excersice: Find The Synonyms" style={{textAlign:'center'}}/>
+        <InputForm placeholder={'Search the Synonyms of a word...'} submit={getSynonyms} />
+
         <ul> { synonyms?.map((synonym)=> <li> { synonym } </li> ) } </ul>
 
         <p>
@@ -79,7 +93,9 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
             the only difference is to find the words maximize that maximize the  distance to the intended word.
         </p>
 
-        <Subtitle text="Antonyms of Good"/>
-        <Scatter data={[{name:'Bad', x:1, y:2}, {name:'Worst', x:3, y:4}]} /> 
+        <Scatter 
+            label="Antonyms of Good"
+            data={[{name:'Bad', x:1, y:2}, {name:'Worst', x:3, y:4}]} 
+        /> 
     </Lesson>
 }

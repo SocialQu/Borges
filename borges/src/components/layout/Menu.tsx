@@ -89,11 +89,11 @@ const Unit = ({
     styles:{unitStyle, unitListStyle, ...styles},
     navigation:{ active, navigate}
 }:iFullUnit) => <>
-    <a 
+    <p 
         style={unitStyle} 
         className="menu-label" 
         onClick={() => navigate(position)}
-    > { name } </a>
+    > { name } </p>
 
     { 
         <ul className="menu-list" style={{marginBottom:'2rem'}}>

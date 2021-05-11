@@ -9,18 +9,27 @@ const data = [
     {name:'Queen', x:3, y:3}
 ]
 
-const title = 'Application: Solving the Analogy'
+const title = 'Application: Solving Analogies'
 interface iAnalogies {next():void}
 export const Analogies = ({next}:iAnalogies) => <Lesson title={title} next={next}>
     <p>
         Congratulations! You now know how to train a simple word embeddings model. 
-        The next application uses also basic vector operations to solve a slightly more difficult problem. Finding an analogy:
+        The next application uses also basic vector operations to solve a slightly more difficult problem. 
     </p>
 
-    <p>
-        <strong> King is to man, as queen is to ______. </strong>
+    <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
 
-        Yes! You probably have this right. The answer is woman. How does this work? 
+    <p style={{textAlign:'left', marginLeft:100}}>
+        <span>Solve the analogy: </span><br/><br/>
+        <strong > King is to man, as queen is to ______. </strong><br/><br/>
+        Yes! You probably have this right. The answer is woman. 
+    </p>
+
+    <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
+
+    <p>
+
+        How does this work? 
 
         1. Find the difference between king and man.
         2. Apply that difference to queen.
@@ -30,6 +39,5 @@ export const Analogies = ({next}:iAnalogies) => <Lesson title={title} next={next
         That process is graphed below:
     </p>
 
-    <Subtitle text="Your Word Embeddings Chart"/>
-    <Scatter data={data}/>
+    <Scatter label="Your Word Embeddings Chart" data={data}/>
 </Lesson>

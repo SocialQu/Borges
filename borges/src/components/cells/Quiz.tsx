@@ -1,4 +1,5 @@
 import { useMediaQuery } from 'react-responsive'
+import { Title } from '../atoms'
 import { useState } from "react"
 
 const messages = {
@@ -8,7 +9,7 @@ const messages = {
         next:'Continue',
         retry:'Restart',
         restart:'Go Back',
-        send:''
+        send:'Submit'
     },
     title:{
         pass:'Congratulations!',
@@ -25,7 +26,7 @@ export interface iQuestion { question:string, answers:iAnswer[] }
 interface IQuestion extends iQuestion { index:number, value:number, select(index:number, value:number):void }
 const Question = ({index, question, value, answers, select}:IQuestion) => <div 
     className="field" 
-    style={{textAlign:'left', maxWidth:800, margin:'auto', marginBottom:'1.5rem'}}
+    style={{textAlign:'left', maxWidth:720, margin:'auto', marginBottom:'1.5rem'}}
 >
     <label className="label" style={{fontSize:'1.25em'}}> { question } </label>
     {
@@ -146,17 +147,8 @@ export const Quiz = ({ title, description, questions=[], min, next, approve, qui
     }
 
     return <div className="content">
-        <h1 style={{fontSize:'3rem', marginBottom:'2rem', color:'darkblue'}}> { title } </h1>
-        <h3 
-            style={{
-                margin:'0rem auto 2rem',
-                color: '#333',
-                fontSize: '1.25em',
-                textAlign: 'left',
-                fontWeight: 500,
-                width: !smallScreen ? 800 : 320        
-            }}
-        > { description } </h3>
+        <Title text={title} style={{color:'chocolate', marginBottom:'2rem'}} />
+        <p style={{ fontSize:21, paddingBottom:'3em', textAlign:'left', maxWidth:720, margin:'auto' }}> { description } </p>
 
         {
             questions.map((q, i) => 

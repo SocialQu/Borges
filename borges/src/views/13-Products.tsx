@@ -12,10 +12,23 @@ export const Products = ({next}:iProducts) => <Lesson title={title} next={next}>
         If you would like to submit a product you created or use please use this form. 
     </p>
 
+    <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
+
     <Card 
-        title={'Cortazar'} 
+        title={'Cortazar: A Reading Recommendation Engine'} 
         link={'http://cortazar.ml/'} 
         img={'cortazar.png'}
-        body={'Cortazar is a text recommendation engine that serves suggestions based on smart word-embedding searches. The Netflix for readers aims to bring you a good non-fiction story to chill and enjoy after a day of hard work. Stories are ranked by match, and have ratings!'}
-    />
+    >
+        <p>
+            <a href="https://cortazar,ml">
+                <strong> Cortazar </strong>
+            </a> serves reading suggestions based on smart word embedding searches, 
+            the stories are ranked by match and rating. <br/><br/>
+
+            Cortazar is the Netflix for book lovers!
+        </p>
+
+    </Card>
+
+    <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
 </Lesson>

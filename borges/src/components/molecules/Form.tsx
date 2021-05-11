@@ -1,3 +1,4 @@
+import { Subtitle } from '../atoms'
 import { useState } from "react"
 
 interface iInputForm { 
@@ -8,18 +9,19 @@ interface iInputForm {
 export const InputForm = ({placeholder, submit}:iInputForm) => {
     const [ value, setValue ] = useState('')
 
-    return <div className="field has-addons">
+    return <div className="field has-addons" style={{width:'fit-content', margin:'auto auto 2em'}}>
         <div className="control">
             <input 
                 type="text" 
                 value={value}
                 className="input" 
+                style={{width:300}}
                 placeholder={placeholder} 
                 onChange={({target:{value}}) => setValue(value)}
             />
         </div>
 
-        <div className="control">
+        <div className="control" style={{textAlign:'center'}}>
             <a 
                 className="button is-info" 
                 onClick={() => submit(value)}
@@ -29,29 +31,30 @@ export const InputForm = ({placeholder, submit}:iInputForm) => {
 }
 
 
-interface iTextAreaForm { label:string, submit(value:string):void }
-export const TextAreaForm = ({label, submit}:iTextAreaForm) => {
+interface iTextAreaForm { placeholder?:string, label?:string, submit(value:string):void }
+export const TextAreaForm = ({placeholder, label, submit}:iTextAreaForm) => {
     const [value, setValue] = useState('')
 
 
-    return <div>
+    return <div style={{paddingBottom:'2em'}}>
         <div className="field">
-            <label className="label"> {label} </label>
-            <div className="control">
+            <Subtitle text={label} style={{textAlign:'center', marginTop:'2rem'}}/>
+            <div className="control" style={{ maxWidth:640, margin:'auto' }}>
                 <textarea 
-                    rows={10} 
+                    rows={3} 
                     value={value}
+                    placeholder={placeholder}
                     className="textarea" 
-                    placeholder="10 lines of textarea" 
                     onChange={({target:{value}}) => setValue(value)}
                 />
             </div>
         </div>
 
-        <div className="control">
+        <div className="control" style={{textAlign:'center'}}>
             <button 
                 className="button is-link"
                 onClick={() => submit(value)}
+                style={{width:640, background:'chocolate', borderRadius:6}}
             >Submit</button>
         </div>
     </div>

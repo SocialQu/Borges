@@ -1,4 +1,3 @@
-import { SentimentAnalysis } from './SentimentAnalysis'
 import { iPosition } from '../components/layout/Menu'
 import { tokenizeWords } from '../scripts/utils'
 import { useMediaQuery } from 'react-responsive'
@@ -62,8 +61,6 @@ export const Router = ({ position: { unit, module }, models, user, next, reset }
         const embeddings = vectors.map(({ word, coordinates:[x, y] }) => ({name:word, x, y}))
         setEmbeddings(embeddings)
     }
-
-    if(unit === 1) return <SentimentAnalysis />
 
     if(module === 0) return <Introduction next={next}/>
     if(module === 1) return <WordEmbeddings next={next}/>

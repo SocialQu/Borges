@@ -1,6 +1,6 @@
 import { Lesson } from "../components/cells/Lesson"
 
-const title = 'How to train Word Embeddings?'
+const title = 'How to Train Word Embeddings?'
 interface iTraining {next():void}
 export const Training = ({next}:iTraining) => <Lesson title={title} next={next}>
     <p>
@@ -9,12 +9,16 @@ export const Training = ({next}:iTraining) => <Lesson title={title} next={next}>
         In consequence, finding and training word embeddings is a result of mapping the words that are usually near each other.
     </p>
 
-    <ul>
-        A simple process to The process can be divided in four steps:
-        <li> 1. Tokenization: spli, classify and find unique words on a corpus. </li>
-        <li> 2. Co-ocurrence matrix: map the words that are close to each other. </li>
-        <li> 3. Dimensionality Reduction: minimize the size of the co-ocurrence matrix. </li>
-    </ul>
+    <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
+
+    <i> A simple process to build word embeddings can be divided in three steps: </i>
+    <ol style={{marginLeft:24, marginTop:'0.5rem'}}>
+        <li> <strong>Tokenization:</strong> split, classify and find unique words on a corpus. </li>
+        <li> <strong>Co-ocurrence matrix:</strong> map the words that are close to each other. </li>
+        <li> <strong>Dimensionality Reduction:</strong> minimize the size of the co-ocurrence matrix. </li>
+    </ol>
+
+    <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
 
     <p>
         In the next lessonss, we will go in more depth through each step and you will train your own word embeddings along the way!
