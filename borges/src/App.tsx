@@ -22,7 +22,7 @@ const Units:iUnit[] = [{
 		{ name:'Tokenization' },
 		{ name:'Co-ocurrence Matrix' },
 		{ name:'Dimensionality Reduction' },
-		{ name:'Application: Solving the Analogy' },
+		{ name:'Application: Solving Analogies' },
 		{ name:'Application: Detecting Biasis' },
 		{ name:'Advanced Topics' },
 		{ name:'Quiz' },
