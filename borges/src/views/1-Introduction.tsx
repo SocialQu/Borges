@@ -14,7 +14,7 @@ export const Introduction = ({next}:iIntroduction) => <Lesson title={title} next
         This course is based on the Stanford's <a href="http://web.stanford.edu/class/cs224n/index.html#schedule">CS224 course</a>, 
         it's directed to Software Engineers, that lack the time or mathematical background, 
         to gain an intuitive understanding of this technology as presented in the Stanford 
-        <a href={'https://www.youtube.com/watch?v=8rXD5-xhemo&list=PLoROMvodv4rOhcuXMZkNm7j3fVwBBY42z'}>Video Lectures</a>.
+        <a href={'https://www.youtube.com/watch?v=8rXD5-xhemo&list=PLoROMvodv4rOhcuXMZkNm7j3fVwBBY42z'}> Video Lectures</a>.
     </p>
 
     <p>
@@ -25,7 +25,7 @@ export const Introduction = ({next}:iIntroduction) => <Lesson title={title} next
     </p>
 
     <p>
-        <strong>Warning:</strong> 
+        <strong>Warning: </strong> 
         Based on Stanford's <a>honor code</a>, 
         if your are in the process of delivering the first assignment, 
         I advice you not to continue forward with this course. 
