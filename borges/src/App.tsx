@@ -30,7 +30,7 @@ const Units:iUnit[] = [{
 		{ name:'Addditional Resources' },
 		{ name:'Next Steps' },
 	], 
-}, { name:'Sentiment Analysis', modules:[] }]
+}]
 
 
 const unlockModule = (units:iUnit[], position:iPosition, nextModule:number) => units.map((u, i) => 
