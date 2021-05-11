@@ -21,8 +21,10 @@ export const TopicClassification = ({next, models, user}:iTopicClassification) =
     return <Lesson title={title} next={next}>
         <p> This is chart that maps the average word embeddings for texts in different topics:</p>
 
-        <Subtitle text="Topic's Position"/>
-        <Scatter data={[{name:'Startups', x:1, y:2}, {name:'VC', x:3, y:4}]} />
+        <Scatter
+            label={"Topic's Position"} 
+            data={[{name:'Startups', x:1, y:2}, {name:'VC', x:3, y:4}]} 
+        />
 
         <p>
             The process of finding the topic of a text, sentence or even a word is very similar to finding the synonyms. 
@@ -30,8 +32,11 @@ export const TopicClassification = ({next, models, user}:iTopicClassification) =
             Try it out, input a text or sentence and find the likelihood the text find a topic.
         </p>
 
-        <Subtitle text="Excersice: Classify a Text"/>
-        <TextAreaForm label="" submit={getTopics} placeholder={'Drop a text or sentence to find its related topics.'}/>
+        <TextAreaForm 
+            submit={getTopics} 
+            label="Excersice: Classify a Text" 
+            placeholder={'Drop a text or sentence to find its related topics.'}
+        />
         <ul> { topics?.map((topic)=> <li> { topic } </li> ) } </ul>
 
         <p>
