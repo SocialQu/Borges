@@ -85,8 +85,8 @@ export const NavBar = ({brand, items=[], navbarClass='is-link', navBarStyle, con
             <Brand {...brand} active={isActive} activate={() => setActive(!isActive)}/>
 
             <div 
-                style={{ marginRight:'auto', backgroundColor:'darkblue' }}
                 className={`navbar-menu ${isActive ? 'is-active navbar-menu-active': ''}`} 
+                style={{ marginRight:'auto' }}
             >
                 { 
                     items.map(({style, ...item}, idx, l) => 

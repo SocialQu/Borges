@@ -4,30 +4,31 @@ import { App as RealmApp, User, Credentials } from 'realm-web'
 import { NavBar } from './components/layout/NavBar'
 import { IPCAModel, PCA } from 'ml-pca'
 import pcaModel from './data/pca.json'
+import { iModels } from './types/ai'
 import { Home } from './views/Home'
 
 import { useEffect, useState } from 'react'
+import 'bulma/css/bulma.css'
 import './App.css'
-import { iModels } from './types/ai'
 
 const Units:iUnit[] = [{ 
 	name:'Word Embeddings', 
 	modules: [
-		{ name:'Introduction', locked:true },
-		{ name:'What are word embeddings?', locked:true },
-		{ name:'Application: Finding Synonyms', locked:true },
-		{ name:'Topic Classification', locked:true },
-		{ name:'How to train Word Embeddings?', locked:true },
-		{ name:'Tokenization', locked:true },
-		{ name:'Co-ocurrence Matrix', locked:true },
-		{ name:'Dimensionality Reduction', locked:true },
-		{ name:'Application: Solving the Analogy', locked:true },
-		{ name:'Application: Detecting Biasis', locked:true },
-		{ name:'Advanced Topics', locked:true },
-		{ name:'Quiz', locked:true },
-		{ name:'Startups', locked:true },
-		{ name:'Addditional Resources', locked:true },
-		{ name:'Next Steps', locked:true },
+		{ name:'Introduction' },
+		{ name:'What are word embeddings?' },
+		{ name:'Application: Finding Synonyms' },
+		{ name:'Topic Classification' },
+		{ name:'How to train Word Embeddings?' },
+		{ name:'Tokenization' },
+		{ name:'Co-ocurrence Matrix' },
+		{ name:'Dimensionality Reduction' },
+		{ name:'Application: Solving the Analogy' },
+		{ name:'Application: Detecting Biasis' },
+		{ name:'Advanced Topics' },
+		{ name:'Quiz' },
+		{ name:'Startups' },
+		{ name:'Addditional Resources' },
+		{ name:'Next Steps' },
 	], 
 }, { name:'Sentiment Analysis', modules:[] }]
 
@@ -61,14 +62,6 @@ export const App = () => {
 	const [ models, setModels ] = useState<iModels>()
 
     useEffect(() => { 
-        connectMongo().then(mongoUser => {
-            setMongoUser(mongoUser)
-			const mongoAtlas = process.env.REACT_APP_MONGODB_ATLAS as string
-            const mongo = mongoUser.mongoClient(mongoAtlas)
-            const db = mongo.db('Borges')
-            setDB(db)
-        })
-
 		const fetchModels = async() => {
 			const model = await use.load()
 			const pca = PCA.load(pcaModel as IPCAModel)
@@ -76,7 +69,16 @@ export const App = () => {
 		}
 
 		fetchModels()
-    }, [])
+		return
+
+        connectMongo().then(mongoUser => {
+            setMongoUser(mongoUser)
+			const mongoAtlas = process.env.REACT_APP_MONGODB_ATLAS as string
+            const mongo = mongoUser.mongoClient(mongoAtlas)
+            const db = mongo.db('Borges')
+            setDB(db)
+        })
+	}, [])
 
 
 	const next = () => {
@@ -95,13 +97,22 @@ export const App = () => {
 
 	return <div className="App">
 		<NavBar />
-		<Menu units={units} navigate={(position) => setPosition(position)}/>
-		<Home 
-			position={position} 
-			models={models as iModels} 
-			user={user as User}	
-			reset={reset}
-			next={next} 
-		/>
+        <div className="container" style={{maxWidth:'100%'}}>
+            <div className="columns" style={{margin:0}}>
+				<Menu 
+					units={units} 
+					active={position}
+					navigate={(position) => setPosition(position)}
+				/>
+
+				<Home 
+					position={position} 
+					models={models as iModels} 
+					user={user as User}	
+					reset={reset}
+					next={next} 
+				/>
+			</div>
+		</div>
 	</div>
 }

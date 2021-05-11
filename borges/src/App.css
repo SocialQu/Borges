@@ -1,3 +1,7 @@
+.menu-list a.is-active {
+  border-radius: 12px;
+}
+
 .App {
   text-align: center;
 }

@@ -3,7 +3,7 @@ import { iWordDoc } from '../types/db'
 import { iModels } from '../types/ai'
 import { getCenter } from './utils'
 import { User } from 'realm-web'
-
+import '@tensorflow/tfjs'
 
 interface iFindSynonyms { word:string, user:User, models:iModels}
 interface iSynonyms { word:string, center:[number, number], embeddings:number[]} 

@@ -1,6 +1,8 @@
-import { iPosition } from '../components/layout/Menu'
 import { SentimentAnalysis } from './SentimentAnalysis'
+import { iPosition } from '../components/layout/Menu'
 import { tokenizeWords } from '../scripts/utils'
+import { useMediaQuery } from 'react-responsive'
+import { iModels } from '../types/ai'
 import { useState } from 'react'
 import { User } from 'realm-web'
 
@@ -20,7 +22,6 @@ import { WordEmbeddingsQuiz } from './12-Quiz'
 import { Products } from './13-Products'
 import { WordEmbeddingsMedia } from './14-Media'
 import { NextSteps } from './15-NextSteps'
-import { iModels } from '../types/ai'
 
 
 interface iHome { 
@@ -33,7 +34,7 @@ interface iHome {
 
 
 export interface iEmbeddings { name:string, x:number, y:number }
-export const Home = ({ position: { unit, module }, models, user, next, reset }: iHome) => {
+export const Router = ({ position: { unit, module }, models, user, next, reset }: iHome) => {
     const [words, setWords] = useState<string[]>([])
     const [wordsMatrix, setWordsMatrix] = useState<number[][]>([])
     const [embeddings, setEmbeddings] = useState<iEmbeddings[]>([])
@@ -81,4 +82,25 @@ export const Home = ({ position: { unit, module }, models, user, next, reset }: 
     if(module === 14) return <NextSteps next={next}/>
 
     return <BorgesLanding />
+}
+
+
+export const Home = (home:iHome) => {
+    const largeScreen = useMediaQuery({ query: '(min-width: 1200px)' })
+
+    return <div 
+        className="column is-10" 
+        style={{ 
+            paddingTop:'3rem', 
+            marginLeft:3, 
+            marginRight:0, 
+            margin:'0px auto', 
+            backgroundColor: 'rgb(215, 233, 233)', 
+            width: largeScreen ? 'calc(100vw - 303px)' : '100%',
+            minHeight:'calc(100vh - 82px)',
+            textAlign:'center'
+        }}
+    >
+        <Router {...home}/>
+    </div>
 }
