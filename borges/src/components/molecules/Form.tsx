@@ -8,7 +8,7 @@ interface iInputForm {
 export const InputForm = ({placeholder, submit}:iInputForm) => {
     const [ value, setValue ] = useState('')
 
-    return <div className="field has-addons">
+    return <div className="field has-addons" style={{width:'fit-content', margin:'auto auto 2em'}}>
         <div className="control">
             <input 
                 type="text" 
