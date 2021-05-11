@@ -1,6 +1,6 @@
 import { Lesson } from "../components/cells/Lesson"
 
-const title = 'How to train Word Embeddings?'
+const title = 'How to Train Word Embeddings?'
 interface iTraining {next():void}
 export const Training = ({next}:iTraining) => <Lesson title={title} next={next}>
     <p>
@@ -12,7 +12,7 @@ export const Training = ({next}:iTraining) => <Lesson title={title} next={next}>
     <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
 
     <i> A simple process to build word embeddings can be divided in three steps: </i>
-    <ol style={{textAlign:'left', marginTop:'0.5rem'}}>
+    <ol style={{marginLeft:24, marginTop:'0.5rem'}}>
         <li> <strong>Tokenization:</strong> split, classify and find unique words on a corpus. </li>
         <li> <strong>Co-ocurrence matrix:</strong> map the words that are close to each other. </li>
         <li> <strong>Dimensionality Reduction:</strong> minimize the size of the co-ocurrence matrix. </li>
