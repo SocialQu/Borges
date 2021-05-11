@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import { CSSProperties } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import { JsxElement } from 'typescript'
 import { Subtitle, Title } from '../atoms'
@@ -59,9 +60,10 @@ export const MobileCard = ({title, link, children, img}: iCard) => <div classNam
 </div>
 
 
-export const LargeCard = ({title, link, img, children}:iCard) => <div>
+interface iLargeCard extends iCard { titleStyle?:CSSProperties } 
+export const LargeCard = ({title, titleStyle, link, img, children}:iLargeCard) => <div>
     <a href={link}>
-        <Subtitle text={title} style={{marginTop:'2rem'}}/>
+        <Subtitle text={title} style={{marginTop:'2rem', ...titleStyle}}/>
     </a>
 
     <article className='media' style={{marginBottom:0}}>
@@ -76,7 +78,7 @@ export const LargeCard = ({title, link, img, children}:iCard) => <div>
 </div>
 
 export const mediaQuery = '(max-width: 768px)'
-export const Card = (card: iCard) => {
+export const Card = (card: iLargeCard) => {
     const isMobile = useMediaQuery({ query:mediaQuery })
     return !isMobile ? <LargeCard {...card}/> : <MobileCard {...card}/>
 }
