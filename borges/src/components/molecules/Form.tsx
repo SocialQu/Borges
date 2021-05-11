@@ -53,6 +53,7 @@ export const TextAreaForm = ({placeholder, label, submit}:iTextAreaForm) => {
             <button 
                 className="button is-link"
                 onClick={() => submit(value)}
+                style={{width:540, background:'chocolate', borderRadius:6}}
             >Submit</button>
         </div>
     </div>
