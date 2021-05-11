@@ -22,10 +22,10 @@
 10. [X] Style Next on Word Embeddings.
 11. [X] Link on Co-ocurrence matrix.
 12. [X] Hide training elements on dependant-data lessons.
-13. [] Title, Subtitle & Button Text on Quiz.
-14. [ ] Card Element Styling on Startups.
-15. [ ] Image on Additional Resources.
-16. [ ] IFrame embedding on Resources.
+13. [X] Title, Subtitle & Button Text on Quiz.
+14. [X] Card Element Styling on Startups.
+15. [X] Image on Additional Resources.
+16. [X] IFrame embedding on Resources.
 17. [ ] Sentiment Analysis Component and links to GumRoad.
 
 ## Content
