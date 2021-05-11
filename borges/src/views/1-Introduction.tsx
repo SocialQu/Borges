@@ -5,7 +5,7 @@ interface iIntroduction {next():void}
 export const Introduction = ({next}:iIntroduction) => <Lesson title={title} next={next}>
     <p> 
         Word embeddings are used in almost every commercial application that involves AI and human language. 
-        Some <a href="https://github.com/SocialQu/Borges/blob/v.0.0.5-UX/whitepaper/1.%20Applications.md">example applications</a> 
+        Some <a href="https://github.com/SocialQu/Borges/blob/v.0.0.5-UX/whitepaper/1.%20Applications.md"> example applications </a> 
         include search engines, social media recommendation algorithms, language translation, 
         speech recognition, market reasearch, automated trading and language generation.
     </p>
