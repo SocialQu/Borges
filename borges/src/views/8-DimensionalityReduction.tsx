@@ -28,6 +28,5 @@ export const DimensionalityReduction = ({embeddings, next}:iDimensionalityReduct
         You can select different words to see how they compare with each other:
     </p>
 
-    <Subtitle text="Your Word Embeddings Chart"/>
-    <Scatter data={embeddings} />
+    <Scatter label="Your Word Embeddings Chart" data={embeddings} />
 </Lesson>
