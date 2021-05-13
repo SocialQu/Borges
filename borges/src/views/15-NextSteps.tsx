@@ -19,6 +19,6 @@ export const NextSteps = ({next}:iNextSteps) => <Lesson title={title} next={next
     </p>
 
     <p>
-        For more content of my content, you can visit my <a href={"https://santiagoq.medium.com/"}>blog</a>.
+        For more content, you can visit my <a href={"https://santiagoq.medium.com/"}>blog</a>.
     </p>
 </Lesson>
