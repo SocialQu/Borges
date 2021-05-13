@@ -1,27 +1,38 @@
+import { Subtitle } from "../components/atoms"
 import { Lesson } from "../components/cells/Lesson"
 
 const title = 'What are word embeddings?'
 interface iWordEmbeddings {next():void}
 export const WordEmbeddings = ({next}:iWordEmbeddings) => <Lesson title={title} next={next}>
     <p>
-        Word embeddings are numberical represation of the meaning in human language. 
-        They are based on the assumption that the meaning of a word is contextual: 
-        the meaning of a word is dependant of their adyacent words and their appearence on a given document.
+        Word embeddings are numerical representations of a word's meaning. 
+        They are formed based on the assumption that meaning is contextual. 
+        That is, a word's meaning is dependant on its neighbors:
     </p>
 
-    <p>
-        This means that if ice frequently appears in a context that talks and mentions water, 
-        the meaning of ice would be similar to the meaning of water.
-    </p>
+    <img 
+        style={{maxWidth:'calc(100% - 25px)', marginLeft:25}}
+        src={"https://cdn-images-1.medium.com/max/800/0*1JilkAo3wHgL7Y-S.png"} 
+    />
 
     <p>
-        This meaning of a word is represented in a mathematical vector, 
-        this enables to perform standard mathematical opperations in words like addition and substraction 
-        that produce interesting results like finding synonyms, classying documents, and recommending or moderating content.
+        <i>For example, if the word "ice" usually appears next to "water", one could infer that both words have a similar meaning.</i>
     </p>
 
+    <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
+
     <p>
-        Additionally, 2D vectors have the possibility to be plotted to produce a visual understanding of a lexicon, 
-        document or a persons's language.
+        Word embeddings are represented as mathematical vectors. 
+        This representation enables to perform standard mathematical operations in words, like addition and subtraction. 
+    </p>
+        
+    <img
+        style={{maxWidth:'90%', margin:'1rem 3% 1.5rem'}} 
+        src={"https://cdn-images-1.medium.com/max/800/0*QcFWhMO-HSNHiLG_.png"}
+    />
+
+    <p>        
+        These operations have interesting applications in language, like finding synonyms, classifying documents, or recommending content. 
+        Additionally, 2-dimensional vectors can be plotted to produce a visual understanding of a document or a person's language.
     </p>
 </Lesson>
