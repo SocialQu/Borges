@@ -19,7 +19,7 @@ export const Introduction = ({next}:iIntroduction) => <Lesson title={title} next
 
     <p>
         My goal is to present the information as simple and intuitively as possible: 
-        I will not avoid mathematics, but rather simplify it to the extent that it helps develop a practical understanding of the content.
+        I will not avoid mathematics or code, but rather simplify them to help develop a practical understanding of the content.
         Additionally, I've enabled an interface to play, test and experiment with the concepts, 
         and train your own word embeddings using an elementary approach.
     </p>
