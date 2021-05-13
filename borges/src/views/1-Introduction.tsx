@@ -26,10 +26,10 @@ export const Introduction = ({next}:iIntroduction) => <Lesson title={title} next
 
     <p>
         <strong>Warning: </strong> 
-        Based on Stanford's <a>honor code</a>, 
+        Based on Stanford's <a href="https://ed.stanford.edu/academics/masters-handbook/honor-code">honor code</a>, 
         if you are in the process of delivering the first assignment. 
         I advise you not to continue forward with this course. 
         Having said that, I would love to hear your feedback when you are ready.
-        You can connect with me on <a>LinkedIn</a>.
+        You can connect with me on <a href="https://www.linkedin.com/in/santiagoqu/">LinkedIn</a>.
     </p>
 </Lesson>
