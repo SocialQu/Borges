@@ -29,7 +29,7 @@ export const Tokenization = ({getWords, next}:iTokenization) => <Lesson title={t
 
     <Subtitle text={"Example: RegEx Tokenizer"} style={{textAlign:'center', marginTop:'2rem'}}/>
     <SyntaxHighlighter language="typescript" style={codeStyle}>
-            {codeString}
+        {codeString}
     </SyntaxHighlighter>
 
     <p>

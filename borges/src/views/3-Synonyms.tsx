@@ -1,5 +1,5 @@
+import { a11yLight as codeStyle } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { a11yLight as codeStyle } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 import { InputForm } from '../components/molecules/Form'
 import { Subtitle } from '../components/atoms'
