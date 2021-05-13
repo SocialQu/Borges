@@ -1,8 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { CSSProperties } from 'react'
 import { useMediaQuery } from 'react-responsive'
-import { JsxElement } from 'typescript'
-import { Subtitle, Title } from '../atoms'
+import { Subtitle } from '../atoms'
 
 const cardStyle = {
     backgroundColor: 'rgb(48, 48, 48)',
