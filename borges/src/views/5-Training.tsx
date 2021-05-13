@@ -14,8 +14,8 @@ export const Training = ({next}:iTraining) => <Lesson title={title} next={next}>
     <i> A simple process to build word embeddings can be divided in three steps: </i>
     <ol style={{marginLeft:24, marginTop:'0.5rem'}}>
         <li> <strong>Tokenization:</strong> split, classify and find unique words on a corpus. </li>
-        <li> <strong>Co-ocurrence matrix:</strong> map the words that are close to each other. </li>
-        <li> <strong>Dimensionality Reduction:</strong> minimize the size of the co-ocurrence matrix. </li>
+        <li> <strong>Co-occurrence matrix:</strong> map the words that are close to each other. </li>
+        <li> <strong>Dimensionality Reduction:</strong> minimize the size of the co-occurrence matrix. </li>
     </ol>
 
     <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>

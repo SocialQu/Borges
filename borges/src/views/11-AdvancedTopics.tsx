@@ -28,7 +28,7 @@ export const AdvancedTopics = ({next}:iAdvancedTopics) => <Lesson title={title} 
 
     <p>
         The second paper, GloVE was based on the assumption that real meaning arises from the relative frequency of words.
-        By cleaverly transforming the original sparse co-ocurrence matrix, 
+        By cleaverly transforming the original sparse co-occurrence matrix, 
         into a denser one where the relative frequency of two words is emphasized.
 
         GloVe achieved a state-of the art results by combining the best of 2 worlds: the effectiveness finding relationships 

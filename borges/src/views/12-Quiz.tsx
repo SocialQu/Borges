@@ -19,7 +19,7 @@ const questions:iQuestion[] = [
             {answer:'Train a logistic regression for each topic.',value:false},
         ] 
     }, { 
-        question:'How is the co-ocurrence Matrix built?', 
+        question:'How is the co-occurrence Matrix built?', 
         answers:[
             {answer:'Count the ajacent words based on an N-sized window.',value:true},
             {answer:'Use a RegEx to find every unique words.',value:false},
@@ -38,9 +38,9 @@ const questions:iQuestion[] = [
         question:`What is the main innovation behind GloVe's word embeddings?`, 
         answers:[
             {answer:'GloVe dismisses stop words.',value:false},
-            {answer:'GloVe uses two different co-ocurrence matrix.',value:false},
+            {answer:'GloVe uses two different co-occurrence matrix.',value:false},
             {answer:'GloVe defines the N-sized window based on punctuation signs.',value:false},
-            {answer:'GloVe applies a linear transformation to the co-ocurrence matrix.',value:true},
+            {answer:'GloVe applies a linear transformation to the co-occurrence matrix.',value:true},
         ]
     }
 ]
