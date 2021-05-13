@@ -1,31 +1,60 @@
+import { a11yLight as codeStyle } from 'react-syntax-highlighter/dist/esm/styles/hljs'
+import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter'
+
 import { Lesson } from "../components/cells/Lesson"
-import { Scatter } from "../components/atoms/Chart"
-import { Subtitle } from '../components/atoms'
+import { Subtitle, Scatter } from "../components/atoms"
 import { iEmbeddings } from "./Home"
+
+
+const codeString = `import { PCA } from 'ml-pca'
+
+const reduceDimensionality = (dimensions:number) => {
+    const pca = new PCA(embeddings)
+    const newSize = {nComponents:dimensions}  
+    const reducedVectors = pca.predict(embeddings, newSize)
+    return reducedVectors
+}`
 
 const title = 'Dimensionality Reduction'
 interface iDimensionalityReduction {embeddings:iEmbeddings[], next():void}
 export const DimensionalityReduction = ({embeddings, next}:iDimensionalityReduction) => <Lesson title={title} next={next}>
     <p>
-        Did you noticed how sparse (full of zeros) the co-ocurrence matrix is? 
-        This leads us to the next and final step: dimensionality reduction.
+        Theoretically, we have finished. We could use the rows of the co-occurrence matrix as word embeddings. 
+        But look again at the matrix, and notice how sparse it is. There are several issues associated with this:        
+    </p>
+
+
+    <ul style={{marginBottom:'2rem'}}>
+        <li>The vectors would take too much storage space.</li>
+        <li>Training models on top of these vectors would be slow.</li>
+        <li>Relations between words would be difficult to notice.</li>
+    </ul>
+
+    <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
+
+    <p>
+        In that sense, the final step to build the word embeddings is to reduce the dimension of the co-occurrence matrix. 
+        A small text corpus can have tens of thousands of unique words. 
+        Word embeddings used in enterprise applications tend to be smaller than 1,000 dimensions. 
+        For example, the universal sentence encoder vectors in TensorflowJS have a size of 512.
     </p>
 
     <p>
-        The idea is that by having a dense matrix it will be faster to run computations, 
-        less storage will be required and relationships between words will be featured in a single column.
+        There are sophisticated methods in deep learning to compress a matrix. 
+        But to remain simple, we are going to use the Principal Component Analysis (PCA) method:    
     </p>
 
-    <p>
-        There are sophisitcated deep learning methods to reduce a matrix dimension, 
-        but in our case we will be using a simple Machine Learning Linear Algebra methodology called PCA. 
-        TensorflowJS native word embeddings are 512-dimensional size, which is about average.
-    </p>
+    <Subtitle text={"Reducing the Matrix's Dimension"} style={{textAlign:'center', marginTop:'2rem'}}/>
+    <SyntaxHighlighter language="typescript" style={codeStyle}>
+        {codeString}
+    </SyntaxHighlighter>
+
+    <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
 
     <p>
-        Your dataset has been reduced to only 2D, to be able to plot it. 
-        Below is a chart with random words embeddings based on your dataset. 
-        You can select different words to see how they compare with each other:
+        If we reduce the word embedding dimensions to only 2: 
+        we can plot them and gain a visual understanding of the relationship between different words. 
+        This is are the 2D word embeddings for the text you submitted:
     </p>
 
     <Scatter label="Your Word Embeddings Chart" data={embeddings} />
