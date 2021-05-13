@@ -9,7 +9,7 @@ interface iLesson {
     next():void
 }
 
-const defaultStyle:CSSProperties = {
+export const defaultLessonStyle:CSSProperties = {
     margin:'auto',
     maxWidth:720,
     fontSize:21,
@@ -25,7 +25,7 @@ const buttonStyle:CSSProperties = {
 
 export const Lesson = ({ title, style, titleStyle, children, next }:iLesson) => <div 
     className="content" 
-    style={{...defaultStyle, ...style}}
+    style={{...defaultLessonStyle, ...style}}
 >
     <Title text={title} style={{marginBottom:'2rem', color:'chocolate', ...titleStyle}}/>
     <div style={{textAlign:'left'}}> { children } </div>
