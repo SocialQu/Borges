@@ -7,8 +7,7 @@ import { Subtitle } from '../components/atoms'
 
 
 const codeString = `/* tokenize: split the words in a text or document. */
-const tokenize (text:string) => text.match(/(\b[^ $]+\b)/g)
-`
+const tokenize (text:string) => text.match(/(\b[^ $]+\b)/g)`
 
 const title = 'Tokenization'
 interface iTokenization {getWords(text:string):void, next():void}
