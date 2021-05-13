@@ -14,7 +14,6 @@ export interface iBaseAtom {
 
 type ButtonClass = 'is-primary' | 'is-link' | 'is-info' | 'is-success' | 'is-warning' | 'is-danger'
 interface iButton extends iBaseAtom { buttonClass?:ButtonClass, click():void }
-const defaulButtonStyle = {}
 
 
 export const CTA = ({buttonClass, text, shortText, style, mobileStyle, children, click}:iButton) => {

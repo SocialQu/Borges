@@ -1,6 +1,5 @@
-import { useMediaQuery } from 'react-responsive'
 import { Title } from '../atoms'
-import { useState } from "react"
+import { useState } from 'react'
 
 const messages = {
     encouragementMsg: 'Come on! You still have another shot.',
@@ -120,8 +119,6 @@ interface iQuiz {
 }
 
 export const Quiz = ({ title, description, questions=[], min, next, approve, quizFailures }: iQuiz) =>  {
-    const smallScreen = useMediaQuery({ query: '(max-width: 600px)' })
-
     const [isActive, setActive] = useState(false)
     const [values, setValues] = useState<{[idx:number]:number}>(
         questions.reduce((d, _, idx) => ({...d, [idx]: -1 }), {})
