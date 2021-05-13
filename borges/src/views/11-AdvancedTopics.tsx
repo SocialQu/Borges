@@ -74,7 +74,7 @@ export const AdvancedTopics = ({next}:iAdvancedTopics) => <Lesson title={title} 
     </p>
 
     <Subtitle text={"GloVe's state of the art results"} style={{textAlign:'center', marginTop:'2rem', fontSize:'1.25rem'}}/>
-    <div>
+    <div style={{textAlign:'center'}}>
         <img src={gloveImg} style={{marginBottom:'2rem'}} alt="Word2Vec Nerural Network Architectures"/>
     </div>
 
