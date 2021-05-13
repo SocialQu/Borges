@@ -10,6 +10,10 @@ const storyLink = 'https://medium.com/geekculture/how-to-develop-a-text-recommen
 const storyImg='https://miro.medium.com/max/1930/1*KtHoihT_07qtAddbu6NNSQ.png'
 
 export const WordEmbeddingsMedia = ({next}:iWordEmbeddingsMedia) => <Lesson title={title} next={next}>
+    <p>
+        Go deeper into the topics we covered with these additional resources:
+    </p>
+
     <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
     <Card 
         title={'How to Develop a Text Recommendation Engine'} 

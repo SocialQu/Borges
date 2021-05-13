@@ -1,55 +1,53 @@
+import { a11yLight as codeStyle } from 'react-syntax-highlighter/dist/esm/styles/hljs'
+import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter'
+
 import { TextAreaForm } from '../components/molecules/Form'
 import { Lesson } from "../components/cells/Lesson"
 import { Subtitle } from '../components/atoms'
+
+
+const codeString = `/* tokenize: split the words in a text or document. */
+const tokenize (text:string) => text.match(/(\b[^ $]+\b)/g)
+`
 
 const title = 'Tokenization'
 interface iTokenization {getWords(text:string):void, next():void}
 export const Tokenization = ({getWords, next}:iTokenization) => <Lesson title={title} next={next}>
     <p>
-        The first step to train word embeddings is to separate the text by words. 
-        This can be done trivially through regex, but there is also a long tradintion in NLP (Natural Language Processing) 
-        that precedes Deep Learning and consists of manually aggregating words that have the same root, this includes plurals and conjugated verbs.
-    </p>
-
-    <p>
-        Other points to consider are words that ocurr frequently and add little extra context 
-        this includes most prepositions and are usually referred as stop words. 
-        The other end of the spectrum requires extra attention, as for low frenquency words it may be difficult to get 
-        suffiecient context or they maybe product of an ortogrpahic error.
-    </p>
-
-    <p>
-        Ideally, the best deep learning models should take care of this anomalies by themselves, but its important to note. 
-        That optimizations in this step can produce a reduction of training time, and increase of accuracy. 
-        For our purposes we are going to use a simple regex, and do not worry about subtlties:
-    </p>
-
-    <Subtitle text="Example: Tokenization Regex" style={{textAlign:'center', marginTop:'2rem'}}/>
-    <div className={"code"}>
-        text.match(/(\b[^ $]+\b)/g)
-    </div>
-
-    <p>
-        To exemplify some of the difficulties we need to deal when using a RegEx to tokenize a corpus, 
-        consider the following <a href="https://web.stanford.edu/~jurafsky/slp3/2.pdf">[1]</a>:
+        There is a long tradition in Natural Language Processing (NLP) to separate words that includes stemming and lemmatization. 
+        To exemplify some of the difficulties we need to consider when splitting a text, consider the following[1]:
     </p>
 
     <ul style={{marginBottom:'2rem'}}>
-        <li> Abbreviations and compound words like N.Y.C and New York </li>
-        <li> Words with internal hyphens </li>
-        <li> Numbers with symbols like $, % </li>
-        <li> Various punctuation symbols like ellipsis or parthesis </li>
+        <li> Words that have the same meaning, including plurals and conjugated verbs. </li>
+        <li> Pronouns, prepositions, and articles that appear frequently but contribute little additional meaning. </li>
+        <li> Abbreviations and compound words like N.Y.C. or New York. </li>
+        <li> Words with internal hyphens or apostrophes. </li>
+        <li> Numbers, symbols, and punctuation signs like parenthesis or ellipsis. </li>
+        <li> Orthographic errors. </li>
     </ul>
 
+    <Subtitle text={"Example: RegEx Tokenizer"} style={{textAlign:'center', marginTop:'2rem'}}/>
+    <SyntaxHighlighter language="typescript" style={codeStyle}>
+        {codeString}
+    </SyntaxHighlighter>
+
     <p>
-        Now, to start training your own word embeddings, 
-        please insert a medium to long text (minimum 1000 words) for tokenization.
+        With the advent of Deep Learning, tokenization has partially lost relevance. Because theoretically, 
+        the best AI models should handle irregularities by themselves, and building tokenizers is a slow, 
+        manual process. However, using tokenizers or other input transformations can dramatically reduce training speed and improve accuracy.    
+    </p>
+
+    <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
+
+    <p>
+        To start training your own word embeddings, please insert a medium to long text (~ 1000 words) to tokenize it:
     </p>
 
 
     <TextAreaForm submit={getWords} label={"Excersice: Tokenize a Text"}/>
 
     <p>
-        <strong> Important: </strong> the text you just submitted will be used on the next 2 lessons.
+        <strong> Important: </strong> the text you submitted will be used in the next 2 lessons.
     </p>
 </Lesson>

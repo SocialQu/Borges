@@ -1,6 +1,6 @@
-import { useMediaQuery } from 'react-responsive'
+import { defaultLessonStyle } from './Lesson'
 import { Title } from '../atoms'
-import { useState } from "react"
+import { useState } from 'react'
 
 const messages = {
     encouragementMsg: 'Come on! You still have another shot.',
@@ -115,13 +115,12 @@ interface iQuiz {
     questions?:iQuestion[]
     min?:number,
     quizFailures:number
+    children: JSX.Element | JSX.Element[]
     next():void
     approve(score:number):boolean|void
 }
 
-export const Quiz = ({ title, description, questions=[], min, next, approve, quizFailures }: iQuiz) =>  {
-    const smallScreen = useMediaQuery({ query: '(max-width: 600px)' })
-
+export const Quiz = ({ title, description, questions=[], min, quizFailures, children, next, approve }: iQuiz) =>  {
     const [isActive, setActive] = useState(false)
     const [values, setValues] = useState<{[idx:number]:number}>(
         questions.reduce((d, _, idx) => ({...d, [idx]: -1 }), {})
@@ -146,9 +145,9 @@ export const Quiz = ({ title, description, questions=[], min, next, approve, qui
         if(quizFailures === 1) setValues(questions.reduce((d, _, idx) => ({...d, [idx]: -1 }), {}))
     }
 
-    return <div className="content">
+    return <div className="content" style={defaultLessonStyle}>
         <Title text={title} style={{color:'chocolate', marginBottom:'2rem'}} />
-        <p style={{ fontSize:21, paddingBottom:'3em', textAlign:'left', maxWidth:720, margin:'auto' }}> { description } </p>
+        <p style={{ fontSize:21, paddingBottom:'2rem', textAlign:'left', maxWidth:720, margin:'auto' }}> { description } </p>
 
         {
             questions.map((q, i) => 
@@ -161,6 +160,8 @@ export const Quiz = ({ title, description, questions=[], min, next, approve, qui
                 />
             )
         }
+
+        { children }
 
         <button 
             className='button is-link' 

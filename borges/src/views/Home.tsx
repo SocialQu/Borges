@@ -12,7 +12,7 @@ import { Synonyms } from './3-Synonyms'
 import { TopicClassification } from './4-TopicClassification'
 import { Training } from './5-Training'
 import { Tokenization } from './6-Tokenization'
-import { CoOcurrenceMatrix } from './7-CocurrenceMatrix'
+import { CooccurrenceMatrix } from './7-CooccurrenceMatrix'
 import { DimensionalityReduction } from './8-DimensionalityReduction'
 import { Analogies } from './9-Analogies'
 import { Biasis } from './10-Biasis'
@@ -68,7 +68,7 @@ export const Router = ({ position: { unit, module }, models, user, next, reset }
     if(module === 3) return <TopicClassification next={next} models={models} user={user}/>
     if(module === 4) return <Training next={next}/>
     if(module === 5) return <Tokenization getWords={getWords} next={next}/>
-    if(module === 6) return <CoOcurrenceMatrix next={next} words={words} matrix={wordsMatrix}/>
+    if(module === 6) return <CooccurrenceMatrix next={next} words={words} matrix={wordsMatrix}/>
     if(module === 7) return <DimensionalityReduction next={next} embeddings={embeddings}/>
     if(module === 8) return <Analogies next={next}/>
     if(module === 9) return <Biasis next={next}/>
