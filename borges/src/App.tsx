@@ -20,7 +20,7 @@ const Units:iUnit[] = [{
 		{ name:'Application: Topic Classification' },
 		{ name:'How to Train Word Embeddings?' },
 		{ name:'Tokenization' },
-		{ name:'Co-ocurrence Matrix' },
+		{ name:'Co-occurrence Matrix' },
 		{ name:'Dimensionality Reduction' },
 		{ name:'Application: Solving Analogies' },
 		{ name:'Application: Detecting Biasis' },
