@@ -4,9 +4,9 @@ const title = 'How to Train Word Embeddings?'
 interface iTraining {next():void}
 export const Training = ({next}:iTraining) => <Lesson title={title} next={next}>
     <p>
-        As mentioned, the motivation of word embeddings is that the meaning of a word is dependant on its context. 
-        That is the words that surround it, and the text and documents in which they are present. 
-        In consequence, finding and training word embeddings is a result of mapping the words that are usually near each other.
+        As previously mentioned, the idea behind word embeddings is that the meaning of a word is related to its context. 
+        In consequence, deriving word embeddings is the result of mapping the words that usually near each other. 
+        The process consists of 3 steps:
     </p>
 
     <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
@@ -21,6 +21,6 @@ export const Training = ({next}:iTraining) => <Lesson title={title} next={next}>
     <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
 
     <p>
-        In the next lessonss, we will go in more depth through each step and you will train your own word embeddings along the way!
+        In the next lessons, we will go in more depth through each step and you will train your own word embeddings along the way!
     </p>
 </Lesson>
