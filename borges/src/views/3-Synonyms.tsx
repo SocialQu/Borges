@@ -1,11 +1,41 @@
+import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { a11yLight as codeStyle } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+
 import { InputForm } from '../components/molecules/Form'
-import { Media, Subtitle } from '../components/atoms'
+import { Subtitle } from '../components/atoms'
 import { Scatter } from '../components/atoms/Chart'
 import { Lesson } from '../components/cells/Lesson'
 import { findSynonyms } from '../scripts/nlp'
 import { iModels } from '../types/ai'
 import { User } from 'realm-web'
 import { useState } from 'react'
+
+
+const codeString = `/* Similarity: get the absolute distance of two vectors */
+const similarity = (a:number[], b: number[]) => {
+
+    // Validate the vectors have the same length.
+    if(a.length !== b.length) return Infinity
+    
+    // Sum the absolute difference for each dimension.
+    const delta = a.reduce((d, i, idx) => 
+        d + Math.abs(i - b[idx])
+    , 0)
+    
+    // Return a proxy of a vector's similarity.
+    return delta
+}
+    
+similarity([3,4], [1,2]) // Returns 4
+// Math.abs(3–1) + Math.abs(4–2) = 2+ 2 = 4
+
+similarity([3,4], [1,6]) // Also returns 4
+// Math.abs(3–1) + Math.abs(4–6) = 2 + 2 = 4
+
+// 3D Vectors Distance
+similarity([3,4,5], [4,6,8]) // Returns 6
+// Math.abs(3–4) + Math.abs(4–6) + Math.abs(5–8) = 6
+`
 
 
 interface iSynonyms {next():void, models:iModels, user:User}
@@ -19,10 +49,10 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
 
     return <Lesson title={title} next={next}>
         <p>
-            Finding a synonym is one of the simplest applications of word embeddings. 
-            According to Google a synonym is a word or phrase that means exactly or nearly the same as another word or phrase. 
-            And since word embeddings are numerical representations of the meaning of a word we only need to find the words 
-            that are near the word we want to find a synonym.
+            Finding synonyms is one of the simplest applications of word embeddings. 
+            A synonym is a word that means exactly or nearly the same as another word. 
+            And since word embeddings are numerical representations of a word's meaning. 
+            To find the synonyms, we only need to find the vectors that are closest to the word.            
         </p>
 
         <Scatter
@@ -31,8 +61,8 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
         /> 
 
         <p>
-            To measure the distance between two vectors we need to select a metric. 
-            One of the most common is the Euclidean distance that sums the squared difference across every dimension
+            The first step to finding synonyms is selecting a distance metric to compare the closeness, or similarity, between two vectors. 
+            One of the most common metrics is the Euclidean distance that sums the squared difference across every vector's dimension:
         </p>
 
         <div style={{textAlign:'center', marginBottom:'2rem'}}>
@@ -43,43 +73,16 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
 
 
         <p>
-            Another common distances includes the absolute value distance. In typescript the absolute value can be meassured as follows:
+            Another common distance metric used is the absolute value. In TypeScript, this is how to measure the absolute value distance:
         </p>
 
         <Subtitle text={"Example: Absolute Distance"} style={{textAlign:'center', marginTop:'2rem'}}/>
-        <div className={'code'}>
-            // Compute the absolute distance for two vectors <br/>
-            const similarity = (a:number[], b: number[]) =&gt; &#123; <br/>
-                // Only compute distance for same length vectors. <br/>
-                if(a.length !== b.length) return Infinity <br/>
-
-                const difference = a.reduce((d, i, idx) =&gt; d + Math.abs(i - b[idx]), 0) <br/>
-                return difference <br/>
-            &#125;
-
-            <br/><br/>
-
-            similarity([3,4], [4,5]) =&gt; 2  <br/>
-            // Math.abs(3-4) + Math.abs(4-5) = 1 + 1 = 2 <br/>
-
-            <br/>
-
-
-            similarity([3,4], [4,6]) =&gt; 3 <br/>
-            similarity([3,4], [5,6]) =&gt; 4 <br/>
-            similarity([3,4], [1,6]) =&gt; 4 <br/>
-            // Math.abs(3-1) + Math.abs(4-6) = 2 + 2 = 4 <br/>
-
-            <br/>
-
-            similarity([3,4,5], [4,5,6]) =&gt; 3 <br/>
-            similarity([3,4,5], [4,6,8]) =&gt; 7 <br/>
-            // Math.abs(3-4) + Math.abs(4-6) + Math.abs(5-8) = 1 + 2 + 3 = 6 <br/>
-        </div>
+        <SyntaxHighlighter language="typescript" style={codeStyle}>
+            {codeString}
+        </SyntaxHighlighter>
 
         <p>
-            With that knowledge the process of finding a synonym is trivial. 
-            One only has to find the words that have the minimum distance to the word for which we are finding synonyms. 
+            With that knowledge, finding the synonym is trivial. One only has to find the words that have the minimum distance. 
             Use the input box below to search for synonyms based on TensorflowJS word embeddings:
         </p>
 
@@ -89,8 +92,8 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
         <ul> { synonyms?.map((synonym)=> <li> { synonym } </li> ) } </ul>
 
         <p>
-            Interestingly, it is also possible to find Antonyms with word embeddings, 
-            the only difference is to find the words maximize that maximize the  distance to the intended word.
+            Interestingly, it is also possible to find antonyms using word embeddings. 
+            The only difference is finding the vectors that maximize the distance.
         </p>
 
         <Scatter 
