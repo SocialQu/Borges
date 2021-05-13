@@ -20,11 +20,12 @@ export const AdvancedTopics = ({next}:iAdvancedTopics) => <Lesson title={title} 
         to train word embeddings based on this understanding.
 
         The first one CBOW, predicts the word based on the context that surrounds it, and N-Gram predicts the adyacent words
-        for each word. The <a>word2vec</a> paper was important also by introducing a way to evaluate the efficacy of word embeddings.
+        for each word. The <a href="https://arxiv.org/pdf/1301.3781.pdf">word2vec</a> 
+        paper was important also by introducing a way to evaluate the efficacy of word embeddings.
     </p>
 
     <Subtitle text={"Word2Vec Model Architectures"} style={{textAlign:'center', marginTop:'2rem'}}/>
-    <img src={word2VecImage} style={{marginBottom:'2rem'}} />
+    <img src={word2VecImage} style={{marginBottom:'2rem'}} alt="Word2Vec Nerural Network Architectures"/>
 
     <p>
         The second paper, GloVE was based on the assumption that real meaning arises from the relative frequency of words.
