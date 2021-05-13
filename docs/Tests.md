@@ -9,7 +9,7 @@
 - [ ] Personal links:
     - [ ] LinkedIn.
     - [ ] GitHub.
-    - [ ] Medium.
+    - [ ] Medium: the Viral Startup.
 
 ## Data
 - [ ] Synonym & Antonyms
@@ -31,8 +31,18 @@
 - [ ] Modal Style
 - [ ] Min height on Next Button?
 - [ ] Footer with Twitter Link?
+- [ ] Responsiveness.
  
 
 ## Story
 - [ ] Link to The Viral Startup on Blog.
+- [ ] Import bold sentences, links, and maybe charts.
+- [ ] Fix wording on pending charts.
+- [ ] Divide CTA, and set course after conclusion.
 
+
+## Ops
+- [ ] Launch checklist.
+- [ ] CI/CD Pipeline.
+- [ ] Domain.
+- [ ] Gumroad Copywrite.
