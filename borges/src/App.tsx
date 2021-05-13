@@ -58,7 +58,6 @@ export const App = () => {
 	const [ units, setUnits ] = useState(Units)
 	const [ position, setPosition ] = useState<iPosition>({ unit:0 })
     const [ user, setMongoUser ] = useState<User>()
-    const [ db, setDB ] = useState<Realm.Services.MongoDBDatabase>()
 	const [ models, setModels ] = useState<iModels>()
 
     useEffect(() => { 
@@ -71,13 +70,7 @@ export const App = () => {
 		fetchModels()
 		return
 
-        connectMongo().then(mongoUser => {
-            setMongoUser(mongoUser)
-			const mongoAtlas = process.env.REACT_APP_MONGODB_ATLAS as string
-            const mongo = mongoUser.mongoClient(mongoAtlas)
-            const db = mongo.db('Borges')
-            setDB(db)
-        })
+        connectMongo().then(mongoUser => setMongoUser(mongoUser))
 	}, [])
 
 
