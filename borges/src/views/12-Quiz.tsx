@@ -46,7 +46,6 @@ const questions:iQuestion[] = [
 ]
 
 
-const title = "Word Embeddings Quiz"
 interface iWordEmbeddingsQuiz {next():void, reset():void}
 export const WordEmbeddingsQuiz = ({next, reset}:iWordEmbeddingsQuiz) => {
     const [approved, setApproved] = useState(false)

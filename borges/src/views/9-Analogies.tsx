@@ -1,6 +1,5 @@
 import { Lesson } from "../components/cells/Lesson"
 import { Scatter } from "../components/atoms/Chart"
-import { Subtitle } from '../components/atoms'
 
 const data = [
     {name:'King', x:5, y:5}, 
