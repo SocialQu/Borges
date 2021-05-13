@@ -20,10 +20,10 @@ export const CooccurrenceMatrix = ({words, matrix, next}:iCooccurrenceMatrix) =>
     <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
 
     <Subtitle text="Example: A Co-occurrence Matrix" style={{textAlign:'center', marginTop:'2rem'}}/>
-    <img src={coOccurrenceMatrixImg}/>
+    <img src={coOccurrenceMatrixImg} alt={"Sample co-occurrence matrix."}/>
 
     <div className="code" style={{marginLeft:0, marginRight:0}}>
-        // Sentences used to build the samle co-occurrence matrix. <br/>
+        &#47;&#47; Sentences used to build the samle co-occurrence matrix. <br/>
         1. I like deep learning. <br/>
         2. I enjoy flying. <br/>
         3. I like NLP. <br/>
@@ -37,13 +37,13 @@ export const CooccurrenceMatrix = ({words, matrix, next}:iCooccurrenceMatrix) =>
     </p>
 
     <div className={"code"}>
-        // For an 3-word-window: <br/>
+        &#47;&#47; For an 3-word-window: <br/>
         const str = 'I enjoy learning Natural Language Processing.' <br/><br/>
 
-        // enjoy &amp; learning are adyacent. <br/>
-        // enjoy &amp; Natural are adyacent. <br/>
-        // enjoy &amp; Language are adyacent. <br/>
-        // enjoy &amp; Processing are *NOT* adyacent. <br/>
+        &#47;&#47; enjoy &amp; learning are adyacent. <br/>
+        &#47;&#47; enjoy &amp; Natural are adyacent. <br/>
+        &#47;&#47; enjoy &amp; Language are adyacent. <br/>
+        &#47;&#47; enjoy &amp; Processing are *NOT* adyacent. <br/>
     </div>
 
     <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
