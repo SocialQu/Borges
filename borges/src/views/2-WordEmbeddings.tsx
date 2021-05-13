@@ -1,4 +1,3 @@
-import { Subtitle } from "../components/atoms"
 import { Lesson } from "../components/cells/Lesson"
 
 const title = 'What are word embeddings?'
@@ -11,6 +10,7 @@ export const WordEmbeddings = ({next}:iWordEmbeddings) => <Lesson title={title} 
     </p>
 
     <img 
+        alt={"A word and its neighbours."}
         style={{maxWidth:'calc(100% - 25px)', marginLeft:25}}
         src={"https://cdn-images-1.medium.com/max/800/0*1JilkAo3wHgL7Y-S.png"} 
     />
@@ -27,6 +27,7 @@ export const WordEmbeddings = ({next}:iWordEmbeddings) => <Lesson title={title} 
     </p>
         
     <img
+        alt="Sample Word Vectors"
         style={{maxWidth:'90%', margin:'1rem 3% 1.5rem'}} 
         src={"https://cdn-images-1.medium.com/max/800/0*QcFWhMO-HSNHiLG_.png"}
     />

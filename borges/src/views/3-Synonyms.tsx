@@ -67,7 +67,10 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
 
         <div style={{textAlign:'center', marginBottom:'2rem'}}>
             <Subtitle text={"Euclidean Distance Calculation"} style={{marginTop:'2rem'}}/>
-            <img src="https://www.tutorialexample.com/wp-content/uploads/2020/05/Euclidean-distance-in-tensorflow.png" />
+            <img 
+                alt="Euclidean Distance Calculation"
+                src="https://www.tutorialexample.com/wp-content/uploads/2020/05/Euclidean-distance-in-tensorflow.png" 
+            />
         </div>
 
 
