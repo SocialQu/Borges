@@ -5,11 +5,9 @@ const title = 'Startups'
 interface iProducts {next():void}
 export const Products = ({next}:iProducts) => <Lesson title={title} next={next}>
     <p>
-        This is a list of products, SaaS and startups that use word embeddings to create innovative products. 
+        This is a list of startups that have products based on word embeddings.
 
-        And if you try a product, do not forget to rate it and leave an encouragement comment.
-
-        If you would like to submit a product you created or use please use this form. 
+        If you would like to submit a product, please send me a message on LinkedIn.
     </p>
 
     <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
