@@ -48,7 +48,7 @@ const Module = ({
     module:{name, locked, position, lessons }, 
     styles: {moduleStyle, moduleListStyle, ...styles}, 
     navigation: {active:{unit:u, module:m, lesson:l}, navigate},
-}:iFullModule) => <li style={{lineHeight:2, ...moduleListStyle}} key={position.module}>
+}:iFullModule) => <li style={{lineHeight:2, ...moduleListStyle}}>
     <a 
         onClick={() => navigate(position)} 
         style={!locked ? {...moduleStyle} : {cursor:'initial', ...moduleStyle}}
@@ -98,8 +98,9 @@ const Unit = ({
     { 
         <ul className="menu-list" style={{marginBottom:'2rem'}}>
             {
-                modules.map(module => 
+                modules.map((module, k) => 
                     <Module 
+                        key={k}
                         module={module} 
                         expanded={expanded}
                         styles={styles}
@@ -164,10 +165,11 @@ export const Menu = ({ active, units, styles:{menuStyle, ...styles}={}, navigate
 
     return <aside className="menu section is-hidden-mobile" style={{...defaultStyle, ...menuStyle}}>
         { 
-            menuUnits?.map((unit) => <Unit 
+            menuUnits?.map((unit, k) => <Unit 
                     unit={unit}
-                    expanded={expanded}
+                    key={k}
                     styles = {styles}
+                    expanded={expanded}
                     navigation={{ active, navigate:handleClick }}
                 /> 
             ) 
