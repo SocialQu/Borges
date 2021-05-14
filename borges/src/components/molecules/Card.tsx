@@ -61,12 +61,12 @@ export const MobileCard = ({title, link, children, img}: iCard) => <div classNam
 
 interface iLargeCard extends iCard { titleStyle?:CSSProperties } 
 export const LargeCard = ({title, titleStyle, link, img, children}:iLargeCard) => <div>
-    <a href={link}>
+    <a href={link} target='_blank' rel='noreferrer'>
         <Subtitle text={title} style={{marginTop:'2rem', ...titleStyle}}/>
     </a>
 
     <article className='media' style={{marginBottom:0}}>
-        <a href={link} style={{width:288}}>
+        <a href={link} style={{width:288}} target='_blank' rel='noreferrer'>
             <img src={img} style={{objectFit:'cover'}} alt='Card cover' />
         </a>
 
