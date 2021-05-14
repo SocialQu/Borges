@@ -22,7 +22,7 @@
 
 ## Iteractivity
 - [X] Find Synonyms.
-- [ ] Classifying Topics.
+- [X] Classifying Topics.
 - [ ] Text Tokenization.
 - [ ] Modal submission, messages & failure.
 - [ ] Videos work.
