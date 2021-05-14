@@ -23,9 +23,9 @@
 ## Iteractivity
 - [X] Find Synonyms.
 - [X] Classifying Topics.
-- [ ] Text Tokenization.
-- [ ] Modal submission, messages & failure.
-- [ ] Videos work.
+- [X] Text Tokenization.
+- [X] Modal submission, messages & failure.
+- [X] Videos work.
 
 ## Style
 - [ ] Scroll top when navigating.
