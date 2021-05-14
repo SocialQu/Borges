@@ -63,8 +63,6 @@ export const App = () => {
 
 	const next = () => {
 		const nextModule = position.module !== undefined ? position.module + 1 : 0
-		const nextUnit = position.unit !== undefined ? position.unit + 1 : 0
-
 		const mextModuleExists = units[position.unit as number].modules[nextModule]
 
 		if(mextModuleExists) setPosition({...position, module:nextModule})
