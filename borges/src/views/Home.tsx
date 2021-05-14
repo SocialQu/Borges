@@ -54,7 +54,7 @@ export const Router = ({ position: { module }, models, user, next }: iHome) => {
 
 
     const reduceMatrix = (words:string[], wordsMatrix:number[][]) => {
-        const matrix = models.pca.predict(wordsMatrix, {nComponents:2}).to2DArray()
+        const matrix = models.wordsPCA.predict(wordsMatrix, {nComponents:2}).to2DArray()
         const vectors = words.map((word, i) => ({ word, coordinates:matrix[i] as [number, number] }))
         const embeddings = vectors.map(({ word, coordinates:[x, y] }) => ({name:word, x, y}))
         setEmbeddings(embeddings)
