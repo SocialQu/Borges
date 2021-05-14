@@ -21,7 +21,7 @@
 - [ ] Gender Bias.
 
 ## Iteractivity
-- [ ] Find Synonyms.
+- [X] Find Synonyms.
 - [ ] Classifying Topics.
 - [ ] Text Tokenization.
 - [ ] Modal submission, messages & failure.
