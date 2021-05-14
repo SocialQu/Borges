@@ -41,7 +41,7 @@ getCenter([[2,3,3], [4,4,-1], [0,2,4]]) // Returns [2,3,1]
 
 
 const title = 'Application: Topic Classification'
-interface iTopicClassification {user:User, models:iModels, next():void}
+interface iTopicClassification {user?:User, models:iModels, next():void}
 export const TopicClassification = ({next, models, user}:iTopicClassification) => {
     const [ topics, setTopics ] = useState<string[]>()
 
