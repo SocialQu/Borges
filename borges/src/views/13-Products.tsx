@@ -18,7 +18,7 @@ export const Products = ({next}:iProducts) => <Lesson title={title} next={next}>
         img={'cortazar.png'}
     >
         <p>
-            <a href="https://cortazar,ml">
+            <a href="https://cortazar.ml" target='_blank' rel='noreferrer'>
                 <strong> Cortazar </strong>
             </a> serves reading suggestions based on smart word embedding searches, 
             the stories are ranked by match and rating. <br/><br/>
