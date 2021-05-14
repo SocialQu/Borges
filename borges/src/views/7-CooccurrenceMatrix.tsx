@@ -53,20 +53,20 @@ export const CooccurrenceMatrix = ({words, matrix, next}:iCooccurrenceMatrix) =>
         This is your co-occurrence matrix based on the text you submitted in the previous lesson:
     </p>
 
-    <div className="table-container">
-        <Subtitle text="Your Co-occurrence Matrix" style={{textAlign:'center', marginTop:'2rem'}}/>
-        <table className="table">
+    <Subtitle text="Your Co-occurrence Matrix" style={{textAlign:'center', marginTop:'2rem'}}/>
+    <div className="table-container" style={{overflowY:'auto', maxHeight:480}}>
+        <table className="table" style={{textAlign:'center'}}>
             <thead>
                 <tr> 
                     <th/>
-                    { words.map(word => <th><abbr title={word}>{word.slice(0,3)}</abbr></th>) } 
+                    { words.map(word => <th>{ word }</th>) } 
                 </tr>
             </thead>
 
             <tfoot>
                 <tr>
                     <th/>
-                    { words.map(word => <th><abbr title={word}>{word.slice(0,3)}</abbr></th>) }
+                    { words.map(word => <th>{ word }</th>) }
                 </tr>
             </tfoot>
 
