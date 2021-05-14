@@ -4,13 +4,13 @@
 - [X] On Landing Site, I can start the course.
 - [X] I can click next to the last lesson.
 - [X] Navigation on Quiz.
-- [ ] On the last lesson I'm redirected to Gumroad.
-- [ ] SocialQ goes to home.
-- [ ] Every link opens a new site.
-- [ ] Personal links:
-    - [ ] LinkedIn.
-    - [ ] GitHub.
-    - [ ] Medium: the Viral Startup.
+- [X] On the last lesson I'm redirected to Gumroad.
+- [X] SocialQ goes to home.
+- [X] Every link opens a new site.
+- [X] Personal links:
+    - [X] LinkedIn.
+    - [X] GitHub.
+    - [X] Medium: the Viral Startup.
 
 ## Data
 - [ ] Synonym & Antonyms
