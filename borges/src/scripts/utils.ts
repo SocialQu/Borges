@@ -23,4 +23,4 @@ export const getCenter = async(text:string[], {model, pca}:iModels):Promise<iWor
 
 
 export const tokenizeSentences = (text:string):string[] => text.match( /[^.!?]+[.!?]+/g ) as string[]
-export const tokenizeWords = (text:string) => text.match(/(\b[^ $]+\b)/g)
+export const tokenizeWords = (text:string) => text.replace(/[.,/#!$%^&*;:{}=\-_`~()\n]/g," ").replace(/\s{2,}/g," ").match(/(\b[^ $]+\b)/g)
