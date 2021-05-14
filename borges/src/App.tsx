@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react'
 import 'bulma/css/bulma.css'
 import './App.css'
 
-const Units:iUnit[] = [{ 
+const units:iUnit[] = [{ 
 	name:'Word Embeddings', 
 	modules: [
 		{ name:'Introduction' },
@@ -33,19 +33,6 @@ const Units:iUnit[] = [{
 }]
 
 
-const unlockModule = (units:iUnit[], position:iPosition, nextModule:number) => units.map((u, i) => 
-	i === position.unit 
-	? 	{ 
-			...u, 
-			modules: u.modules.map((m, id) => 
-				id === nextModule 
-				? 	{...m, locked:false } 
-				: 	m
-			) 
-		} 
-	: u
-)
-
 const connectMongo = async() => {
     const REALM_APP_ID = process.env.REACT_APP_REALM_ID as string
     const app = new RealmApp({ id: REALM_APP_ID })
@@ -55,7 +42,6 @@ const connectMongo = async() => {
 
 
 export const App = () => {
-	const [ units, setUnits ] = useState(Units)
 	const [ position, setPosition ] = useState<iPosition>({ unit:0 })
     const [ user, setMongoUser ] = useState<User>()
 	const [ models, setModels ] = useState<iModels>()
@@ -75,18 +61,15 @@ export const App = () => {
 
 
 	const next = () => {
-		const nextModule = position.module ? position.module + 1 : 0
-		const nextUnit = position.unit ? position.unit + 1 : 0
+		const nextModule = position.module !== undefined ? position.module + 1 : 0
+		const nextUnit = position.unit !== undefined ? position.unit + 1 : 0
 
-		if(units[position.unit as number].modules[nextModule]) {
-			setPosition({...position, module:nextModule})
-			const newUnits = unlockModule([...units], position, nextModule)
-			setUnits(newUnits)
+		const mextModuleExists = units[position.unit as number].modules[nextModule]
 
-		} else setPosition({unit:nextUnit, module:0})
+		if(mextModuleExists) setPosition({...position, module:nextModule})
+		else setPosition({unit:nextUnit, module:0})
 	}
 
-	const reset = () => setPosition({unit:0, module:0})
 
 	return <div className="App">
 		<NavBar />
@@ -102,7 +85,6 @@ export const App = () => {
 					position={position} 
 					models={models as iModels} 
 					user={user as User}	
-					reset={reset}
 					next={next} 
 				/>
 			</div>
