@@ -2,18 +2,21 @@ import { iStoryFile, readStories } from '../../Cortazar/scripts/pipeline/reader'
 import { iRawStory } from '../../Cortazar/cortazar/src/types/stories'
 import { parseStories } from '../../Cortazar/scripts/pipeline/parser'
 import PCA_Model from '../../Cortazar/cortazar/src/data/pca.json'
+import PCA_WORDS from '../borges/src/data/words-pca.json'
+
 
 import * as use from '@tensorflow-models/universal-sentence-encoder'
 import { IPCAModel, PCA } from 'ml-pca'
 
-import { getCenter, tokenizeWords, findCenter } from './functions'
+import { getCenter, tokenizeWords, findCenter, similarity } from './functions'
 import { promises as fs } from 'fs'
 
 import topics from '../../Cortazar/scripts/data/topics.json'
 import dictionary from './data/words.json'
 import { connect } from './db'
-import tf from '@tensorflow/tfjs-node'
+import '@tensorflow/tfjs-node'
 
+const PCA_ROOT = './data/words-pca.json'
 
 export interface iWordDoc {word:string, embeddings:number[], center:number[], frequency?:number}
 export const buildDictionary = async() => {
@@ -51,21 +54,25 @@ export const buildDictionary = async() => {
 }
 
 export const embedDictionary = async() => {
-    console.log('Init', tf)
-
-    const topWords = dictionary.filter((i, idx) => idx > 100 && idx < 2000)
-    const words = topWords.map(({ word }) => word)
     const model = await use.load()
-
-    const pca = PCA.load(PCA_Model as IPCAModel)
-    const wordEmbeddings = await getCenter(words, {model, pca})
-    const wordDocuments:iWordDoc[] = wordEmbeddings.map(({text, ...vector}) => ({...vector, word:text }))
+    const pca = PCA.load(PCA_WORDS as IPCAModel)
 
     const { collection, client } = await connect('words')
-    for (const { word, center, embeddings } of wordDocuments) {
-        await collection.updateOne({ word }, { $set: { word, center, embeddings }}, {upsert:true})
+
+    // await collection.deleteMany({})
+    const docs = await collection.find({}).toArray()
+    console.log(docs.length)
+
+    for(const i in [...Array(10)]){
+        if (Number(i) < 7) continue
+        const words = dictionary.filter((_, idx) => idx > Number(i)*1000 && idx <= (Number(i)+1)*1000)
+        const wordEmbeddings = await getCenter(words, {model, pca})
+        const wordDocuments:iWordDoc[] = wordEmbeddings.map(({text, ...vector}) => ({...vector, word:text }))
+        await collection.insertMany(wordDocuments)
+        console.log(i)
     }
 
+    console.log((await collection.find({}).toArray()).length)
     await client.close()
 }
 
@@ -105,10 +112,24 @@ export const mapTopics = async() => {
 }
 
 
-export const similarityDistribution = async() => {
-    // const { collection, client } = await connect('')
-    
-    // await client.close()
+export const similarityComparisson = async() => {
+    const model = await use.load()
+    const pca_model = PCA.load(PCA_Model as IPCAModel)
+    const dataset = dictionary.filter((_, idx) => idx > 0 && idx <= 2000 && Math.random() < 0.1)
+    console.log('Dataset Length:', dataset.length)
+
+    const corpus = await getCenter(dataset, {model, pca:pca_model})
+    const pca = new PCA(corpus.map(({ embeddings }) => embeddings))
+    await fs.writeFile(PCA_ROOT, JSON.stringify(pca))
+
+    console.log('New PCA')
+
+    const words = ['good', 'bad', 'well', 'right', 'great', 'sad', 'happy', 'test', 'rough']
+    const embeddings = await getCenter(words, {model, pca})
+
+    embeddings.map(({ embeddings:e, text, center:c }) => {
+        console.log(text, similarity(embeddings[0].embeddings, e), similarity(embeddings[0].center, c), c)
+    })
 }
 
 

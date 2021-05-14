@@ -2,10 +2,10 @@ import { a11yLight as codeStyle } from 'react-syntax-highlighter/dist/esm/styles
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter'
 
 import { InputForm } from '../components/molecules/Form'
-import { Subtitle } from '../components/atoms'
+import { findSynonyms, iSynonym } from '../scripts/nlp'
 import { Scatter } from '../components/atoms/Chart'
 import { Lesson } from '../components/cells/Lesson'
-import { findSynonyms } from '../scripts/nlp'
+import { Subtitle } from '../components/atoms'
 import { iModels } from '../types/ai'
 import { User } from 'realm-web'
 import { useState } from 'react'
@@ -37,14 +37,13 @@ similarity([3,4,5], [4,6,8]) // Returns 6
 // Math.abs(3–4) + Math.abs(4–6) + Math.abs(5–8) = 6
 `
 
-
-interface iSynonyms {next():void, models:iModels, user:User}
+interface iSynonyms {next():void, models:iModels, user?:User}
 const title = 'Application: Finding Synonyms'
 export const Synonyms = ({next, models, user}:iSynonyms) => {
-    const [ synonyms, setSynonyms ] = useState<string[]>()
+    const [ synonyms, setSynonyms ] = useState<iSynonym[]>([])
     const getSynonyms = async(synonym:string) => {
         const synonyms = await findSynonyms({ word:synonym, models, user })
-        setSynonyms(synonyms.map(({ word }) => word))
+        setSynonyms(synonyms.filter((_, i) => i < 5))
     } 
 
     return <Lesson title={title} next={next}>
@@ -92,7 +91,28 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
         <Subtitle text="Excersice: Find The Synonyms" style={{textAlign:'center'}}/>
         <InputForm placeholder={'Search the Synonyms of a word...'} submit={getSynonyms} />
 
-        <ul> { synonyms?.map((synonym)=> <li> { synonym } </li> ) } </ul>
+        <table className="table" style={{textAlign:'center'}}>
+            <thead>
+                <tr> 
+                    <th> Synonym </th>
+                    <th> Similarity </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                { 
+                    synonyms.map(({ word, similarity }, i) => 
+                        <tr>
+                            <td> { word } </td>
+                            <td> <strong>{ similarity }%</strong> </td>
+                        </tr>
+                    )
+                }
+            </tbody>
+        </table>
+
+
+        <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
 
         <p>
             Interestingly, it is also possible to find antonyms using word embeddings. 

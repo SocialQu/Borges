@@ -3,11 +3,12 @@ import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter'
 
 import { TextAreaForm } from '../components/molecules/Form'
 import { Scatter, Subtitle } from '../components/atoms'
+import { classifyText, iTopic } from '../scripts/nlp'
 import { Lesson } from "../components/cells/Lesson"
-import { classifyText } from '../scripts/nlp'
 import { iModels } from '../types/ai'
 import { User } from 'realm-web'
 import { useState } from 'react'
+
 
 const codeString = `/* 
  * getCenter: find the average the position of a matrix of 
@@ -39,15 +40,14 @@ getCenter([[2,3,3], [4,4,-1], [0,2,4]]) // Returns [2,3,1]
 // [(2+4+0)/3, (3+4+2)/3, (3-1+4)/3] = [2,3,1]
 `
 
-
 const title = 'Application: Topic Classification'
-interface iTopicClassification {user:User, models:iModels, next():void}
+interface iTopicClassification {user?:User, models:iModels, next():void}
 export const TopicClassification = ({next, models, user}:iTopicClassification) => {
-    const [ topics, setTopics ] = useState<string[]>()
+    const [ topics, setTopics ] = useState<iTopic[]>([])
 
     const getTopics = async(text:string) => {
         const topics = await classifyText({ text, models, user })
-        setTopics(topics.map(({ topic }) => topic))
+        setTopics(topics)
     } 
 
 
@@ -91,8 +91,29 @@ export const TopicClassification = ({next, models, user}:iTopicClassification) =
             label="Excersice: Classify a Text" 
             placeholder={'Drop a text or sentence to find its related topics.'}
         />
-        <ul> { topics?.map((topic)=> <li> { topic } </li> ) } </ul>
 
+        <table className="table" style={{textAlign:'center'}}>
+            <thead>
+                <tr> 
+                    <th> Synonym </th>
+                    <th> Similarity </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                { 
+                    topics.map(({ topic, similarity }, i) => 
+                        <tr>
+                            <td> { topic } </td>
+                            <td> <strong>{ similarity }%</strong> </td>
+                        </tr>
+                    )
+                }
+            </tbody>
+        </table>
+
+
+        <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
         <p>
             <strong> Reflection:</strong> 
             <i>How would you classify documents using exclusively unlabeled data? That is with unsupervised learning.</i>

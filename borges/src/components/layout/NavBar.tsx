@@ -11,7 +11,7 @@ interface iBrand {
     logoStyle?:CSSProperties
     brandStyle?:CSSProperties
 
-    click?():void 
+    click(tab:string):void 
 }
 
 interface iFullBrand extends iBrand { active:boolean, activate():void }
@@ -20,7 +20,7 @@ const Brand = ({ active, logoSrc='SocialQ.png', brand='SocialQ', logoStyle={}, b
     const defaultBrandStyle = { fontSize: '2em', color:'white' }
 
     return <div className='navbar-brand'>
-        <a className='navbar-item' onClick={click}>
+        <a className='navbar-item' onClick={() => click('HOME')}>
             <img src={logoSrc} style={{...defaultLogoStyle, ...logoStyle}} alt={`${brand} logo`}/>
             <p className='navbar-item' style={{...defaultBrandStyle, ...brandStyle}} > { brand } </p>
         </a>
@@ -42,11 +42,11 @@ const Brand = ({ active, logoSrc='SocialQ.png', brand='SocialQ', logoStyle={}, b
 }
 
 
-interface iNavBarItem { style?:CSSProperties, divStyle?:CSSProperties, click():void }
-export const NavBarItem = ({ style, divStyle, click }: iNavBarItem) => {
+interface iNavBarItem { id:string, style?:CSSProperties, divStyle?:CSSProperties, click(tab:string):void }
+export const NavBarItem = ({ id, style, divStyle, click }: iNavBarItem) => {
     return <div className={`navbar-end`} style={{fontSize: '1.2em', ...divStyle}}>
         <a 
-            onClick={click}
+            onClick={() => click(id)}
             className={'navbar-item'} 
             style={{textAlign:'center', ...style}}
         > 
@@ -66,9 +66,10 @@ interface iNavBar {
     navbarClass?:NavbarClass
     navBarStyle?:CSSProperties 
     containerStyle?:CSSProperties
+    click(tab:string):void
 }
 
-export const NavBar = ({brand, items=[], navbarClass='is-link', navBarStyle, containerStyle }: iNavBar) => {
+export const NavBar = ({brand, items=[], navbarClass='is-link', navBarStyle, containerStyle, click }: iNavBar) => {
     const midScreen = useMediaQuery({ query: '(min-width: 1024px)' })
     const [ isActive, setActive ] = useState(false)
 
@@ -82,7 +83,7 @@ export const NavBar = ({brand, items=[], navbarClass='is-link', navBarStyle, con
         style={{...defaultNavBarStyle, ...navBarStyle}}
     >
         <div className='container' style={{...defaultContainerStyle, ...containerStyle}}>
-            <Brand {...brand} active={isActive} activate={() => setActive(!isActive)}/>
+            <Brand {...brand} active={isActive} activate={() => setActive(!isActive)} click={click}/>
 
             <div 
                 className={`navbar-menu ${isActive ? 'is-active navbar-menu-active': ''}`} 

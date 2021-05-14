@@ -1,7 +1,7 @@
-import { iModels } from '../types/ai'
+import { UniversalSentenceEncoder } from '@tensorflow-models/universal-sentence-encoder'
+import { PCA } from 'ml-pca'
 
-
-const similarity = (center:number[], embedding: number[]) => {
+export const similarity = (center:number[], embedding: number[]) => {
     if (center.length !== embedding.length) return Infinity
     const delta = center.reduce((d, i, idx) => d + Math.abs(i - embedding[idx]), 0)
     return delta
@@ -11,7 +11,7 @@ export const sortBySimilarity = (center:number[], synonymns:{embeddings:number[]
     similarity(center, a) > similarity(center, b) ? 1 : -1
 )
 
-
+interface iModels { model:UniversalSentenceEncoder, pca:PCA }
 interface iWordEmbedding { text:string, embeddings:number[], center:number[] }
 export const getCenter = async(text:string[], {model, pca}:iModels):Promise<iWordEmbedding[]> => {
     const tensor = await model.embed(text)
@@ -23,4 +23,4 @@ export const getCenter = async(text:string[], {model, pca}:iModels):Promise<iWor
 
 
 export const tokenizeSentences = (text:string):string[] => text.match( /[^.!?]+[.!?]+/g ) as string[]
-export const tokenizeWords = (text:string) => text.match(/(\b[^ $]+\b)/g)
+export const tokenizeWords = (text:string) => text.replace(/[.,/#!$%^&*;:{}=\-_`~()\n]/g," ").replace(/\s{2,}/g," ").match(/(\b[^ $]+\b)/g)

@@ -38,21 +38,24 @@ export const Analogies = ({next}:iAnalogies) => <Lesson title={title} next={next
     <p>
         Adding and subtracting word embedding has an interesting and surprising application: solving analogies. 
         Traditionally, analogies are used to measure the reasoning and language skills of students. 
-        Today, they also evaluate the accuracy of word embeddings. Consider the following analogy: <br/><br/>
+        Today, they also evaluate the accuracy of word embeddings. Consider the following analogy:
+    </p>
 
-        <strong > King is to man, as queen is to ______. </strong><br/><br/>
+    <p style={{textAlign:'center'}}>
+        <strong> King is to man, as queen is to ______. </strong>
+    </p>
 
+    <p>
         The idea to solve this problem is to find the word that has the same distance to "queen" as "man" has to "king." 
         This is how it looks with vectors:
     </p>
 
+    <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
     <Subtitle text={"Solivng the analogy"} style={{textAlign:'center', marginTop:'2rem'}}/>
+
     <SyntaxHighlighter language="typescript" style={codeStyle}>
         {codeString}
     </SyntaxHighlighter>
-
-    <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
-
 
     <p>
         The word embeddings dictionary can be located in a database or loaded from a package. 
@@ -64,5 +67,6 @@ export const Analogies = ({next}:iAnalogies) => <Lesson title={title} next={next
         How to build a text recommendation engine.
     </p>
 
+    <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
     <Scatter label="Visual Representation of the Queen Analogy" data={data} />
 </Lesson>

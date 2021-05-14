@@ -1,7 +1,6 @@
 # To Do
 
 ## Lessons 
-
 - [X] Display Synonyms on Lesson.
 - [ ] Values for Synonyms and Antonyms Charts.
 - [ ] Double color on Scatter Charts.
@@ -9,7 +8,6 @@
 - [ ] Map value for topics.
 
 ## Styling
-
  1. [X] Remove Lock Icons.
  2. [ ] Add Independant Scroll on Menu?
  3. [X] Set Max-width on Lessons' container.
@@ -30,5 +28,11 @@
 
 ## Content
 - [ ] Remove Antonyms?
-- [ ] 
-- [ ] 
+
+## UX
+- [ ] Loading when submitting synonyms.
+- [ ] Warning after synonyms are rendered.
+- [ ] Table when no synonyms.
+- [ ] Extend to Topics.
+- [ ] Unique words counter.
+- [ ] Limit tokens.

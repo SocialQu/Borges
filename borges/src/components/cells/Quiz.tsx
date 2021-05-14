@@ -3,17 +3,17 @@ import { Title } from '../atoms'
 import { useState } from 'react'
 
 const messages = {
-    encouragementMsg: 'Come on! You still have another shot.',
+    encouragementMsg: 'Come on! Give it another shot.',
     retryMsg: 'I invite you to restart the module.',
     button:{
         next:'Continue',
-        retry:'Restart',
-        restart:'Go Back',
+        retry:'Retry',
+        restart:'Retry',
         send:'Submit'
     },
     title:{
         pass:'Congratulations!',
-        fail:'I am sorry.'
+        fail:'Sorry!'
     },
     score:['You got right', 'out of', 'questions.'],
     instructions:['You need at least', 'correct question', 'to approve.']
@@ -31,7 +31,7 @@ const Question = ({index, question, value, answers, select}:IQuestion) => <div
     <label className="label" style={{fontSize:'1.25em'}}> { question } </label>
     {
         answers.map(({ answer:a }, i) => 
-            <div className="control">
+            <div className="control" key={i}>
                 <label className="radio" style={{fontSize:'1.25em', marginBottom:'0.25em'}}>
                     <input 
                         type="radio" 
@@ -53,7 +53,7 @@ const Score = ({score, questions}:{score:number, questions:number}) => <>
 </>
 
 const Instructions = ({min}: {min:number}) => <> 
-    {messages.instructions[0]} {min} {messages.instructions[1]}{min > 1 ? 's' : ''} {messages.instructions[2]} <br/>
+    {messages.instructions[0]} <strong>{min}</strong> {messages.instructions[1]}{min > 1 ? 's' : ''} {messages.instructions[2]} <br/>
 </>
 
 interface iModal { 
@@ -82,15 +82,17 @@ const Modal = ({ questions, score, isActive, approved, min, quizFailures, deacti
                 { 
                     approved 
                         ?   <span style={{fontSize:'1.5rem', fontWeight:600}}> { messages.title.pass } </span> 
-                        :   <> { messages.title.fail } </> 
+                        :   <span style={{fontWeight:500}}> { messages.title.fail } </span> 
                 } 
                 
-                <br/> 
+                <br/><br/>
 
                 <Score score={score} questions={questions.length}/>
                 { !approved && quizFailures === 1 ? <Instructions min={min}/> : null }
                 { !approved && quizFailures === 1 ? <><br/>{ messages.encouragementMsg }</> : null }
                 { !approved && quizFailures === 2 ? <><br/>{ messages.retryMsg }</> : null }
+
+                <br/><br/>
             </p>
         </section>
 
@@ -113,7 +115,7 @@ interface iQuiz {
     title?:string
     description?:string,
     questions?:iQuestion[]
-    min?:number,
+    min:number,
     quizFailures:number
     children: JSX.Element | JSX.Element[]
     next():void

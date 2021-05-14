@@ -4,15 +4,15 @@ import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { TextAreaForm } from '../components/molecules/Form'
 import { Lesson } from "../components/cells/Lesson"
 import { Subtitle } from '../components/atoms'
+import { iEmbeddings } from './Home'
 
 
 const codeString = `/* tokenize: split the words in a text or document. */
-const tokenize (text:string) => text.match(/(\b[^ $]+\b)/g)
-`
+const tokenize (text:string) => text.match(/(\b[^ $]+\b)/g)`
 
 const title = 'Tokenization'
-interface iTokenization {getWords(text:string):void, next():void}
-export const Tokenization = ({getWords, next}:iTokenization) => <Lesson title={title} next={next}>
+interface iTokenization {embeddings:iEmbeddings[], getWords(text:string):void, next():void}
+export const Tokenization = ({embeddings, getWords, next}:iTokenization) => <Lesson title={title} next={next}>
     <p>
         There is a long tradition in Natural Language Processing (NLP) to separate words that includes stemming and lemmatization. 
         To exemplify some of the difficulties we need to consider when splitting a text, consider the following[1]:
@@ -46,6 +46,8 @@ export const Tokenization = ({getWords, next}:iTokenization) => <Lesson title={t
 
 
     <TextAreaForm submit={getWords} label={"Excersice: Tokenize a Text"}/>
+    <p style={{textAlign:'center'}}> <strong> Word Embeddings:</strong> {embeddings.length} </p>
+    <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
 
     <p>
         <strong> Important: </strong> the text you submitted will be used in the next 2 lessons.

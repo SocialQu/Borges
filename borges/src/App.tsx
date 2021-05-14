@@ -2,8 +2,10 @@ import * as use from '@tensorflow-models/universal-sentence-encoder'
 import { Menu, iUnit, iPosition } from './components/layout/Menu'
 import { App as RealmApp, User, Credentials } from 'realm-web'
 import { NavBar } from './components/layout/NavBar'
+import WordsPCA from './data/words-pca.json'
+import TopicsPCA from './data/pca.json'
+
 import { IPCAModel, PCA } from 'ml-pca'
-import pcaModel from './data/pca.json'
 import { iModels } from './types/ai'
 import { Home } from './views/Home'
 
@@ -11,7 +13,7 @@ import { useEffect, useState } from 'react'
 import 'bulma/css/bulma.css'
 import './App.css'
 
-const Units:iUnit[] = [{ 
+const units:iUnit[] = [{ 
 	name:'Word Embeddings', 
 	modules: [
 		{ name:'Introduction' },
@@ -33,19 +35,6 @@ const Units:iUnit[] = [{
 }]
 
 
-const unlockModule = (units:iUnit[], position:iPosition, nextModule:number) => units.map((u, i) => 
-	i === position.unit 
-	? 	{ 
-			...u, 
-			modules: u.modules.map((m, id) => 
-				id === nextModule 
-				? 	{...m, locked:false } 
-				: 	m
-			) 
-		} 
-	: u
-)
-
 const connectMongo = async() => {
     const REALM_APP_ID = process.env.REACT_APP_REALM_ID as string
     const app = new RealmApp({ id: REALM_APP_ID })
@@ -55,7 +44,6 @@ const connectMongo = async() => {
 
 
 export const App = () => {
-	const [ units, setUnits ] = useState(Units)
 	const [ position, setPosition ] = useState<iPosition>({ unit:0 })
     const [ user, setMongoUser ] = useState<User>()
 	const [ models, setModels ] = useState<iModels>()
@@ -63,33 +51,27 @@ export const App = () => {
     useEffect(() => { 
 		const fetchModels = async() => {
 			const model = await use.load()
-			const pca = PCA.load(pcaModel as IPCAModel)
-			setModels({ model, pca })
+			const wordsPCA = PCA.load(WordsPCA as IPCAModel)
+			const topicsPCA = PCA.load(TopicsPCA as IPCAModel)
+			setModels({ model, wordsPCA, topicsPCA })
 		}
 
 		fetchModels()
-		return
-
         connectMongo().then(mongoUser => setMongoUser(mongoUser))
 	}, [])
 
 
 	const next = () => {
-		const nextModule = position.module ? position.module + 1 : 0
-		const nextUnit = position.unit ? position.unit + 1 : 0
+		const nextModule = position.module !== undefined ? position.module + 1 : 0
+		const mextModuleExists = units[position.unit as number].modules[nextModule]
 
-		if(units[position.unit as number].modules[nextModule]) {
-			setPosition({...position, module:nextModule})
-			const newUnits = unlockModule([...units], position, nextModule)
-			setUnits(newUnits)
-
-		} else setPosition({unit:nextUnit, module:0})
+		if(mextModuleExists) setPosition({...position, module:nextModule})
+		else window.location.href = 'https://gum.co/nlp-sentiment-analysis'
 	}
 
-	const reset = () => setPosition({unit:0, module:0})
 
 	return <div className="App">
-		<NavBar />
+		<NavBar click={() => setPosition({unit:0})}/>
         <div className="container" style={{maxWidth:'100%'}}>
             <div className="columns" style={{margin:0}}>
 				<Menu 
@@ -101,8 +83,7 @@ export const App = () => {
 				<Home 
 					position={position} 
 					models={models as iModels} 
-					user={user as User}	
-					reset={reset}
+					user={user}	
 					next={next} 
 				/>
 			</div>
