@@ -8,7 +8,7 @@ const questions:iQuestion[] = [{
     answers:[
         { answer:'A vector space to measure human language.',value:false },
         { answer:'Numerical representations of meaning.',value:true },
-        { answer:'The predictions of a words frequency.',value:false },
+        { answer:`Predictions of a word's frequency.`,value:false },
         { answer:'A Natural Language Processing Neural Network',value:false }
     ] 
 }, {
@@ -20,11 +20,11 @@ const questions:iQuestion[] = [{
         { answer:'Find the furthest words, relative to a defined metric.',value:false }
     ] 
 }, { 
-    question:'How to classify a text by topic?', 
+    question:'How to classify a document by topic?', 
     answers:[
         { answer:'Use a convolutional neural network to reduce the dimensions.',value:false },
         { answer:'Use unsupervised learning and k-means clustering.',value:false },
-        { answer:`Minimize the distance to the topic's center.`,value:true },
+        { answer:`Minimize the distance to a topic's center.`,value:true },
         { answer:'Train a logistic regression for each topic.',value:false },
     ]
 }, { 
@@ -54,20 +54,24 @@ const questions:iQuestion[] = [{
 }]
 
 
-interface iWordEmbeddingsQuiz {next():void, reset():void}
-export const WordEmbeddingsQuiz = ({next, reset}:iWordEmbeddingsQuiz) => {
+const minScore = 4
+interface iWordEmbeddingsQuiz {next():void}
+export const WordEmbeddingsQuiz = ({next}:iWordEmbeddingsQuiz) => {
     const [approved, setApproved] = useState(false)
     const [quizFailures, setQuizFailures] = useState(0)
 
-    const approve = (score:number) => {
-        if(score > 3) setApproved(true)
-        else {
-            if(quizFailures > 2) reset()
-            setQuizFailures(quizFailures + 1)
-        }
+
+    const approve = (score:number):boolean => {
+        const hasApproved = score >= minScore
+
+        if(hasApproved) setApproved(true)
+        else setQuizFailures(1)
+
+        return hasApproved
     }
 
     return <Quiz 
+        min={minScore}
         title={'Quiz'}
         description={'Prove your understadning about word embeddings with this short quiz:'}
         questions={questions}
