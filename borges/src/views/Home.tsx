@@ -31,7 +31,6 @@ interface iHome {
     reset():void
 }
 
-
 export interface iEmbeddings { name:string, x:number, y:number }
 export const Router = ({ position: { unit, module }, models, user, next, reset }: iHome) => {
     const [words, setWords] = useState<string[]>([])
@@ -78,7 +77,7 @@ export const Router = ({ position: { unit, module }, models, user, next, reset }
     if(module === 13) return <WordEmbeddingsMedia next={next}/>
     if(module === 14) return <NextSteps next={next}/>
 
-    return <BorgesLanding />
+    return <BorgesLanding cta={next}/>
 }
 
 
