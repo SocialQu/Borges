@@ -1,7 +1,7 @@
 # Tests
 
 ## Navigation
-- [ ] On Landing Site, I can start the course.
+- [X] On Landing Site, I can start the course.
 - [ ] I can click next to the last lesson.
 - [ ] Navigation on Quiz.
 - [ ] On the last lesson I'm redirected to Gumroad.
@@ -46,3 +46,4 @@
 - [ ] CI/CD Pipeline.
 - [ ] Domain.
 - [ ] Gumroad Copywrite.
+- [ ] LinkedIn Messages.
