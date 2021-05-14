@@ -26,7 +26,7 @@ import { NextSteps } from './15-NextSteps'
 interface iHome { 
     position:iPosition
     models:iModels
-    user:User
+    user?:User
     next():void
 }
 
