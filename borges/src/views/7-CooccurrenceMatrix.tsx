@@ -64,8 +64,10 @@ export const CooccurrenceMatrix = ({words, matrix, next}:iCooccurrenceMatrix) =>
             </thead>
 
             <tfoot>
-                <th/>
-                <tr> { words.map(word => <th><abbr title={word}>{word.slice(0,3)}</abbr></th>) } </tr>
+                <tr>
+                    <th/>
+                    { words.map(word => <th><abbr title={word}>{word.slice(0,3)}</abbr></th>) }
+                </tr>
             </tfoot>
 
             <tbody>
