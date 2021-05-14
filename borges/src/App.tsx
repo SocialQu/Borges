@@ -2,8 +2,10 @@ import * as use from '@tensorflow-models/universal-sentence-encoder'
 import { Menu, iUnit, iPosition } from './components/layout/Menu'
 import { App as RealmApp, User, Credentials } from 'realm-web'
 import { NavBar } from './components/layout/NavBar'
+import WordsPCA from './data/words-pca.json'
+import TopicsPCA from './data/pca.json'
+
 import { IPCAModel, PCA } from 'ml-pca'
-import pcaModel from './data/pca.json'
 import { iModels } from './types/ai'
 import { Home } from './views/Home'
 
@@ -49,13 +51,12 @@ export const App = () => {
     useEffect(() => { 
 		const fetchModels = async() => {
 			const model = await use.load()
-			const pca = PCA.load(pcaModel as IPCAModel)
-			setModels({ model, pca })
+			const wordsPCA = PCA.load(WordsPCA as IPCAModel)
+			const topicsPCA = PCA.load(TopicsPCA as IPCAModel)
+			setModels({ model, wordsPCA, topicsPCA })
 		}
 
 		fetchModels()
-		return
-
         connectMongo().then(mongoUser => setMongoUser(mongoUser))
 	}, [])
 
@@ -84,7 +85,7 @@ export const App = () => {
 				<Home 
 					position={position} 
 					models={models as iModels} 
-					user={user as User}	
+					user={user}	
 					next={next} 
 				/>
 			</div>
