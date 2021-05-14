@@ -33,3 +33,6 @@
 - [ ] Loading when submitting synonyms.
 - [ ] Warning after synonyms are rendered.
 - [ ] Table when no synonyms.
+- [ ] Extend to Topics.
+- [ ] Unique words counter.
+- [ ] Limit tokens.
