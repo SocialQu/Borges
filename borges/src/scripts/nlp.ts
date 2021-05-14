@@ -1,5 +1,5 @@
 import { similarity, sortBySimilarity, tokenizeSentences } from './utils'
-import { iWordDoc } from '../types/db'
+import { iWordDoc, iTopicDoc } from '../types/db'
 import { iModels } from '../types/ai'
 import { getCenter } from './utils'
 import { User } from 'realm-web'
@@ -9,11 +9,11 @@ import '@tensorflow/tfjs'
 export interface iSynonym { word:string, similarity:number }
 interface iRawSynonym { word:string, center:[number, number], embeddings:number[]} 
 
-interface iFindSynonyms { word:string, user?:User, models:iModels}
-export const findSynonyms = async({word, user, models:{pca, model}}: iFindSynonyms):Promise<iSynonym[]> => {
+interface iFindSynonyms { word:string, user?:User, models:iModels }
+export const findSynonyms = async({word, user, models:{wordsPCA, model}}: iFindSynonyms):Promise<iSynonym[]> => {
     if(!user) return []
 
-    const [{center, embeddings}] = await getCenter([word], {model, pca})
+    const [{center, embeddings}] = await getCenter([word], {model, pca:wordsPCA})
     const matches:iWordDoc[] = await user.functions.borgesFindSynonyms(center)
 
     const sorted =  sortBySimilarity(embeddings, matches) as iRawSynonym[]
@@ -30,16 +30,24 @@ export const findSynonyms = async({word, user, models:{pca, model}}: iFindSynony
 }
 
 
+
+export interface iTopic { topic:string, similarity:number }
 interface iFindiTopics { text:string, user?:User, models:iModels}
-interface iTopic { topic:string, center:[number, number], embeddings:number[]} 
-export const classifyText = async({text, models:{pca, model}, user}: iFindiTopics):Promise<iTopic[]> => {
+export const classifyText = async({text, models:{topicsPCA, model}, user}: iFindiTopics):Promise<iTopic[]> => {
     if(!user) return []
 
     const sentences = tokenizeSentences(text)
-    const [{center, embeddings}] = await getCenter(sentences, {model, pca})
-    const matches:iTopic[] = await user.functions.borgesFindTopics(center)
+    const [{center, embeddings}] = await getCenter(sentences, {model, pca:topicsPCA})
+    const matches:iTopicDoc[] = await user.functions.borgesFindTopics(center)
 
-    const topics =  sortBySimilarity(embeddings, matches)
-    console.log('topics', topics)
-    return topics as iTopic[]
+    const sorted =  sortBySimilarity(embeddings, matches) as iTopicDoc[]
+    const minDistance = similarity(embeddings, sorted[0].embeddings)
+    const maxDistance = Math.log(minDistance) + similarity(embeddings, sorted[sorted.length - 1].embeddings) - minDistance
+
+    const topics = sorted.map(({ topic, embeddings:e }) => ({
+        topic,
+        similarity: Math.round((1 - (Math.log(minDistance) + similarity(embeddings, e) - minDistance)/maxDistance)*100)
+    })).filter((_, i) => i < 5)
+
+    return topics 
 }
