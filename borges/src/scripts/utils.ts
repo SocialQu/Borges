@@ -1,5 +1,5 @@
-import { iModels } from '../types/ai'
-
+import { UniversalSentenceEncoder } from '@tensorflow-models/universal-sentence-encoder'
+import { PCA } from 'ml-pca'
 
 export const similarity = (center:number[], embedding: number[]) => {
     if (center.length !== embedding.length) return Infinity
@@ -11,7 +11,7 @@ export const sortBySimilarity = (center:number[], synonymns:{embeddings:number[]
     similarity(center, a) > similarity(center, b) ? 1 : -1
 )
 
-
+interface iModels { model:UniversalSentenceEncoder, pca:PCA }
 interface iWordEmbedding { text:string, embeddings:number[], center:number[] }
 export const getCenter = async(text:string[], {model, pca}:iModels):Promise<iWordEmbedding[]> => {
     const tensor = await model.embed(text)
