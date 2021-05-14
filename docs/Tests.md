@@ -2,9 +2,10 @@
 
 ## Navigation
 - [X] On Landing Site, I can start the course.
-- [ ] I can click next to the last lesson.
-- [ ] Navigation on Quiz.
+- [X] I can click next to the last lesson.
+- [X] Navigation on Quiz.
 - [ ] On the last lesson I'm redirected to Gumroad.
+- [ ] SocialQ goes to home.
 - [ ] Every link opens a new site.
 - [ ] Personal links:
     - [ ] LinkedIn.
