@@ -21,6 +21,7 @@ import { WordEmbeddingsQuiz } from './12-Quiz'
 import { Products } from './13-Products'
 import { WordEmbeddingsMedia } from './14-Media'
 import { NextSteps } from './15-NextSteps'
+import { PCA } from 'ml-pca'
 
 
 interface iHome { 
@@ -42,20 +43,24 @@ export const Router = ({ position: { module }, models, user, next }: iHome) => {
         const uniqueWords = Array.from(new Set(lowerCase))
         const wordMap = uniqueWords.reduce((d, i, idx) => ({...d, [i]:idx}), {} as {[key:string]:number})
 
-        setWords(uniqueWords)
-        const windows = tokens.map((token, i) => ({token, window:tokens.slice(Math.max(0,i-5), i+5)}))
+        setWords(uniqueWords.filter((_, i) => i < 100))
+        interface iWindow { token: string, window: string[] }
+        const windows:iWindow[] = lowerCase.map((token, i) => ({token, window:tokens.slice(Math.max(0,i-5), i+5)}))
         const wordsMatrix = [...Array(uniqueWords.length)].map(() => [...Array(uniqueWords.length)].map(()=> 0))
 
         // Fill Matrix
         windows.map(({token, window}, i) => window.map((word) => wordsMatrix[wordMap[token]][wordMap[word]] += 1))
+
         setWordsMatrix(wordsMatrix)
         reduceMatrix(uniqueWords, wordsMatrix)
     }
 
 
     const reduceMatrix = (words:string[], wordsMatrix:number[][]) => {
-        const matrix = models.wordsPCA.predict(wordsMatrix, {nComponents:2}).to2DArray()
+        const pca = new PCA(wordsMatrix)
+        const matrix = pca.predict(wordsMatrix, {nComponents:2}).to2DArray()
         const vectors = words.map((word, i) => ({ word, coordinates:matrix[i] as [number, number] }))
+
         const embeddings = vectors.map(({ word, coordinates:[x, y] }) => ({name:word, x, y}))
         setEmbeddings(embeddings)
     }
@@ -65,7 +70,7 @@ export const Router = ({ position: { module }, models, user, next }: iHome) => {
     if(module === 2) return <Synonyms next={next} models={models} user={user}/>
     if(module === 3) return <TopicClassification next={next} models={models} user={user}/>
     if(module === 4) return <Training next={next}/>
-    if(module === 5) return <Tokenization getWords={getWords} next={next}/>
+    if(module === 5) return <Tokenization getWords={getWords} next={next} embeddings={embeddings}/>
     if(module === 6) return <CooccurrenceMatrix next={next} words={words} matrix={wordsMatrix}/>
     if(module === 7) return <DimensionalityReduction next={next} embeddings={embeddings}/>
     if(module === 8) return <Analogies next={next}/>
