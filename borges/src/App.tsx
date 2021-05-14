@@ -67,12 +67,12 @@ export const App = () => {
 		const mextModuleExists = units[position.unit as number].modules[nextModule]
 
 		if(mextModuleExists) setPosition({...position, module:nextModule})
-		else setPosition({unit:nextUnit, module:0})
+		else window.location.href = 'https://gum.co/nlp-sentiment-analysis'
 	}
 
 
 	return <div className="App">
-		<NavBar />
+		<NavBar click={() => setPosition({unit:0})}/>
         <div className="container" style={{maxWidth:'100%'}}>
             <div className="columns" style={{margin:0}}>
 				<Menu 
