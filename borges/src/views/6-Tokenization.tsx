@@ -41,7 +41,7 @@ export const Tokenization = ({embeddings, getWords, next}:iTokenization) => <Les
     <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
 
     <p>
-        To start training your own word embeddings, please insert a medium to long text (~ 1000 words) to tokenize it:
+        To start training your own word embeddings, please insert a short text (~20 words) to tokenize it:
     </p>
 
 
