@@ -37,6 +37,25 @@ similarity([3,4,5], [4,6,8]) // Returns 6
 // Math.abs(3–4) + Math.abs(4–6) + Math.abs(5–8) = 6
 `
 
+const synonymsExamples = [[
+    { name:'great', x:0.2678875504042883, y:0.08622527515564886 },
+    { name:'fantastic', x:0.23823606303144115, y:0.14487491040643397 },
+    { name:'awesome', x:0.22066810318463187, y:0.20261349745629678 },
+    { name:'fine', x:0.32807182054310924, y:0.0062455673958450395 },
+    { name:'adequate', x:0.26315661687921327, y:-0.032619549232111696 },
+    { name:'acceptable', x:0.2482874375890997, y:-0.006738511966766716 },
+    { name:'superb', x:0.06292865693982877, y:-0.09312185321937903 },
+    // { name:'satisfactory', x:-0.037229655424222415, y:-0.035617290715822925 },
+    { name: 'terrific', x: 0.1475249097626694, y:0.02264397856360343 },
+    { name: 'outstanding', x:0.15243431754742934, y:0.13212771206983165},
+    { name: 'marvelous', x:0.1121273842498986, y:-0.025707189025264178 },
+    { name: 'worthy', x:0.2489415956286796, y:0.08810669422764673 },
+    { name: 'swell', x:0.23383745699224234, y:-0.037010913972349735 }
+],  [
+    { name:'good', x:0.3147067813665447, y:0.04985350758041785 },
+]]
+
+
 interface iSynonyms {next():void, models:iModels, user?:User}
 const title = 'Application: Finding Synonyms'
 export const Synonyms = ({next, models, user}:iSynonyms) => {
@@ -56,7 +75,7 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
 
         <Scatter
             label="Synonyms of Good"  
-            data={[{name:'Great', x:1, y:2}, {name:'Good', x:3, y:4}]}
+            data={synonymsExamples}
         /> 
 
         <p>
@@ -71,8 +90,6 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
                 src="https://www.tutorialexample.com/wp-content/uploads/2020/05/Euclidean-distance-in-tensorflow.png" 
             />
         </div>
-
-
 
         <p>
             Another common distance metric used is the absolute value. In TypeScript, this is how to measure the absolute value distance:
@@ -121,7 +138,7 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
 
         <Scatter 
             label="Antonyms of Good"
-            data={[{name:'Bad', x:1, y:2}, {name:'Worst', x:3, y:4}]} 
+            data={[[{name:'Bad', x:1, y:2}, {name:'Worst', x:3, y:4}]]} 
         /> 
     </Lesson>
 }
