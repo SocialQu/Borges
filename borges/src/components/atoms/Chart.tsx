@@ -42,7 +42,7 @@ export const Scatter = ({label, data}:iScatter) => <div>
         >
             <CartesianGrid />
             <YAxis type='number' dataKey='y' tickFormatter={(x) => `${Math.round(x*100)/100}`} tickCount={4}/>
-            <XAxis type='number' dataKey='x' tickFormatter={(x) => `${Math.round(x*100)/100}`} tickCount={5}/>
+            <XAxis type='number' dataKey='x' tickFormatter={(x) => `${Math.round(x*100)/100}`} tickCount={5} domain={['minData', 'maxData']}/>
 
             <Tooltip content={<ScatterTooltip />} />
             { data.map((d, i) => <RechartScatter data={d} fill={colors[i]} />)}           
