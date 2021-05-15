@@ -52,7 +52,7 @@ export const DimensionalityReduction = ({embeddings, next}:iDimensionalityReduct
     <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
 
     <p>
-        If we reduce the word embedding dimensions to only 2: 
+        If we reduce the word embedding's dimensions to only 2, 
         we can plot them and gain a visual understanding of the relationship between different words. 
         This is are the 2D word embeddings for the text you submitted:
     </p>
