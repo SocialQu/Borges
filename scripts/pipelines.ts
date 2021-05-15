@@ -76,7 +76,7 @@ export const embedDictionary = async() => {
     await client.close()
 }
 
-
+/*  // Deprecated
 export interface iTopicDoc {name:string, embeddings:number[], center:number[]}
 export const mapTopics = async() => {
     const files:iStoryFile[] = await readStories('../../Cortazar/scripts/data/stories', [])
@@ -110,25 +110,20 @@ export const mapTopics = async() => {
     await collection.insertMany(docs)
     await client.close()
 }
-
+*/
 
 export const similarityComparisson = async() => {
     const model = await use.load()
-    const pca_model = PCA.load(PCA_Model as IPCAModel)
-    const dataset = dictionary.filter((_, idx) => idx > 0 && idx <= 2000 && Math.random() < 0.1)
-    console.log('Dataset Length:', dataset.length)
-
-    const corpus = await getCenter(dataset, {model, pca:pca_model})
-    const pca = new PCA(corpus.map(({ embeddings }) => embeddings))
-    await fs.writeFile(PCA_ROOT, JSON.stringify(pca))
-
-    console.log('New PCA')
-
+    const pca = PCA.load(PCA_WORDS as IPCAModel)
     const words = ['good', 'bad', 'well', 'right', 'great', 'sad', 'happy', 'test', 'rough']
     const embeddings = await getCenter(words, {model, pca})
 
     embeddings.map(({ embeddings:e, text, center:c }) => {
-        console.log(text, similarity(embeddings[0].embeddings, e), similarity(embeddings[0].center, c), c)
+        console.log(
+            {name:text, x:c[0], y:c[1]}, 
+            similarity(embeddings[0].embeddings, e), 
+            similarity(embeddings[0].center, c), 
+        )
     })
 }
 
@@ -151,5 +146,12 @@ export const centerTopics = async() => {
     }
 
     // client.db('Borges').collection('topics')
+    await client.close()
+}
+
+export const mapTopics = async() => {
+    const { client, collection } = await connect('topics')
+    const topics = await collection.find({}, { fields:{ embeddings:0, _id:0 } }).toArray()
+    console.log('topics', topics.map(({topic, center}) => ({name:topic, x:center[0], y:center[1]})))
     await client.close()
 }
