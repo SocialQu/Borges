@@ -53,7 +53,7 @@ export const Biasis = ({next}:iBiasis) => <Lesson title={title} next={next}>
         Jobs in healthcare tend to be more likely associated with women, while the opposite happens for engineering:
     </p>
 
-    <Scatter data={data} label={"Example: Gender Bias by Name"}/>
+    <Scatter data={[data]} label={"Example: Gender Bias by Name"}/>
 
     <p>
         The process of detecting bias is also simple: find the word embeddings for the two concepts or groups you will compare. 

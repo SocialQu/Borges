@@ -57,5 +57,5 @@ export const DimensionalityReduction = ({embeddings, next}:iDimensionalityReduct
         This is are the 2D word embeddings for the text you submitted:
     </p>
 
-    <Scatter label="Your Word Embeddings Chart" data={embeddings} />
+    <Scatter label="Your Word Embeddings Chart" data={[embeddings]} />
 </Lesson>

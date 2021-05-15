@@ -54,7 +54,7 @@ export const TopicClassification = ({next, models, user}:iTopicClassification) =
     return <Lesson title={title} titleStyle={{width:740, marginLeft:-10}} next={next}>
         <Scatter
             label={""} 
-            data={[{name:'Startups', x:1, y:2}, {name:'VC', x:3, y:4}]} 
+            data={[[{name:'Startups', x:1, y:2}, {name:'VC', x:3, y:4}]]} 
         />
 
         <p>

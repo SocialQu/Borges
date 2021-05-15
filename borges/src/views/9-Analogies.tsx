@@ -68,5 +68,5 @@ export const Analogies = ({next}:iAnalogies) => <Lesson title={title} next={next
     </p>
 
     <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
-    <Scatter label="Visual Representation of the Queen Analogy" data={data} />
+    <Scatter label="Visual Representation of the Queen Analogy" data={[data]} />
 </Lesson>
