@@ -41,7 +41,7 @@ similarity([3,4,5], [4,6,8]) // Returns 6
 
 
 interface iSynonyms {next():void, models:iModels, user?:User}
-const title = 'Application: Finding Synonyms'
+const title = 'Finding Synonyms'
 export const Synonyms = ({next, models, user}:iSynonyms) => {
     const [ synonyms, setSynonyms ] = useState<iSynonym[]>([])
     const [ computing, setComputing ] = useState(false)

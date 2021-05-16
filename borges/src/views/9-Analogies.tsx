@@ -33,7 +33,7 @@ const france = findClosest(solutionLocation)
 `
 
 const recommendationLink = 'https://medium.com/geekculture/how-to-develop-a-text-recommendation-engine-99d3b46effdb?sk=508c65e2139bfdfbd8043b2090ee1bd7'
-const title = 'Application: Solving Analogies'
+const title = 'Solving Analogies'
 interface iAnalogies {next():void}
 export const Analogies = ({next}:iAnalogies) => <Lesson title={title} next={next}>
     <p>
