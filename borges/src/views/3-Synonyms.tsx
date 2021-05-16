@@ -44,9 +44,17 @@ interface iSynonyms {next():void, models:iModels, user?:User}
 const title = 'Application: Finding Synonyms'
 export const Synonyms = ({next, models, user}:iSynonyms) => {
     const [ synonyms, setSynonyms ] = useState<iSynonym[]>([])
+    const [ computing, setComputing ] = useState(false)
     const getSynonyms = async(synonym:string) => {
-        const synonyms = await findSynonyms({ word:synonym, models, user })
-        setSynonyms(synonyms.filter((_, i) => i < 5))
+        setSynonyms([])
+        setComputing(true)
+
+        try{
+            const synonyms = await findSynonyms({ word:synonym, models, user })
+            setSynonyms(synonyms.filter((_, i) => i < 5))
+        } catch(e) { console.log(e) }
+
+        setComputing(false)
     } 
 
     return <Lesson title={title} next={next}>
@@ -88,25 +96,32 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
         <Subtitle text="Excersice: Find The Synonyms" style={{textAlign:'center'}}/>
         <InputForm placeholder={'Search the Synonyms of a word...'} submit={getSynonyms} />
 
-        <table className="table" style={{textAlign:'center'}}>
-            <thead>
-                <tr> 
-                    <th> Synonym </th>
-                    <th> Similarity </th>
-                </tr>
-            </thead>
-
-            <tbody>
-                { 
-                    synonyms.map(({ word, similarity }, i) => 
+        { 
+            synonyms.length 
+            ? 
+                <table className="table" style={{textAlign:'center'}}>
+                    <thead>
                         <tr>
-                            <td> { word } </td>
-                            <td> <strong>{ similarity }%</strong> </td>
+                            <th> Synonym </th>
+                            <th> Similarity </th>
                         </tr>
-                    )
-                }
-            </tbody>
-        </table>
+                    </thead>
+
+                    <tbody>
+                        {
+                            synonyms.map(({ word, similarity }, i) => 
+                                <tr>
+                                    <td> { word } </td>
+                                    <td> <strong>{ similarity }%</strong> </td>
+                                </tr>
+                            )
+                        }
+                    </tbody>
+                </table> 
+            :  computing
+                ?   <p style={{textAlign:'center'}}> <strong> Computing...</strong> </p>
+                :   <div/>
+        }
 
 
         <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
