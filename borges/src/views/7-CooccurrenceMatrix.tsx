@@ -6,15 +6,15 @@ const title = 'Co-occurrence Matrix'
 interface iCooccurrenceMatrix {words:string[], matrix:number[][], next():void}
 export const CooccurrenceMatrix = ({words, matrix, next}:iCooccurrenceMatrix) => <Lesson title={title} next={next}>
     <p>
-        The co-occurrence matrix contains the frequency that two different words occur next to each other. 
+        The co-occurrence matrix contains the <strong>frequency that two words occur together</strong>. 
         Building the matrix is a four-step process:
     </p>
 
     <ol style={{marginLeft:24, marginTop:'0.5rem'}}>
-        <li> Create a set with every unique word in the training dataset (corpus). </li>
-        <li> Create a squared matrix where each row and column represents a word. </li>
-        <li> Count the occurrences of neighbor words based on an N-word window. </li>
-        <li> Insert the count to the corresponding cell in the matrix. </li>
+        <li> Create a set with all the <strong> unique words</strong> in the training dataset. </li>
+        <li> Create a <strong>squared matrix</strong> where each row and column represents a word. </li>
+        <li> Count the occurrences of neighbor words based on an <strong>N-word window</strong>. </li>
+        <li> <strong>Insert the count</strong> to the corresponding cell in the matrix. </li>
     </ol>
 
     <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
@@ -33,7 +33,7 @@ export const CooccurrenceMatrix = ({words, matrix, next}:iCooccurrenceMatrix) =>
 
     <p>
         The above example worked with a 1-word-window. 
-        To illustrate how this differs based on the window size, consider the following sentence:
+        To illustrate <strong>how this differs</strong> based on the window size, consider the following sentence:
     </p>
 
     <div className={"code"}>
@@ -49,7 +49,7 @@ export const CooccurrenceMatrix = ({words, matrix, next}:iCooccurrenceMatrix) =>
     <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
 
     <p>
-        For our word embeddings, we are going to use a 5-word-window. <br/>
+        For your word embeddings, we are going to use a <strong>5-word-window</strong>. <br/>
         This is your co-occurrence matrix based on the text you submitted in the previous lesson:
     </p>
 
