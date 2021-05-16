@@ -27,9 +27,10 @@
 - [X] Modal submission, messages & failure.
 - [X] Videos work.
 
+
 ## Style
-- [ ] Scroll top when navigating.
-- [ ] Modal Style
+- [X] Scroll top when navigating.
+- [X] Modal Style
 - [ ] Min height on Next Button?
 - [ ] Footer with Twitter Link?
 - [ ] Responsiveness.
