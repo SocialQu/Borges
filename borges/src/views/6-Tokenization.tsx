@@ -49,6 +49,6 @@ export const Tokenization = ({embeddings, getWords, next}:iTokenization) => <Les
     <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
 
     <p>
-        <strong> Important: </strong> tha text you submitted will be used in the next 2 lessons.
+        <strong> Important: </strong> the text you submitted will be used in the next 2 lessons.
     </p>
 </Lesson>

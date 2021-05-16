@@ -93,7 +93,7 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
 
         <p>
             With that knowledge, finding the synonym is trivial. One only has to find the words that have the minimum distance. 
-            <strong>Use the input box below to search for synonyms</strong> based on TensorflowJS word embeddings:
+            <strong> Use the input box below to search for synonyms</strong> based on TensorflowJS word embeddings:
         </p>
 
         <Subtitle text="Excersice: Find The Synonyms" style={{textAlign:'center'}}/>
