@@ -27,7 +27,7 @@ export const WordEmbeddingsMedia = ({next}:iWordEmbeddingsMedia) => {
         >
             <p>
                 Learn the architecture to build a text recommendation engine using 
-                TensorflowJS sentence encoder, TypeScript, React & MongoDB.
+                <strong> TensorflowJS</strong> sentence encoder, TypeScript, React & MongoDB.
             </p>
         </Card>
         <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
