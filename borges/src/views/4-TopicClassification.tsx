@@ -7,6 +7,8 @@ import { classifyText, iTopic } from '../scripts/nlp'
 import { Lesson } from "../components/cells/Lesson"
 import { topicsData } from '../data/topics'
 import { iModels } from '../types/ai'
+
+import amplitude from 'amplitude-js'
 import { User } from 'realm-web'
 import { useState } from 'react'
 
@@ -54,6 +56,7 @@ export const TopicClassification = ({next, models, user}:iTopicClassification) =
         const topics = await classifyText({ text, models, user })
         setComputing(false)
         setTopics(topics)
+        amplitude.getInstance().logEvent('GET_TOPICS', { text, topics })
     } 
 
 
