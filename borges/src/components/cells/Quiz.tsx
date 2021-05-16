@@ -2,6 +2,8 @@ import { defaultLessonStyle } from './Lesson'
 import { Title } from '../atoms'
 import { useState } from 'react'
 
+import amplitude from 'amplitude-js'
+
 const messages = {
     encouragementMsg: 'Come on! Give it another shot.',
     retryMsg: 'I invite you to restart the module.',
@@ -131,14 +133,15 @@ export const Quiz = ({ title, description, questions=[], min, quizFailures, chil
     const [score, setScore] = useState<number>() 
     const [approved, setApproved] = useState<boolean>()
     const submit = () => {
-        const answers = Object.entries(values).map(([k, v]) => questions[k as unknown as number].answers[v].value)
-        const score = answers.filter(a=>a).length
+        const answers = Object.entries(values).map(([k, v]) => questions[k as unknown as number].answers[v])
+        const score = answers.filter(a=>a.value).length
         setScore(score)
 
         const isApproved = approve(score) || false
         setApproved(isApproved)
 
         setActive(true)
+        amplitude.getInstance().logEvent('SUBMIT_QUIZ', { score, answers })
     }
 
     const modalClick = () => {

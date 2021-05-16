@@ -7,6 +7,8 @@ import { classifyText, iTopic } from '../scripts/nlp'
 import { Lesson } from "../components/cells/Lesson"
 import { topicsData } from '../data/topics'
 import { iModels } from '../types/ai'
+
+import amplitude from 'amplitude-js'
 import { User } from 'realm-web'
 import { useState } from 'react'
 
@@ -54,6 +56,7 @@ export const TopicClassification = ({next, models, user}:iTopicClassification) =
         const topics = await classifyText({ text, models, user })
         setComputing(false)
         setTopics(topics)
+        amplitude.getInstance().logEvent('GET_TOPICS', { text, topics })
     } 
 
 
@@ -61,7 +64,7 @@ export const TopicClassification = ({next, models, user}:iTopicClassification) =
         <Scatter label={""} data={[topicsData]} />
 
         <p>
-            Word embeddings and distance metrics are also useful to label documents by topic. 
+            Word embeddings and distance metrics are also useful to <strong>label documents by topic</strong>. 
             The process starts with a labeled dataset of documents classified by topics. 
             Then, transform the document's content into word embeddings and average the position of each vector:
         </p>
@@ -82,7 +85,7 @@ export const TopicClassification = ({next, models, user}:iTopicClassification) =
 
 
         <p>
-            The next step is to derive the topic's center. 
+            The next step is to <strong>derive the topic's center</strong>. 
             In a similar process, we find for every topic the average position of its documents. 
             Finally, when we want to classify an unlabeled document, 
             we can transform its content into a vectorial representation and use the distance metric to find the closest topic.

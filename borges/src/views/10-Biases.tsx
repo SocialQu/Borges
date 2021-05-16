@@ -39,7 +39,7 @@ interface iBiases {next():void}
 export const Biases = ({next}:iBiases) => <Lesson title={title} next={next}>
     <p>
         Unfortunately, we tend to make value judgments based on inaccurate or unfair attributes. 
-        AI can help in automatically analyzing, measuring, and reporting these biases. 
+        <strong> AI can help in automatically analyzing, measuring, and reporting biases. </strong>
         The word cloud below shows biases in jobs based on gender. 
         Jobs in healthcare tend to be more likely associated with women, while the opposite happens for engineering:
     </p>
@@ -49,7 +49,7 @@ export const Biases = ({next}:iBiases) => <Lesson title={title} next={next}>
     <p>
         The process of detecting bias is simple: find the word embeddings for the two concepts you wish to compare. 
         Then, find the word embedding for the term against which to measure a potential bias. 
-        Finally, compute the relative distance for each term. The greater the distance, the greater the bias.
+        Finally, compute the relative distance for each term. <strong>The greater the distance, the greater the bias.</strong>
     </p>
 
     <Subtitle text={"Detecting a Bias"} style={{textAlign:'center', marginTop:'2rem'}}/>
@@ -61,7 +61,7 @@ export const Biases = ({next}:iBiases) => <Lesson title={title} next={next}>
 
     <p>
         Because AI models incorporate the biases that we hold as a society, 
-        it remains an unsolved problem, how to train word embeddings without biases. 
+        it remains an unsolved problem, <strong>how to train word embeddings without biases. </strong>
         
         I invite you to reflect what novel ideas do you have to train unbiased word embeddings. 
         

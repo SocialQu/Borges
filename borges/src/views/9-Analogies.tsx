@@ -39,7 +39,7 @@ export const Analogies = ({next}:iAnalogies) => <Lesson title={title} next={next
     <p>
         Adding and subtracting word embedding has an interesting and surprising application: solving analogies. 
         Traditionally, analogies are used to measure the reasoning and language skills of students. 
-        Today, they can also evaluate the accuracy of word embeddings. Consider the following analogy:
+        Today, they can also <strong>evaluate the accuracy of word embeddings</strong>. Consider the following analogy:
     </p>
 
     <p style={{textAlign:'center'}}>
@@ -47,7 +47,7 @@ export const Analogies = ({next}:iAnalogies) => <Lesson title={title} next={next
     </p>
 
     <p>
-        The idea to solve this problem is to find the word that has the same distance to "Paris" as "Germany" has to "Berlin." 
+        The idea to solve this problem is to find the word that <strong>has the same distance</strong> to "Paris" as "Germany" has to "Berlin." 
         This is how it looks with vectors:
     </p>
 
@@ -61,10 +61,10 @@ export const Analogies = ({next}:iAnalogies) => <Lesson title={title} next={next
     <p>
         The word embeddings dictionary can be located in a database or loaded from a package, 
         the second option is common in Python. 
-        A third option is computing the word embeddings in real-time from the browser using TensorflowJS. <br/><br/>
+        A third option is to <strong>compute the word embeddings in real-time</strong> from the browser using TensorflowJS. <br/><br/>
 
         If you are interested in learning how to find the closest vectors, you might find interesting: 
-        <a href={recommendationLink}>How to build a text recommendation engine.</a>
+        <a href={recommendationLink}><strong> How to build a text recommendation engine.</strong></a>
     </p>
 
     <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>

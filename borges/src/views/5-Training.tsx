@@ -5,7 +5,7 @@ interface iTraining {next():void}
 export const Training = ({next}:iTraining) => <Lesson title={title} next={next}>
     <p>
         As previously mentioned, the idea behind word embeddings is that the meaning of a word is related to its context. 
-        In consequence, deriving word embeddings is the result of mapping the words that usually near each other. 
+        In consequence, deriving word embeddings is the result of <strong>mapping the words frequently near each other</strong>. 
         The process consists of 3 steps:
     </p>
 
@@ -21,6 +21,6 @@ export const Training = ({next}:iTraining) => <Lesson title={title} next={next}>
     <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
 
     <p>
-        In the next lessons, we will go in more depth through each step and you will train your own word embeddings along the way!
+        In the next lessons, we will <strong>go in more depth</strong> through each step and you will train your own word embeddings along the way!
     </p>
 </Lesson>

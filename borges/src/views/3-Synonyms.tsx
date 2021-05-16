@@ -9,6 +9,8 @@ import { antonymsData } from '../data/antonyms'
 import { synonymsData } from '../data/synonyms'
 import { Subtitle } from '../components/atoms'
 import { iModels } from '../types/ai'
+
+import amplitude from 'amplitude-js'
 import { User } from 'realm-web'
 import { useState } from 'react'
 
@@ -55,6 +57,7 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
         } catch(e) { console.log(e) }
 
         setComputing(false)
+        amplitude.getInstance().logEvent('GET_SYNONYMS', { synonym, synonyms })
     } 
 
     return <Lesson title={title} next={next}>
@@ -62,12 +65,12 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
             Finding synonyms is one of the simplest applications of word embeddings. 
             A synonym is a word that means exactly or nearly the same as another word. 
             And since word embeddings are numerical representations of a word's meaning. 
-            To find the synonyms, we only need to find the vectors that are closest to the word.            
+            To find the synonyms, we only need to <strong>find the vectors that are closest</strong> to the word.            
         </p>
 
         <Scatter label="Synonyms of Great"   data={synonymsData} />
         <p>
-            The first step to finding synonyms is selecting a distance metric to compare the closeness, or similarity, between two vectors. 
+            The first step to finding synonyms is to <strong>select a distance metric</strong> to compare the closeness, or similarity, between two vectors. 
             One of the most common metrics is the Euclidean distance that sums the squared difference across every vector's dimension:
         </p>
 
@@ -80,7 +83,7 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
         </div>
 
         <p>
-            Another common distance metric used is the absolute value. In TypeScript, this is how to measure the absolute value distance:
+            Another common distance metric used is the <strong>absolute value</strong>. In TypeScript, this is how to measure the absolute value distance:
         </p>
 
         <Subtitle text={"Example: Absolute Distance"} style={{textAlign:'center', marginTop:'2rem'}}/>
@@ -90,7 +93,7 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
 
         <p>
             With that knowledge, finding the synonym is trivial. One only has to find the words that have the minimum distance. 
-            Use the input box below to search for synonyms based on TensorflowJS word embeddings:
+            <strong> Use the input box below to search for synonyms</strong> based on TensorflowJS word embeddings:
         </p>
 
         <Subtitle text="Excersice: Find The Synonyms" style={{textAlign:'center'}}/>
@@ -127,7 +130,7 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
         <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
 
         <p>
-            Interestingly, it is also possible to find antonyms using word embeddings. 
+            Interestingly, it is also possible to <strong>find antonyms</strong> using word embeddings. 
             The only difference is finding the vectors that maximize the distance.
         </p>
 
