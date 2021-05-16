@@ -4,7 +4,7 @@ const title = 'What are word embeddings?'
 interface iWordEmbeddings {next():void}
 export const WordEmbeddings = ({next}:iWordEmbeddings) => <Lesson title={title} next={next}>
     <p>
-        Word embeddings are numerical representations of a word's meaning. 
+        Word embeddings are <strong>numerical representations of a word's meaning</strong>. 
         They are formed based on the assumption that meaning is contextual. 
         That is, a word's meaning is dependant on its neighbors:
     </p>
@@ -22,8 +22,8 @@ export const WordEmbeddings = ({next}:iWordEmbeddings) => <Lesson title={title} 
     <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
 
     <p>
-        Word embeddings are represented as mathematical vectors. 
-        This representation enables to perform standard mathematical operations in words, like addition and subtraction. 
+        Word embeddings are represented as <strong>mathematical vectors</strong>. 
+        This representation enables to perform standard mathematical operations in words, like <strong>addition and subtraction</strong>. 
     </p>
         
     <img
@@ -33,7 +33,7 @@ export const WordEmbeddings = ({next}:iWordEmbeddings) => <Lesson title={title} 
     />
 
     <p>        
-        These operations have interesting applications in language, like finding synonyms, classifying documents, or recommending content. 
+        These operations have <strong>interesting applications in language</strong>, like finding synonyms, classifying documents, or recommending content. 
         Additionally, 2-dimensional vectors can be plotted to produce a visual understanding of a document or a person's language.
     </p>
 </Lesson>
