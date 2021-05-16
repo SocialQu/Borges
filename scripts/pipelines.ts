@@ -63,14 +63,14 @@ export const embedDictionary = async() => {
     const docs = await collection.find({}).toArray()
     console.log(docs.length)
 
-    for(const i in [...Array(10)]){
-        if (Number(i) < 7) continue
-        const words = dictionary.filter((_, idx) => idx > Number(i)*1000 && idx <= (Number(i)+1)*1000)
-        const wordEmbeddings = await getCenter(words, {model, pca})
-        const wordDocuments:iWordDoc[] = wordEmbeddings.map(({text, ...vector}) => ({...vector, word:text }))
-        await collection.insertMany(wordDocuments)
-        console.log(i)
-    }
+    // for(const i in [...Array(10)]){
+    //     if (Number(i) < 7) continue
+    //     const words = dictionary.filter((_, idx) => idx > Number(i)*1000 && idx <= (Number(i)+1)*1000)
+    //     const wordEmbeddings = await getCenter(words, {model, pca})
+    //     const wordDocuments:iWordDoc[] = wordEmbeddings.map(({text, ...vector}) => ({...vector, word:text }))
+    //     await collection.insertMany(wordDocuments)
+    //     console.log(i)
+    // }
 
     console.log((await collection.find({}).toArray()).length)
     await client.close()
