@@ -9,6 +9,8 @@ import { antonymsData } from '../data/antonyms'
 import { synonymsData } from '../data/synonyms'
 import { Subtitle } from '../components/atoms'
 import { iModels } from '../types/ai'
+
+import amplitude from 'amplitude-js'
 import { User } from 'realm-web'
 import { useState } from 'react'
 
@@ -55,6 +57,7 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
         } catch(e) { console.log(e) }
 
         setComputing(false)
+        amplitude.getInstance().logEvent('GET_SYNONYMS', { synonym, synonyms })
     } 
 
     return <Lesson title={title} next={next}>
