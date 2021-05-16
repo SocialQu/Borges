@@ -63,7 +63,7 @@ export const Analogies = ({next}:iAnalogies) => <Lesson title={title} next={next
         the second option is common in Python. 
         A third option is computing the word embeddings in real-time from the browser using TensorflowJS. <br/><br/>
 
-        If you are interested in learning how to find the closest vectors, I recommend you mi article on: 
+        If you are interested in learning how to find the closest vectors, you might find interesting: 
         <a href={recommendationLink}>How to build a text recommendation engine.</a>
     </p>
 

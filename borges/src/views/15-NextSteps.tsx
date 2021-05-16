@@ -22,6 +22,6 @@ export const NextSteps = ({next}:iNextSteps) => <Lesson title={title} next={next
     </p>
 
     <p>
-        For more content, you can visit my <a href={storyLink} target='_blank' rel='noreferrer'>blog</a>.
+        For more content of my content you can read <a href={storyLink} target='_blank' rel='noreferrer'>"The Viral Startup"</a>.
     </p>
 </Lesson>
