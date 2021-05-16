@@ -34,9 +34,9 @@ const jobBiasDetection = (job:string) => {
 `
 
 
-const title = 'Application: Detecting Biasis'
-interface iBiasis {next():void}
-export const Biasis = ({next}:iBiasis) => <Lesson title={title} next={next}>
+const title = 'Detecting Biases'
+interface iBiases {next():void}
+export const Biases = ({next}:iBiases) => <Lesson title={title} next={next}>
     <p>
         Unfortunately, we tend to make value judgments based on inaccurate or unfair attributes. 
         AI can help in automatically analyzing, measuring, and reporting these biases. 

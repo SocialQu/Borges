@@ -5,7 +5,7 @@ import { iBaseAtom } from './Button'
 interface iBaseText extends iBaseAtom {}
 
 export const Title = ({ text, shortText, style, mobileStyle, children, ...props }: iBaseText) => {
-    const smallScreen = useMediaQuery({ query: '(max-width: 600px)' })
+    const smallScreen = useMediaQuery({ query: '(max-width: 660px)' })
 
     const defaultStyle = { fontSize:'3rem', marginBottom:'1rem' }
     const defaultMobileStyle = { ...mobileStyle, fontSize:'2rem' }
@@ -17,14 +17,14 @@ export const Title = ({ text, shortText, style, mobileStyle, children, ...props 
             }
         {...props}
     >  
-        { !smallScreen ? text : shortText } 
+        { !smallScreen || !shortText ? text : shortText } 
         { children }
     </h1>
 }
 
 
 export const Subtitle = ({ text, shortText, style, mobileStyle, children, ...props }: iBaseText) => {
-    const smallScreen = useMediaQuery({ query: '(max-width: 600px)' })
+    const smallScreen = useMediaQuery({ query: '(max-width: 660px)' })
 
     const defaultStyle = { fontSize:'1.5rem', marginBottom:'1rem' }
     const defaultMobileStyle = { ...mobileStyle, fontSize:'1.25rem' }
@@ -36,7 +36,7 @@ export const Subtitle = ({ text, shortText, style, mobileStyle, children, ...pro
             }
         {...props}
     >  
-        { !smallScreen ? text : shortText } 
+        { !smallScreen || !shortText ? text : shortText } 
         { children }
     </h3>
 }

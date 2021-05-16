@@ -30,9 +30,9 @@
 - [ ] Remove Antonyms?
 
 ## UX
-- [ ] Loading when submitting synonyms.
-- [ ] Warning after synonyms are rendered.
-- [ ] Table when no synonyms.
-- [ ] Extend to Topics.
-- [ ] Unique words counter.
+- [X] Loading when submitting synonyms.
+- [X] Warning after synonyms are rendered.
+- [X] Table when no synonyms.
+- [X] Extend to Topics.
+- [X] Unique words counter.
 - [ ] Limit tokens.

@@ -57,7 +57,7 @@ const Module = ({
         { locked && <Lock/> } 
         {  
             name.includes('Application:') 
-            ? <><strong> { 'Application:' } </strong> { name.split(/Application:/) } </>
+            ? <><strong> { name.split(/Application:/)[0] } Application: </strong> { name.split(/Application:/)[1] } </>
             : name.includes('Quiz') ? <strong> { name } </strong> : name
         }
     </a>

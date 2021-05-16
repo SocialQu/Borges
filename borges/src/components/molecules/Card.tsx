@@ -3,7 +3,7 @@ import { CSSProperties } from 'react'
 import { useMediaQuery } from 'react-responsive'
 import { Subtitle } from '../atoms'
 
-const cardStyle = {
+export const cardStyle = {
     backgroundColor: 'rgb(48, 48, 48)',
     borderRadius: 12,
     margin: 'auto',
@@ -19,7 +19,7 @@ const headerStyle = {
 
 
 interface iCardTitle { title:string, link:string }
-const CardTitle = ({title, link}: iCardTitle) => <header className='card-header' style={headerStyle}>
+export const CardTitle = ({title, link}: iCardTitle) => <header className='card-header' style={headerStyle}>
     <a 
         target='_blank' 
         rel='noreferrer'
@@ -38,12 +38,15 @@ const CardTitle = ({title, link}: iCardTitle) => <header className='card-header'
 interface iCard {
     title:string
     link:string
+    titleStyle?:CSSProperties
     children?:JSX.Element | JSX.Element[] 
     img:string
 }
 
-export const MobileCard = ({title, link, children, img}: iCard) => <div className='card' style={cardStyle}>
-    <CardTitle title={title} link={link} />
+export const MobileCard = ({title, titleStyle, link, children, img}: iCard) => <div>
+    <a href={link} target='_blank' rel='noreferrer'>
+        <Subtitle text={title} style={{marginTop:'2rem', textAlign:'center', ...titleStyle}}/>
+    </a>
 
     <div className="card-image">
         <figure className="image is-16by9">
@@ -52,15 +55,14 @@ export const MobileCard = ({title, link, children, img}: iCard) => <div classNam
     </div>
 
     <div className="card-content">
-        <div className='content' style={{color:'whitesmoke', marginTop:'1rem'}}> 
+        <div className='content' style={{textAlign:'center'}}> 
             { children } 
         </div>
     </div>
 </div>
 
 
-interface iLargeCard extends iCard { titleStyle?:CSSProperties } 
-export const LargeCard = ({title, titleStyle, link, img, children}:iLargeCard) => <div>
+export const LargeCard = ({title, titleStyle, link, img, children}:iCard) => <div>
     <a href={link} target='_blank' rel='noreferrer'>
         <Subtitle text={title} style={{marginTop:'2rem', ...titleStyle}}/>
     </a>
@@ -77,7 +79,7 @@ export const LargeCard = ({title, titleStyle, link, img, children}:iLargeCard) =
 </div>
 
 export const mediaQuery = '(max-width: 768px)'
-export const Card = (card: iLargeCard) => {
+export const Card = (card: iCard) => {
     const isMobile = useMediaQuery({ query:mediaQuery })
     return !isMobile ? <LargeCard {...card}/> : <MobileCard {...card}/>
 }

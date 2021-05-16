@@ -9,6 +9,7 @@ import { IPCAModel, PCA } from 'ml-pca'
 import { iModels } from './types/ai'
 import { Home } from './views/Home'
 
+import { useMediaQuery } from 'react-responsive'
 import { useEffect, useState } from 'react'
 import 'bulma/css/bulma.css'
 import './App.css'
@@ -16,21 +17,21 @@ import './App.css'
 const units:iUnit[] = [{ 
 	name:'Word Embeddings', 
 	modules: [
-		{ name:'Introduction' },
-		{ name:'What are word embeddings?' },
-		{ name:'Application: Finding Synonyms' },
-		{ name:'Application: Topic Classification' },
-		{ name:'How to Train Word Embeddings?' },
-		{ name:'Tokenization' },
-		{ name:'Co-occurrence Matrix' },
-		{ name:'Dimensionality Reduction' },
-		{ name:'Application: Solving Analogies' },
-		{ name:'Application: Detecting Biasis' },
-		{ name:'Advanced Topics' },
-		{ name:'Quiz' },
-		{ name:'Startups' },
-		{ name:'Addditional Resources' },
-		{ name:'Next Steps' },
+		{ name:'1. Introduction' },
+		{ name:'2. What are word embeddings?' },
+		{ name:'3. Application: Finding Synonyms' },
+		{ name:'4. Application: Topic Classification' },
+		{ name:'5. How to Train Word Embeddings?' },
+		{ name:'6. Tokenization' },
+		{ name:'7. Co-occurrence Matrix' },
+		{ name:'8. Dimensionality Reduction' },
+		{ name:'9. Application: Solving Analogies' },
+		{ name:'10. Application: Detecting Biases' },
+		{ name:'11. Advanced Topics' },
+		{ name:'12. Quiz' },
+		{ name:'13. Startups' },
+		{ name:'14. Addditional Resources' },
+		{ name:'15. Next Steps' },
 	], 
 }]
 
@@ -44,6 +45,8 @@ const connectMongo = async() => {
 
 
 export const App = () => {
+    const largeScreen = useMediaQuery({ query: '(min-width: 1200px)' })
+
 	const [ position, setPosition ] = useState<iPosition>({ unit:0 })
     const [ user, setMongoUser ] = useState<User>()
 	const [ models, setModels ] = useState<iModels>()
@@ -74,11 +77,14 @@ export const App = () => {
 		<NavBar click={() => setPosition({unit:0})}/>
         <div className="container" style={{maxWidth:'100%'}}>
             <div className="columns" style={{margin:0}}>
-				<Menu 
-					units={units} 
-					active={position}
-					navigate={(position) => setPosition(position)}
-				/>
+				{
+					largeScreen && 
+						<Menu 
+							units={units} 
+							active={position}
+							navigate={(position) => setPosition(position)}
+						/>
+				}
 
 				<Home 
 					position={position} 

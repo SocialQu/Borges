@@ -1,8 +1,8 @@
 import { iPosition } from '../components/layout/Menu'
 import { tokenizeWords } from '../scripts/utils'
 import { useMediaQuery } from 'react-responsive'
+import { useState, useEffect } from 'react'
 import { iModels } from '../types/ai'
-import { useState } from 'react'
 import { User } from 'realm-web'
 
 import { BorgesLanding } from './0-Landing'
@@ -15,7 +15,7 @@ import { Tokenization } from './6-Tokenization'
 import { CooccurrenceMatrix } from './7-CooccurrenceMatrix'
 import { DimensionalityReduction } from './8-DimensionalityReduction'
 import { Analogies } from './9-Analogies'
-import { Biasis } from './10-Biasis'
+import { Biases } from './10-Biases'
 import { AdvancedTopics } from './11-AdvancedTopics'
 import { WordEmbeddingsQuiz } from './12-Quiz'
 import { Products } from './13-Products'
@@ -36,6 +36,9 @@ export const Router = ({ position: { module }, models, user, next }: iHome) => {
     const [words, setWords] = useState<string[]>([])
     const [wordsMatrix, setWordsMatrix] = useState<number[][]>([])
     const [embeddings, setEmbeddings] = useState<iEmbeddings[]>([])
+
+    useEffect(() => window.scrollTo({top:0, left:0, behavior: "smooth"}), [ module ])
+
 
     const getWords = (text:string) => {
         const tokens = tokenizeWords(text) as string[]
@@ -73,7 +76,7 @@ export const Router = ({ position: { module }, models, user, next }: iHome) => {
     if(module === 6) return <CooccurrenceMatrix next={next} words={words} matrix={wordsMatrix}/>
     if(module === 7) return <DimensionalityReduction next={next} embeddings={embeddings}/>
     if(module === 8) return <Analogies next={next}/>
-    if(module === 9) return <Biasis next={next}/>
+    if(module === 9) return <Biases next={next}/>
     if(module === 10) return <AdvancedTopics next={next}/>
     if(module === 11) return <WordEmbeddingsQuiz next={next}/>
     if(module === 12) return <Products next={next}/>

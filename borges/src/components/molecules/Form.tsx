@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
+import { useMediaQuery } from 'react-responsive'
 import { Subtitle } from '../atoms'
 import { useState } from "react"
 
@@ -9,6 +10,7 @@ interface iInputForm {
 } 
 
 export const InputForm = ({placeholder, submit}:iInputForm) => {
+    const miniScreen = useMediaQuery({ query: '(max-width: 400px)' })
     const [ value, setValue ] = useState('')
 
     return <div className="field has-addons" style={{width:'fit-content', margin:'auto auto 2em'}}>
@@ -17,8 +19,9 @@ export const InputForm = ({placeholder, submit}:iInputForm) => {
                 type="text" 
                 value={value}
                 className="input" 
-                style={{width:300}}
+                style={{width:!miniScreen ? 300 : 200}}
                 placeholder={placeholder} 
+                onKeyPress={({ key }) => key === 'Enter' ? submit(value) : null}
                 onChange={({target:{value}}) => setValue(value)}
             />
         </div>
@@ -56,7 +59,7 @@ export const TextAreaForm = ({placeholder, label, submit}:iTextAreaForm) => {
             <button 
                 className="button is-link"
                 onClick={() => submit(value)}
-                style={{width:640, background:'chocolate', borderRadius:6}}
+                style={{width:640, background:'chocolate', borderRadius:6, maxWidth:'100%'}}
             >Submit</button>
         </div>
     </div>
