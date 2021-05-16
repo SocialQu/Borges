@@ -36,7 +36,7 @@ export const Subtitle = ({ text, shortText, style, mobileStyle, children, ...pro
             }
         {...props}
     >  
-        { !smallScreen ? text : shortText } 
+        { !smallScreen || !shortText ? text : shortText } 
         { children }
     </h3>
 }
