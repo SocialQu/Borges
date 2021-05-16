@@ -19,6 +19,7 @@ export const InputForm = ({placeholder, submit}:iInputForm) => {
                 className="input" 
                 style={{width:300}}
                 placeholder={placeholder} 
+                onKeyPress={({ key }) => key === 'Enter' ? submit(value) : null}
                 onChange={({target:{value}}) => setValue(value)}
             />
         </div>
