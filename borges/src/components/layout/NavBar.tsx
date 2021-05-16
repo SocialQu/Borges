@@ -11,11 +11,12 @@ interface iBrand {
     logoStyle?:CSSProperties
     brandStyle?:CSSProperties
 
+    items:iNavBarItem[]
     click(tab:string):void 
 }
 
 interface iFullBrand extends iBrand { active:boolean, activate():void }
-const Brand = ({ active, logoSrc='SocialQ.png', brand='SocialQ', logoStyle={}, brandStyle={}, click, activate }: iFullBrand) => {
+const Brand = ({ active, logoSrc='SocialQ.png', brand='SocialQ', logoStyle={}, brandStyle={}, items, click, activate }: iFullBrand) => {
     const defaultLogoStyle = { height:36, maxHeight: 'none' }
     const defaultBrandStyle = { fontSize: '2em', color:'white' }
 
@@ -25,19 +26,24 @@ const Brand = ({ active, logoSrc='SocialQ.png', brand='SocialQ', logoStyle={}, b
             <p className='navbar-item' style={{...defaultBrandStyle, ...brandStyle}} > { brand } </p>
         </a>
 
-        <a 
-            role='button' 
-            className={`navbar-burger ${active ? 'is-active': ''}`}
-            style={{ marginTop:'auto', marginBottom: 'auto'}}
-            aria-label='menu' 
-            aria-expanded='false' 
-            data-target='navbarBasicExample'
-            onClick={activate}
-        >
-            <span aria-hidden='true'></span>
-            <span aria-hidden='true'></span>
-            <span aria-hidden='true'></span>
-        </a>
+        {
+            items.length
+            ?
+                <a 
+                    role='button' 
+                    className={`navbar-burger ${active ? 'is-active': ''}`}
+                    style={{ marginTop:'auto', marginBottom: 'auto'}}
+                    aria-label='menu' 
+                    aria-expanded='false' 
+                    data-target='navbarBasicExample'
+                    onClick={activate}
+                >
+                    <span aria-hidden='true'></span>
+                    <span aria-hidden='true'></span>
+                    <span aria-hidden='true'></span>
+                </a>
+            :   null
+        }
     </div>
 }
 
@@ -83,7 +89,7 @@ export const NavBar = ({brand, items=[], navbarClass='is-link', navBarStyle, con
         style={{...defaultNavBarStyle, ...navBarStyle}}
     >
         <div className='container' style={{...defaultContainerStyle, ...containerStyle}}>
-            <Brand {...brand} active={isActive} activate={() => setActive(!isActive)} click={click}/>
+            <Brand {...brand} active={isActive} activate={() => setActive(!isActive)} click={click} items={items}/>
 
             <div 
                 className={`navbar-menu ${isActive ? 'is-active navbar-menu-active': ''}`} 
