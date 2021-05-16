@@ -11,7 +11,7 @@ const title = 'Introduction'
 interface iIntroduction {next():void}
 export const Introduction = ({next}:iIntroduction) => <Lesson title={title} next={next}>
     <p> 
-        Word embeddings are used in almost every commercial application that involves AI and human language. Some  
+        Word embeddings are used in almost every commercial application that <strong>involves AI and human language</strong>. Some  
         <a href={applicationsLink} target='_blank' rel='noreferrer'>  example applications </a> 
         include search engines, social media recommendation algorithms, language translation, speech recognition, 
         market research, automated trading, and language generation.
@@ -19,14 +19,14 @@ export const Introduction = ({next}:iIntroduction) => <Lesson title={title} next
 
     <p>
         This material is based on Stanford's <a href={courseLink} target='_blank' rel='noreferrer'>CS224 course</a>, 
-        it's directed to Software Engineers, that lack the time or mathematical background, 
+        it's <strong>directed to Software Engineers</strong>, that lack the time or mathematical background, 
         to gain an intuitive understanding of the technology as currently presented in Stanford's 
         <a href={videosLink} target='_blank' rel='noreferrer'> Video Lectures</a>.
     </p>
 
     <p>
         My goal is to present the information as simple and intuitively as possible: 
-        I will not avoid mathematics or code, but rather simplify them to help develop a practical understanding of the content.
+        I will not avoid mathematics or code, but rather simplify them to help <strong>develop a practical understanding</strong> of the content.
         Additionally, I've enabled an interface to play, test and experiment with the concepts, 
         and train your own word embeddings using an elementary approach.
     </p>
