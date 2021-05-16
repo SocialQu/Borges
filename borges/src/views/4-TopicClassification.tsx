@@ -5,6 +5,7 @@ import { TextAreaForm } from '../components/molecules/Form'
 import { Scatter, Subtitle } from '../components/atoms'
 import { classifyText, iTopic } from '../scripts/nlp'
 import { Lesson } from "../components/cells/Lesson"
+import { topicsData } from '../data/topics'
 import { iModels } from '../types/ai'
 import { User } from 'realm-web'
 import { useState } from 'react'
@@ -40,6 +41,7 @@ getCenter([[2,3,3], [4,4,-1], [0,2,4]]) // Returns [2,3,1]
 // [(2+4+0)/3, (3+4+2)/3, (3-1+4)/3] = [2,3,1]
 `
 
+
 const title = 'Application: Topic Classification'
 interface iTopicClassification {user?:User, models:iModels, next():void}
 export const TopicClassification = ({next, models, user}:iTopicClassification) => {
@@ -52,10 +54,7 @@ export const TopicClassification = ({next, models, user}:iTopicClassification) =
 
 
     return <Lesson title={title} titleStyle={{width:740, marginLeft:-10}} next={next}>
-        <Scatter
-            label={""} 
-            data={[{name:'Startups', x:1, y:2}, {name:'VC', x:3, y:4}]} 
-        />
+        <Scatter label={""} data={[topicsData]} />
 
         <p>
             Word embeddings and distance metrics are also useful to label documents by topic. 

@@ -5,6 +5,8 @@ import { InputForm } from '../components/molecules/Form'
 import { findSynonyms, iSynonym } from '../scripts/nlp'
 import { Scatter } from '../components/atoms/Chart'
 import { Lesson } from '../components/cells/Lesson'
+import { antonymsData } from '../data/antonyms'
+import { synonymsData } from '../data/synonyms'
 import { Subtitle } from '../components/atoms'
 import { iModels } from '../types/ai'
 import { User } from 'realm-web'
@@ -37,6 +39,7 @@ similarity([3,4,5], [4,6,8]) // Returns 6
 // Math.abs(3–4) + Math.abs(4–6) + Math.abs(5–8) = 6
 `
 
+
 interface iSynonyms {next():void, models:iModels, user?:User}
 const title = 'Application: Finding Synonyms'
 export const Synonyms = ({next, models, user}:iSynonyms) => {
@@ -54,11 +57,7 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
             To find the synonyms, we only need to find the vectors that are closest to the word.            
         </p>
 
-        <Scatter
-            label="Synonyms of Good"  
-            data={[{name:'Great', x:1, y:2}, {name:'Good', x:3, y:4}]}
-        /> 
-
+        <Scatter label="Synonyms of Great"   data={synonymsData} />
         <p>
             The first step to finding synonyms is selecting a distance metric to compare the closeness, or similarity, between two vectors. 
             One of the most common metrics is the Euclidean distance that sums the squared difference across every vector's dimension:
@@ -71,8 +70,6 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
                 src="https://www.tutorialexample.com/wp-content/uploads/2020/05/Euclidean-distance-in-tensorflow.png" 
             />
         </div>
-
-
 
         <p>
             Another common distance metric used is the absolute value. In TypeScript, this is how to measure the absolute value distance:
@@ -119,9 +116,6 @@ export const Synonyms = ({next, models, user}:iSynonyms) => {
             The only difference is finding the vectors that maximize the distance.
         </p>
 
-        <Scatter 
-            label="Antonyms of Good"
-            data={[{name:'Bad', x:1, y:2}, {name:'Worst', x:3, y:4}]} 
-        /> 
+        <Scatter label="Antonyms of Great" data={antonymsData} /> 
     </Lesson>
 }

@@ -50,7 +50,6 @@ export const Router = ({ position: { module }, models, user, next }: iHome) => {
 
         // Fill Matrix
         windows.map(({token, window}, i) => window.map((word) => wordsMatrix[wordMap[token]][wordMap[word]] += 1))
-
         setWordsMatrix(wordsMatrix)
         reduceMatrix(uniqueWords, wordsMatrix)
     }
