@@ -3,7 +3,9 @@ import { tokenizeWords } from '../scripts/utils'
 import { useMediaQuery } from 'react-responsive'
 import { useState, useEffect } from 'react'
 import { iModels } from '../types/ai'
+import amplitude from 'amplitude-js'
 import { User } from 'realm-web'
+import { PCA } from 'ml-pca'
 
 import { BorgesLanding } from './0-Landing'
 import { Introduction } from './1-Introduction'
@@ -21,7 +23,6 @@ import { WordEmbeddingsQuiz } from './12-Quiz'
 import { Products } from './13-Products'
 import { WordEmbeddingsMedia } from './14-Media'
 import { NextSteps } from './15-NextSteps'
-import { PCA } from 'ml-pca'
 
 
 interface iHome { 
@@ -37,7 +38,10 @@ export const Router = ({ position: { module }, models, user, next }: iHome) => {
     const [wordsMatrix, setWordsMatrix] = useState<number[][]>([])
     const [embeddings, setEmbeddings] = useState<iEmbeddings[]>([])
 
-    useEffect(() => window.scrollTo({top:0, left:0, behavior: "smooth"}), [ module ])
+    useEffect(() => {
+        window.scrollTo({top:0, left:0, behavior: "smooth"})
+        amplitude.getInstance().logEvent('SWITCH_MODULE', { module })
+    }, [ module ])
 
 
     const getWords = (text:string) => {
@@ -55,6 +59,7 @@ export const Router = ({ position: { module }, models, user, next }: iHome) => {
         windows.map(({token, window}, i) => window.map((word) => wordsMatrix[wordMap[token]][wordMap[word]] += 1))
         setWordsMatrix(wordsMatrix)
         reduceMatrix(uniqueWords, wordsMatrix)
+        amplitude.getInstance().logEvent('TRAIN_EMBEDDINGS', { text })
     }
 
 
