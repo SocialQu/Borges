@@ -1,8 +1,8 @@
 import { iPosition } from '../components/layout/Menu'
 import { tokenizeWords } from '../scripts/utils'
 import { useMediaQuery } from 'react-responsive'
+import { useState, useEffect } from 'react'
 import { iModels } from '../types/ai'
-import { useState } from 'react'
 import { User } from 'realm-web'
 
 import { BorgesLanding } from './0-Landing'
@@ -36,6 +36,9 @@ export const Router = ({ position: { module }, models, user, next }: iHome) => {
     const [words, setWords] = useState<string[]>([])
     const [wordsMatrix, setWordsMatrix] = useState<number[][]>([])
     const [embeddings, setEmbeddings] = useState<iEmbeddings[]>([])
+
+    useEffect(() => window.scrollTo({top:0, left:0, behavior: "smooth"}), [ module ])
+
 
     const getWords = (text:string) => {
         const tokens = tokenizeWords(text) as string[]
