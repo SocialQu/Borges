@@ -13,12 +13,12 @@
     - [X] Medium: the Viral Startup.
 
 ## Data
-- [ ] Synonym & Antonyms
-- [ ] Topics Chart.
-- [ ] Co-occurrence matrix.
-- [ ] Word embeddings chart.
-- [ ] Queen Analogy.
-- [ ] Gender Bias.
+- [X] Synonym & Antonyms
+- [X] Topics Chart.
+- [X] Co-occurrence matrix.
+- [X] Word embeddings chart.
+- [X] Queen Analogy.
+- [X] Gender Bias.
 
 ## Iteractivity
 - [X] Find Synonyms.
