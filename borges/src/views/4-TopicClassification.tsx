@@ -42,7 +42,7 @@ getCenter([[2,3,3], [4,4,-1], [0,2,4]]) // Returns [2,3,1]
 `
 
 
-const title = 'Application: Topic Classification'
+const title = 'Topic Classification'
 interface iTopicClassification {user?:User, models:iModels, next():void}
 export const TopicClassification = ({next, models, user}:iTopicClassification) => {
     const [ topics, setTopics ] = useState<iTopic[]>([])
@@ -57,7 +57,7 @@ export const TopicClassification = ({next, models, user}:iTopicClassification) =
     } 
 
 
-    return <Lesson title={title} titleStyle={{width:740, marginLeft:-10}} next={next}>
+    return <Lesson title={title} next={next}>
         <Scatter label={""} data={[topicsData]} />
 
         <p>
