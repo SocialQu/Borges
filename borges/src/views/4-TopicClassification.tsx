@@ -46,9 +46,13 @@ const title = 'Application: Topic Classification'
 interface iTopicClassification {user?:User, models:iModels, next():void}
 export const TopicClassification = ({next, models, user}:iTopicClassification) => {
     const [ topics, setTopics ] = useState<iTopic[]>([])
+    const [ computing, setComputing ] = useState(false)
 
     const getTopics = async(text:string) => {
+        setTopics([])
+        setComputing(true)
         const topics = await classifyText({ text, models, user })
+        setComputing(false)
         setTopics(topics)
     } 
 
@@ -91,25 +95,32 @@ export const TopicClassification = ({next, models, user}:iTopicClassification) =
             placeholder={'Drop a text or sentence to find its related topics.'}
         />
 
-        <table className="table" style={{textAlign:'center'}}>
-            <thead>
-                <tr> 
-                    <th> Synonym </th>
-                    <th> Similarity </th>
-                </tr>
-            </thead>
-
-            <tbody>
-                { 
-                    topics.map(({ topic, similarity }, i) => 
-                        <tr>
-                            <td> { topic } </td>
-                            <td> <strong>{ similarity }%</strong> </td>
+        {
+            topics.length
+            ?
+                <table className="table" style={{textAlign:'center'}}>
+                    <thead>
+                        <tr> 
+                            <th> Synonym </th>
+                            <th> Similarity </th>
                         </tr>
-                    )
-                }
-            </tbody>
-        </table>
+                    </thead>
+
+                    <tbody>
+                        { 
+                            topics.map(({ topic, similarity }, i) => 
+                                <tr>
+                                    <td> { topic } </td>
+                                    <td> <strong>{ similarity }%</strong> </td>
+                                </tr>
+                            )
+                        }
+                    </tbody>
+                </table>
+            :   computing
+                ?   <p style={{textAlign:'center'}}> <strong> Computing...</strong> </p>
+                :   <div/>
+        }
 
 
         <hr style={{height:3, margin: '2em auto', maxWidth: 600 }}/>
