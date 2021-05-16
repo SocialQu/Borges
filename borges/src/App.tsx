@@ -9,6 +9,7 @@ import { IPCAModel, PCA } from 'ml-pca'
 import { iModels } from './types/ai'
 import { Home } from './views/Home'
 
+import { useMediaQuery } from 'react-responsive'
 import { useEffect, useState } from 'react'
 import 'bulma/css/bulma.css'
 import './App.css'
@@ -44,6 +45,8 @@ const connectMongo = async() => {
 
 
 export const App = () => {
+    const largeScreen = useMediaQuery({ query: '(min-width: 1200px)' })
+
 	const [ position, setPosition ] = useState<iPosition>({ unit:0 })
     const [ user, setMongoUser ] = useState<User>()
 	const [ models, setModels ] = useState<iModels>()
@@ -74,11 +77,14 @@ export const App = () => {
 		<NavBar click={() => setPosition({unit:0})}/>
         <div className="container" style={{maxWidth:'100%'}}>
             <div className="columns" style={{margin:0}}>
-				<Menu 
-					units={units} 
-					active={position}
-					navigate={(position) => setPosition(position)}
-				/>
+				{
+					largeScreen && 
+						<Menu 
+							units={units} 
+							active={position}
+							navigate={(position) => setPosition(position)}
+						/>
+				}
 
 				<Home 
 					position={position} 
