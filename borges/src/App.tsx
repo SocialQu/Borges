@@ -4,6 +4,7 @@ import { App as RealmApp, User, Credentials } from 'realm-web'
 import { NavBar } from './components/layout/NavBar'
 import WordsPCA from './data/words-pca.json'
 import TopicsPCA from './data/pca.json'
+import amplitude from 'amplitude-js'
 
 import { IPCAModel, PCA } from 'ml-pca'
 import { iModels } from './types/ai'
@@ -61,6 +62,9 @@ export const App = () => {
 
 		fetchModels()
         connectMongo().then(mongoUser => setMongoUser(mongoUser))
+
+        amplitude.getInstance().init(process.env.REACT_APP_AMPLITUDE_TOKEN as string)
+        amplitude.getInstance().logEvent('VISIT_BORGES')
 	}, [])
 
 
