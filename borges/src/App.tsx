@@ -26,7 +26,7 @@ const units:iUnit[] = [{
 		{ name:'7. Co-occurrence Matrix' },
 		{ name:'8. Dimensionality Reduction' },
 		{ name:'9. Application: Solving Analogies' },
-		{ name:'10. Application: Detecting Biasis' },
+		{ name:'10. Application: Detecting Biases' },
 		{ name:'11. Advanced Topics' },
 		{ name:'12. Quiz' },
 		{ name:'13. Startups' },
